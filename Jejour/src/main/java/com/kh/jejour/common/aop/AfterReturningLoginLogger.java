@@ -1,5 +1,6 @@
 package com.kh.jejour.common.aop;
 
+
 import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
@@ -11,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.spring.member.model.vo.Member;
+import com.kh.jejour.member.model.vo.Member;
 
 @Component
 @Aspect
