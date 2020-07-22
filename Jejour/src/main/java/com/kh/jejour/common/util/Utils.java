@@ -1,4 +1,4 @@
-package com.kh.spring.common.util;
+package com.kh.jejour.common.util;
 
 import org.springframework.stereotype.Controller;
 

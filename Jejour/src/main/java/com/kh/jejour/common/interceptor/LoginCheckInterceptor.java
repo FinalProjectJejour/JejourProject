@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.kh.spring.member.model.vo.Member;
+import com.kh.jejour.member.model.vo.Member;
 
 /**
  * interceptor 클래스는 HandlerInterceptorAdaptor가 가진
