@@ -53,7 +53,7 @@
 	</tx:advice>
 	
 	<aop:config proxy-target-class="true">
-		<aop:pointcut expression="execution(* com.kh.spring..*ServiceImpl.*(..))" id="servicePc"/>
+		<aop:pointcut expression="execution(* com.kh.jejour..*ServiceImpl.*(..))" id="servicePc"/>
 		<aop:advisor id="transactionAdvisor" advice-ref="txAdvice" pointcut-ref="servicePc"/>
 	</aop:config>
 	
