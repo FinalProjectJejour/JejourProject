@@ -1,5 +1,6 @@
 package com.kh.jejour.flashBoard.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,4 +20,7 @@ public interface FlashService {
    
 	int deleteBoard(int fNo);
 	
+	List<FlashBoard> search(HashMap<String, String> hmap, int cPage, int numPerPage);
+	
+	int selectFlashBoardSearchContents(HashMap<String, String> hmap);
 }

@@ -12,27 +12,27 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 ftco-animate mx-auto">
-            <h2 class="mb-3">제주도 맛집 모닥치기에서 떡튀순 부수실 분 ?</h2>
+            <h2 class="mb-3">${FlashBoard.FTitle}</h2>
             <div class="meta text-left" style="color: tomato; font-weight: 400; margin-top: -15px;">
               작성자 : 유병호 &nbsp;&nbsp;
-              작성일 : 2020-07-13
+              작성일 : ${FlashBoard.FDate}
             </div>
             <hr>
             <br>
             <p>성별 : 남자</p>
-            <p>인원 : 3명</p>
-            <p>만나는 날 : 2020-07-14 14:00</p>
-            <p>장소 : 제주도 서귀포시 OO동 모닥치기 앞</p>
-            <p>내용 : 안녕하세요 ㅎㅎ 남자 3명이서 놀러왔습니다~ 훈남 3명이구요 같이 밥 맛있게 먹고 놀 분?</p>
+            <p>인원 : ${FlashBoard.FPeople}명</p>
+            <p>만나는 날 : ${FlashBoard.FMeetDate} ${FlashBoard.FMeetTime}</p>
+            <p>장소 : ${FlashBoard.FMapTitle}</p>
+            <p>내용 : ${FlashBoard.FContent}</p>
             <br>
-            <p>
-              <img src="images/image_6.jpg" alt="" class="img-fluid">
-            </p>
+            <div>
+            	<div id="map" style="width:100%;height:350px;"></div>
+            </div>
             <br>
             <div style="text-align: center;">
-              <input type="submit" class="search-submit btn btn-primary" value="수정하기">
+              <input type="button" class="search-submit btn btn-primary" value="수정하기" onclick="goFlashBoardUpdate();">
               &nbsp;&nbsp;
-              <input type="submit" class="search-submit btn btn-primary" value="목록으로">
+              <input type="button" class="search-submit btn btn-primary" value="목록으로" onclick="goFlashList();">
             </div>
           </div>
         </div> <!-- .col-md-8 -->
@@ -91,8 +91,8 @@
                   <a style="font-weight: 900; color: black;">박민혁</a>
                 </div>
                 <div class="comment_form mx-auto" style="text-align: center;">
-                  <input type="hidden" name="writer" value="<%=m.getmId()%>"/>
-                  <input type="hidden" name="bno" value="<%=b.getBno()%>" />
+                  <input type="hidden" name="writer" value="test"/>
+                  <input type="hidden" name="bno" value="test" />
                   <input type="hidden" name="refcno" value="0" />
                   <input type="hidden" name="clevel" value="1" />
            
@@ -109,95 +109,50 @@
         
       </div>
     </section> <!-- .section -->  
-
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-	<script>
-    function updateReply(obj) {
-      // 현재 위치와 가장 근접한 textarea 접근하기
-      $(obj).parent().parent().parent().next().find('textarea')
-      .removeAttr('readonly');
-      
-      // 수정 완료 버튼을 화면 보이게 하기
-      $(obj).siblings('.updateConfirm').css('display','inline');
-      
-      // 수정하기 버튼 숨기기
-      $(obj).css('display', 'none');
+    
+    <script>
+    function goFlashList(){
+   	 	location.href = "${pageContext.request.contextPath}/flashBoard/flashList.fl";
     }
     
-    function updateConfirm(obj) {
-      // 댓글의 내용 가져오기
-      var content
-        = $(obj).parent().parent().parent().next().find('textarea').val();
-      
-      // 댓글의 번호 가져오기
-      var cno = $(obj).siblings('input').val();
-      
-      // 게시글 번호 가져오기
-      var bno = '<%=b.getBno()%>';
-      
-      location.href="/codingPanda/updateComment.bo?"
-           +"cno="+cno+"&bno="+bno+"&content="+content;
+    function goFlashBoardUpdate(){
+    	location.href = "${pageContext.request.contextPath}/flashBoard/flashBoardUpdateView.fl?fNo=${FlashBoard.FNo}";
     }
+    </script>
     
-    function deleteReply(obj) {
-      // 댓글의 번호 가져오기
-      var cno = $(obj).siblings('input').val();
-      
-      // 게시글 번호 가져오기
-      var bno = '<%=b.getBno()%>';
-      
-      location.href="/codingPanda/deleteComment.bo"
-      +"?cno="+cno+"&bno="+bno;
-    }
-    
-    function reComment(obj){
-      // 추가 완료 버튼을 화면 보이게 하기
-      $(obj).siblings('.insertConfirm').css('display','inline');
-      
-      // 클릭한 버튼 숨기기
-      $(obj).css('display', 'none');
-      
-      // 내용 입력 공간 만들기
-      var htmlForm = 
-        '<tr class="comment"><td></td>'
-          +'<td colspan="3" style="background : transparent;">'
-            + '<textarea class="reply-content" style="background : white; resize:none;" cols="105" rows="2"></textarea>'
-          + '</td>'
-        + '</tr>';
-      
-      $(obj).parents('table').append(htmlForm);
-      
-    }
-    
-    function reConfirm(obj) {
-      // 댓글의 내용 가져오기
-      
-      // 참조할 댓글의 번호 가져오기
-      var refcno = $(obj).siblings('input[name="refcno"]').val();
-      var level = Number($(obj).siblings('input[name="clevel"]').val()) + 1;
-      
-      // console.log(refcno + " : " + level);
-      
-      // 게시글 번호 가져오기
-      var bno = '<%=b.getBno()%>';
-      
-      var parent = $(obj).parent().parent();
-      var grandparent = parent.parent();
-      var siblingsTR = grandparent.siblings().last();
-      
-      var content = siblingsTR.find('textarea').val();
-      
-      
-      location.href='/codingPanda/insertComment.bo'
-                 + '?writer=<%= m.getmId() %>'
-                 + '&replyContent=' + content
-                 + '&bno=' + bno
-                 + '&refcno=' + refcno
-                 + '&clevel=' + level;
-    }
-  </script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f8c0b6988029a8eedd98928d0fab7698&libraries=services"></script>
+   	<script>
+   	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(${FlashBoard.FMapY}, ${FlashBoard.FMapX}), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+	
+	var map = new kakao.maps.Map(mapContainer, mapOption);
+	
+	// 마커가 표시될 위치입니다 
+	var markerPosition  = new kakao.maps.LatLng(${FlashBoard.FMapY}, ${FlashBoard.FMapX}); 
+	
+	// 마커를 생성합니다
+	var marker = new kakao.maps.Marker({
+	    position: markerPosition
+	});
+	
+	// 마커가 지도 위에 표시되도록 설정합니다
+	marker.setMap(map);
+	
+	var iwContent = '<div style="padding:5px;">${FlashBoard.FMapTitle}</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	    iwPosition = new kakao.maps.LatLng(${FlashBoard.FMapY}, ${FlashBoard.FMapX}); //인포윈도우 표시 위치입니다
+	
+	// 인포윈도우를 생성합니다
+	var infowindow = new kakao.maps.InfoWindow({
+	    position : iwPosition, 
+	    content : iwContent 
+	});
+	  
+	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+	infowindow.open(map, marker);
+	</script>
 
 	<c:import url="../common/footer.jsp"/>
 	

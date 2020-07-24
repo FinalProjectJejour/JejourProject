@@ -5,11 +5,11 @@
 <mapper namespace="flashMapper">
 	
 	<select id="selectFlashBoardList" resultType="FlashBoard">
-		SELECT * FROM FLASH_BOARD ORDER BY FDATE DESC, FNO DESC
+		SELECT * FROM FLASH_BOARD WHERE FSTATUS = 'Y' ORDER BY FDATE DESC, FNO DESC
 	</select>
 	
 	<select id="selectFlashBoardTotalContent" resultType="_int">
-		SELECT COUNT(*) FROM FLASH_BOARD
+		SELECT COUNT(*) FROM FLASH_BOARD WHERE FSTATUS = 'Y'
 	</select>
 	
 	<insert id="insertFlash" parameterType="FlashBoard">
@@ -17,6 +17,79 @@
 		VALUES(SEQ_FNO.NEXTVAL, #{userId}, #{fTitle}, #{fPeople}, #{fMeetDate}, #{fMeetTime}, #{fContent},
 		       #{fCount}, #{fWriter}, DEFAULT, #{fMapTitle}, #{fMapX}, #{fMapY}, DEFAULT)
 	</insert>
+	
+	<select id="selectOneFlashBoard" parameterType="_int" resultType="FlashBoard">
+		SELECT * FROM FLASH_BOARD
+		WHERE FNO = #{fNo}
+	</select>
+	
+	<update id="updateFlash" parameterType="FlashBoard">
+		UPDATE FLASH_BOARD SET
+		FTITLE = #{fTitle}, FPEOPLE = #{fPeople}, FMEETDATE = #{fMeetDate}, FMEETTIME = #{fMeetTime},
+		FCONTENT = #{fContent}, FMAPTITLE = #{fMapTitle}, FMAPX = #{fMapX}, FMAPY = #{fMapY}
+		WHERE FNO = #{fNo}
+	</update>
+	
+	<delete id="deleteFlash" parameterType="_int">
+		UPDATE FLASH_BOARD
+		SET FSTATUS = 'N'
+		WHERE FNO = #{fNo}
+	</delete>
+	
+	<select id="search" parameterType="hashmap" resultType="FlashBoard">
+		SELECT * FROM FLASH_BOARD 
+		
+		<bind name="myPattern" value="'%' + keyword + '%'" />
+		
+		<where>
+			<if test="searchCondition == 'all'">
+				USERID LIKE #{myPattern} OR
+				FMAPTITLE LIKE #{myPattern} OR
+				FCONTENT LIKE #{myPattern} AND
+				FSTATUS = 'Y'
+			</if>
+	 		<if test="searchCondition == 'userId'">
+	 			USERID LIKE #{myPattern} AND
+				FSTATUS = 'Y'
+	 		</if>
+	 		<if test="searchCondition == 'fMapTitle'">
+	 			FMAPTITLE LIKE #{myPattern} AND
+				FSTATUS = 'Y'
+	 		</if>
+	 		<if test="searchCondition == 'fContent'">
+	 			FCONTENT LIKE #{myPattern} AND
+				FSTATUS = 'Y'
+	 		</if>
+		</where>
+		ORDER BY FDATE DESC, FNO DESC
+	</select>
+	
+	<select id="selectFlashBoardSearchContents" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM FLASH_BOARD 
+		
+		<bind name="myPattern" value="'%' + keyword + '%'" />
+		
+		<where>
+			<if test="searchCondition == 'all'">
+				USERID LIKE #{myPattern} OR
+				FMAPTITLE LIKE #{myPattern} OR
+				FCONTENT LIKE #{myPattern} AND
+				FSTATUS = 'Y'
+			</if>
+	 		<if test="searchCondition == 'userId'">
+	 			USERID LIKE #{myPattern} AND
+				FSTATUS = 'Y'
+	 		</if>
+	 		<if test="searchCondition == 'fMapTitle'">
+	 			FMAPTITLE LIKE #{myPattern} AND
+				FSTATUS = 'Y'
+	 		</if>
+	 		<if test="searchCondition == 'fContent'">
+	 			FCONTENT LIKE #{myPattern} AND
+				FSTATUS = 'Y'
+	 		</if>
+		</where>
+	</select>
 	
 	
 </mapper>
