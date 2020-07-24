@@ -34,10 +34,12 @@
   </head>
   <body>
     
+    <c:if test="${ !empty member }">
     <div style="font-size: 13px; color: white; background: transparent !important; position: absolute; left: 0; right: 0; z-index: 3; text-align: right; margin-right: 30px;">
       <div style="height: 10px;"></div>
-      <p>이동규님, 환영합니다!</p>
+      <p>${ member.userName }님, 환영합니다!</p>
     </div>
+    </c:if>
     
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
       <div class="container">
@@ -66,8 +68,14 @@
               </div>
             </li>
             <li class="nav-item"><a href="${pageContext.request.contextPath}/topN/topN.do" class="nav-link">Top N</a></li>
-            <li class="nav-item"><a href="${pageContext.request.contextPath}/member/memberLogin.do" class="nav-link">Login</a></li>
+            <c:if test="${ empty member }">
+            <li class="nav-item"><a href="${pageContext.request.contextPath}/member/memberLoginFormView.do" class="nav-link">Login</a></li>
+            </c:if>
+            <c:if test="${ !empty member }">
             <li class="nav-item"><a href="${pageContext.request.contextPath}/member/memberLogout.do" class="nav-link">LogOut</a></li>
+            </c:if>
+            
+            <c:if test="${ !empty member }">
             <li class="nav-item dropdown">
               <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Page</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -76,6 +84,7 @@
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/admin.do">Manager</a>
               </div>
             </li>
+            </c:if>
           </ul>
         </div>
       </div>

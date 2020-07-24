@@ -30,7 +30,7 @@
 	
 	<typeHandlers>
 		<!-- 특정 타입을 변경해주는 typeHanlder 등록 태그 -->
-		<package name="com.kh.spring.common"/>
+		<package name="com.kh.jejour.common"/>
 	</typeHandlers>
 </configuration>
 
