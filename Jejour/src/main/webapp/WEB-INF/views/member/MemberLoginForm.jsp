@@ -9,6 +9,9 @@
 <meta charset="UTF-8">
 <title>Login & Sign Up</title>
 <link rel = "stylesheet" href = "resources/assets/plugins/bootstrap/css/bootstrap.min.css"> 
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="../resources/js/jquery-3.5.1.min.js"></script>
+
 </head>
    <style>
 body{
@@ -16,7 +19,7 @@ body{
 	color:#6a6f8c;
 	background:#c8c8c8;
 	font:600 16px/18px 'Open Sans',sans-serif;
-    background-image: url('images/jejulogin.jpg');
+    background-image: url('../resources/images/jejulogin.jpg');
     background-repeat: no-repeat;
     background-size : cover;
 }
@@ -39,7 +42,7 @@ a{color:inherit;text-decoration:none}
 	width:100%;
 	height:100%;
 	position: relative;
-	padding:50px 70px 535px 70px;
+	padding:50px 70px 700px 70px;
 	background:rgba(0,51,153,.65);
 }
 .login-html .sign-in-htm,
@@ -191,32 +194,46 @@ a{color:inherit;text-decoration:none}
 	text-align:center;
     color:white;
 }
+
+div#userId-container{position:relative; padding:0px;}
+div#userId-container span.guide {display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
+div#userId-container span.ok{color:green;}
+div#userId-container span.error, span.invalid{color:red;}
     
-    </style>
+</style>
+
 <body>
 	 <div class="login-wrap">
         <div class="login-html">
             <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">로그인</label>
             <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">회원가입</label>
             <div class="login-form">
+            
+            <!-- 로그인폼 -->
+            <form id="memberlogin" action="${pageContext.request.contextPath}/member/memberLogin.do" method="post">   
                 <div class="sign-in-htm">
                     <div class="group" style="margin-left:25px; margin-top: 120px;">
                         <br><br>
+                        
                         <label for="user" class="label" style="font-size: 20px;">아이디</label><br><br>
-                        <input id="user" name="userId" type="text" class="input" style="width: 90%;">
+                        <input id="userId" name="userId" type="text" class="input" style="width: 90%;" required>
                     </div>
-                    <div class="group" style="margin-left:25px;">
+                    <div class="group" style="margin-left:25px; margin-top:50px;">
                         <br><br>
                         <label for="pass" class="label" style="font-size: 20px;">비밀번호</label><br><br>
-                        <input id="pass" name="userPwd" type="password" class="input" data-type="password" style="width: 90%;">
+                        <input id="userPwd" name="userPwd" type="password" class="input" data-type="password" style="width: 90%;" required>
                     </div>
                     <div class="group" style="text-align:center;">
                         <br><br>
-                        <label style="color:red;"> 비밀번호가 일치하지않습니다. </label>
+                        <!-- 로그인시 유효성 체크 -->
+                        <label class="logincheck" id="logincheck" for="logincheck"></label>
                     </div>
-                    <div class="group" style="text-align:center">
+                    <div class="group" style="text-align:center; margin-top:50px">
                         <br><br><br>
                         <input type="submit" class="button" value="Login" style="width: 90%; font-size: 20px; font-weight: bold;">
+                        <br><br>
+                        <button class="button" style="width: 90%; font-size: 20px; font-weight: bold;" onclick="goMain();">Home</button>
+                        
                     </div>
                     <div class="hr"></div>
                     <div class="foot-lnk">
@@ -224,51 +241,338 @@ a{color:inherit;text-decoration:none}
                         onclick = "window.open(this.href, '개인정보 찾기','width = 580, height = 330');return false">아이디/비밀번호 찾기</a>
                     </div>
                 </div>
-                <div class="sign-up-htm">
-                    <div class="group" style="margin-left:40px;">
+             </form>
+           <!-- 로그인폼의 끝 -->
+               
+           <!-- 회원가입 -->    
+           <form action="${pageContext.request.contextPath}/member/memberinsert.do" method="post">
+               <div class="sign-up-htm">
+                    <div class="group" id="userId-container" style="margin-left:40px;">
                         <br>
-                        <label for="user" class="label" style="font-size: 18px;">아이디</label><br><br>
-                        <input id="user" name="userId" type="text" class="input" style="width: 60%;">
-                        <button id="dupliCheck" class="input" >중복확인</button>
+                    	<label for="user" class="label" style="font-size: 18px;">아이디</label><br>
+                        <input id="userId" name="userId" type="text" class="input" style="width: 90%;" required/>
+                        <br>
+                        <!-- 중복체크 -->
+                        <span class="guide ok">사용 가능</span>
+				        <span class="guide error">사용 불가</span>
+				        <span class="guide invalid">4글자 미만</span>
+				        <input type="hidden" name="idDuplicateCheck" id="idDuplicateCheck" value="0"/>
+                    
                     </div>
                     <div class="group" style="margin-left:40px;">
-                        <label for="user" class="label" style="font-size: 18px;">성명</label><br><br>
-                        <input id="user" name="userName" type="text" class="input" style="width: 90%;">
+                        <label for="user" class="label" style="font-size: 18px;">성명</label><br>
+                        <input id="userName" name="userName" type="text" class="input" style="width: 90%;" required
+                        placeholder="한글만 2-4글자 입력">
+                    	<br>
+                        <label class="nameCheck" id="nameCheck" for="nameCheck"></label>
                     </div>
                     <div class="group" style="margin-left:40px;">
-                        <label for="pass" class="label" style="font-size: 18px;">비밀번호</label><br><br>
-                        <input id="password1" name="userPwd1" type="password" class="input" data-type="password" style="width: 90%;">
+                        <label for="user" class="label" style="font-size: 18px;">성별</label><br>
+                        <select name="gender" id="gender" class=input id="gender" style="width: 90%;" required>
+                            <option value="M">남자</option>
+                            <option value="F">여자</option>
+                        </select>
                     </div>
                     <div class="group" style="margin-left:40px;">
-                        <label for="pass" class="label" style="font-size: 18px;">비밀번호 확인</label><br><br>
-                        <input id="password2" name="userPwd2" type="password" class="input" data-type="password" style="width: 90%;">
-                        <br><br>
-                        <label style="color:red; font-weight: bold;"> 비밀번호가 일치하지않습니다. </label>
+                        <label for="pass" class="label" style="font-size: 18px;">비밀번호</label><br>
+                        <input id="password1" name="userPwd" type="password" class="input" data-type="password" style="width: 90%;"
+                        		placeholder="영문과 숫자조합 최소 6~18자리 " required>
+                    </div>
+                    <div class="group" style="margin-left:40px;">
+                        <label for="pass" class="label" style="font-size: 18px;">비밀번호 확인</label><br>
+                        <input id="password2" type="password" class="input" data-type="password" style="width: 90%;">
+                        <br>
+                        
+                        <!-- 비밀번호 확인 -->
+                        <label id="pwdResult" class="pwdResult" for="pwdResult"></label>
                     </div>
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">이메일주소</label><br><br>
-                        <input id="pass" type="text" class="input" name="email" style="width: 90%;">
+                        <input id="Email" type="text" class="input" name="email" style="width: 90%;" required
+                        placeholder="asd123@qwert.com">
+                    	<br>
+                        <label class="EmailCheck" id="EmailCheck" for="EmailCheck"></label>
                     </div>
                     <div class="group" style="margin-left:40px;">
-                        <label for="pass" class="label" style="font-size: 18px;">휴대폰번호</label><br><br>
-                        <input type="text" id="Phone1" name="phone1" class="Phone">
-                        <input type="text" id="Phone2" name="phone2" class="Phone">
-                        <input type="text" id="Phone3" name="phone3" class="Phone"><br><br>
-                        <label style="color:red;"> 숫자만 입력해주세요 </label>
+                        <label for="pass" class="label" style="font-size: 18px;">연락처</label><br>
+                        <input type="text" id="Phone" name="phone" class="Phone" style="width: 90%;" placeholder="-없이입력">
+                     	<br><br>
+                        <label class="phoneNumCheck" id="phoneNumCheck" for="phoneNumCheck"></label>
                     </div>
-                    <div class="group" style="margin-left:40px;">
-                        <label for="pass" class="label" style="font-size: 18px;" >주민등록번호</label><br><br>
+                    <!-- <div class="group" style="margin-left:40px;">
+                        <label for="pass" class="label" style="font-size: 18px;" >주민등록번호</label>
+                        <br><br>
                         <input type="text" id="RRN1" name="RRN1"class="RRN">
                         <input type="text" id="RRN2" name="RRN2"class="RRN">
-                    </div>
+                    </div> -->
+                      <div class="group" style="margin-left: 40px;">
+                        <label for="pass" class="label" style="font-size: 18px;">우편번호</label>
+                        <br>
+						<input type="text" class="input" id="zipCode"
+												name="zipCode" style="width: 70%;" required>
+						<button type="button" class="input" onclick="addrSearch();">검색</button>
+                        <br><br>
+                        <label for="pass" class="label" style="font-size: 18px;">주소</label>
+                        <br>
+						<input type="text" class="input" id="address1" name="address1" style="width: 90%;" required>
+						<br><br>
+                        <label for="pass" class="label" style="font-size: 18px;">상세주소</label>
+                        <br>
+                        <input type="text" class="input" id="address2" name="address2" style="width: 90%;">
+                    </div>				
                     <br>
-                    <div class="group" style="text-align:center">
+                    <div class="group" style="text-align:center; margin-top:30px;">
                         <input type="submit" class="button" value="Sign Up" style="width: 80%; font-size: 20px; font-weight: bold;">
                     </div>
+                
                 </div>
+                </form>
             </div>
         </div>
      </div>
+
+
+<script>
+	$('#memberlogin').submit(function(event){
+		$.ajax({
+			url : '${pageContext.request.contextPath}/member/memberLogincheck.do',
+			async : false,
+			dataType: "json",
+			data : {
+				userId : $('#userId').val(),
+				userPwd : $('#userPwd').val()
+			}, success : function(data){
+				console.log(data);
+				if(data.result == 1) {
+					$("#logincheck").html("<p style='color:red'>해당하는 사용자가 없습니다.</p>").fadeIn(500);
+					$("#logincheck").delay(2000);
+					$("#logincheck").fadeOut(500);
+					
+					event.preventDefault();
+				} else if(data.result == 3){
+					$("#logincheck").html("<p style='color:red'>비밀번호가 잘못 입력되었습니다.</p>").fadeIn(500);
+					$("#logincheck").delay(2000);
+					$("#logincheck").fadeOut(500);
+					
+					event.preventDefault();
+			   } else if(data.result == 2) {
+				   location.href = "/member/memberLogin.do";
+			   }
+			}
+		});
+		
+	});
+	
+	/* 회원가입시 유효성체크 */
+	function updateMember() {
+		 var confirm = window.confirm("이대로 회원가입 하시겠습니까?");
+		 
+		if($('.fail').length == 0 && confirm){
+			$("#memberinsert").submit();
+			window.confirm("회원가입을 축하드립니다!");
+       } else {
+           alert('비밀번호 양식에 맞지 않습니다.');
+           event.preventDefault();
+     
+       }
+	};
+	
+	/* 비밀번호 양식 */
+		$('#password1').change(function() {
+			
+			var reg1 = /^[A-Za-z0-9_-]{6,18}$/;
+			
+			if (!reg1.test($('#password1').val())) {
+				$('#pwdResult').addClass('fail').removeClass('success');
+			} else {
+				$('#pwdResult').addClass('success').removeClass('fail');
+			}
+		});
+	
+	
+	
+	/* 비밀번호 일치여부 */
+	$('#password2').change(
+			function() {
+				
+				if ($('#password1').val() == $('#password2').val()) {
+					$('#pwdResult').html("<p style='color:#58FA58'>비밀번호 값이 일치합니다.</p>").fadeIn(500);
+					$("#pwdResult").delay(2000);
+					$("#pwdResult").fadeOut(500);
+				} else {
+					$('#pwdResult').html("<p style='color:red'>비밀번호 값이 일치하지 않습니다.</p>").addClass('fail').removeClass('success').fadeIn(500);
+					$("#pwdResult").delay(2000);
+					$("#pwdResult").fadeOut(500);
+					$('#password2').val('');
+				}
+			});
+	
+	/* 이름 유효성체크  */
+	$('#userName').change(function(){
+
+        var reg4 = /^[가-힝]{2,4}$/;
+    
+        if (!reg4.test($('#userName').val())) {
+            $('#nameCheck').html("<p style='color:red'>이름을 제대로 입력해주세요.</p>").fadeIn(500);
+			$("#nameCheck").delay(2000);
+			$("#nameCheck").fadeOut(500);
+            $('#userName').val('');
+			$('#userName').focus();
+		}else {
+			$('#nameCheck').html("<p style='color:#58FA58'>사용가능한 이름입니다.</p>").fadeIn(500);
+			$("#nameCheck").delay(2000);
+			$("#nameCheck").fadeOut(500); 
+		} 
+    
+	});
+	
+	
+	
+	/* 번호 유효성체크  */
+	$('#Phone').change(function(){
+
+        var reg2 = /^[0-9]{9,11}$/g;
+    
+        if (!reg2.test($('#Phone').val())) {
+            $('#phoneNumCheck').html("<p style='color:red'>숫자만 입력해주세요.</p>").fadeIn(500);
+			$("#phoneNumCheck").delay(2000);
+			$("#phoneNumCheck").fadeOut(500);
+            $('#Phone').val('');
+			$('#Phone').focus();
+		  } else {
+			$('#phoneNumCheck').html("<p style='color:#58FA58'>사용가능한 번호입니다.</p>").fadeIn(500);
+			$("#phoneNumCheck").delay(2000);
+			$("#phoneNumCheck").fadeOut(500);  
+		  }
+    
+	});
+    
+    /* 이메일 유효성체크 */
+	$('#Email').change(function(){
+		
+		var reg3 = /^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.([a-z\.]{2,6})$/;
+		
+		if (!reg3.test($('#Email').val())) {
+            $('#EmailCheck').html("<p style='color:red'>이메일 형식에 맞게써주세요.</p>").fadeIn(500);
+			$("#EmailCheck").delay(2000);
+			$("#EmailCheck").fadeOut(500);
+            $('#Email').val('');
+			$('#Email').focus();
+		} else {
+			  $('#EmailCheck').html("<p style='color:#58FA58'>사용 가능한 이메일형식입니다.</p>").fadeIn(500);
+				$("#EmailCheck").delay(2000);
+				$("#EmailCheck").fadeOut(500);
+		}
+		
+	});
+
+	/* 홈으로 이동 */
+	function goMain() {
+		location.href = '${pageContext.request.contextPath}';
+	};
+	
+	
+	
+	/* 주소찾기 */
+	function addrSearch() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var fullAddr = ''; // 최종 주소 변수
+						var extraAddr = ''; // 조합형 주소 변수
+						// 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							fullAddr = data.roadAddress;
+						} else { // 사용자가 지번 주소를 선택했을 경우(J)
+							fullAddr = data.jibunAddress;
+						}
+						// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+						if (data.userSelectedType === 'R') {
+							//법정동명이 있을 경우 추가한다.
+							if (data.bname !== '') {
+								extraAddr += data.bname;
+							}
+							// 건물명이 있을 경우 추가한다.
+							if (data.buildingName !== '') {
+								extraAddr += (extraAddr !== '' ? ', '
+										+ data.buildingName : data.buildingName);
+							}
+							// 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+							fullAddr += (extraAddr !== '' ? ' (' + extraAddr
+									+ ')' : '');
+						}
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						$('#zipCode').val(data.zonecode); //5자리 새우편번호 사용
+						$('#address1').val(fullAddr);
+						// 커서를 상세주소 필드로 이동한다.
+						$('#address2').focus();
+					}
+				}).open();
+	};
+	
+	/* 아이디 중복검사 이벤트 추가 */
+		$("#userId").on("keyup", function(){
+				  var userId = $(this).val().trim();
+				        
+				   if(userId.length<4) {
+				        	$(".guide.error").hide();
+				        	$(".guide.ok").hide();
+				        	$(".guide.invalid").show();
+				        	return;
+				        	
+				        } else {
+				        	
+					        $.ajax({
+					            url  : "${pageContext.request.contextPath}/member/checkIdDuplicate.do",
+					            data : {userId:userId},
+					            dataType: "json",
+					            success : function(data){
+					                console.log(data);
+					                // if(data=="true") //stream 방식
+					                if(data.isUsable==true){ //viewName 방식
+					                    $(".guide.error").hide();
+					                    $(".guide.invalid").hide();
+					                    $(".guide.ok").show();
+					                    $("#idDuplicateCheck").val(1);
+					                } else {
+					                    $(".guide.error").show();
+					                    $(".guide.invalid").hide();
+					                    $(".guide.ok").hide();
+					                    $("#idDuplicateCheck").val(0);
+					                }
+					            }, error : function(jqxhr, textStatus, errorThrown){
+					                console.log("ajax 처리 실패");
+					                //에러로그
+					                console.log(jqxhr);
+					                console.log(textStatus);
+					                console.log(errorThrown);
+					            }
+				        	});
+				     	}
+				     //console.log(userId);
+		});
+		
+
+		function validate(){
+			var userId = $("#userId");
+			if(userId.val().trim().length<4){
+				alert("아이디는 최소 4자리이상이어야 합니다.");
+				userId.focus();
+				return false;
+			}
+			
+			//아이디중복체크여부
+		    if($("#idDuplicateCheck").val()==0){
+		        alert("사용가능한 아이디를 입력해주세요.");
+		        return false();
+		    }
+			
+			return true;
+		}
+	</script>
 
 </body>
 </html>

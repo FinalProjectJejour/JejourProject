@@ -199,6 +199,9 @@ a{color:inherit;text-decoration:none}
             <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">정보수정</label>
             <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
             <div class="login-form">
+            
+            <!-- 회원정보 수정폼의 시작  -->
+            <form id="memberupdate" action="${pageContext.request.contextPath}/member/memberUpdate.do" method="post">
                 <div class="sign-in-htm">
                     <div class="group" style="margin-left:40px;">
                         <br><br>
@@ -212,40 +215,49 @@ a{color:inherit;text-decoration:none}
                     </div>
                     <br>
                     <div class="group" style="margin-left:40px;">
-                        <label for="user" class="label" style="font-size: 18px; width: 50%;">생년월일</label>
-                        <label style="color:white; margin-left: 30px;">${ member.rrn }</label>
+                        <label for="user" class="label" style="font-size: 18px;">성별</label><br><br>
+                        <select name="gender" id="gender" class=input id="gender" style="width: 90%;" required>
+                            <option  value="M">남자</option>
+                            <option  value="F">여자</option>
+                        </select>
                     </div>
                     <br>
                     
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">비밀번호</label><br><br>
-                        <input id="password1" name="userPwd1" type="password" class="input" data-type="password" style="width: 90%;">
+                        <input id="password1" name="userPwd1" type="password" class="input" data-type="password" style="width: 90%;"
+                        	   placeholder="영문과 숫자 최소 6자리 최대18자리입력" required >
                     </div>
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">비밀번호 확인</label><br><br>
                         <input id="password2" name="userPwd2" type="password" class="input" data-type="password" style="width: 90%;">
                         <br><br>
-                        <label style="color:red; font-weight: bold;"> 비밀번호가 일치하지않습니다. </label>
+                        <label style="color:red; font-weight: bold;"></label>
                     </div>
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">이메일주소</label><br><br>
-                        <input id="pass" name="email" type="text" class="input" name="email" style="width: 90%;">
+                        <input id="pass" id="Email" class="Email" type="text" class="input" name="email" style="width: 90%;"
+                        placeholder="asd123@qwert.com 형식으로입력">
+                    	<br><br>
+                        <label class="EmailCheck" id="EmailCheck" for="EmailCheck"></label>
                     </div>
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">휴대폰번호</label><br><br>
-                        <input type="text" id="Phone1" name="Phone1" class="Phone">
-                        <input type="text" id="Phone2" name="Phone2" class="Phone">
-                        <input type="text" id="Phone3" name="Phone3" class="Phone"><br><br>
-                        <label style="color:red;"> 숫자만 입력해주세요 </label>
+                        <input type="text" id="Phone" name="Phone" class="Phone" style="width: 90%;" placeholder="-없이입력">
+                        <br><br>
+                        <label class="phoneNumCheck" id="phoneNumCheck" for="phoneNumCheck"></label>
                     </div>
                     <br>
                     <div class="group" style="text-align:center">
                         <input type="submit" class="button" value="Correct" style="width: 40%; font-size: 20px; font-weight: bold; ">
-                        <button type="button" class="button" style="width: 40%; font-size: 20px; font-weight: bold; ">Home</button>
+                        <button type="button" class="button" style="width: 40%; font-size: 20px; font-weight: bold;" onclick="goMain();">Home</button>
                     </div>
                 </div>
+               </form>
+               <!-- 회원정보수정 폼의 끝 --> 
+                
                 <div class="sign-up-htm">
-                    <div class="group" style="margin-left:40px;">
+                    <!-- <div class="group" style="margin-left:40px;">
                         <br>
                         <label for="user" class="label" style="font-size: 18px;">아이디</label><br><br>
                         <input id="user" type="text" class="input" style="width: 60%;">
@@ -280,11 +292,73 @@ a{color:inherit;text-decoration:none}
                     <br>
                     <div class="group" style="text-align:center">
                         <input type="submit" class="button" value="Sign Up" style="width: 80%; font-size: 20px; font-weight: bold;">
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
      </div>
+     
+     <script>
+     
+     /* 비밀번호 양식 */
+		$('#password1').change(function() {
+			
+			var reg1 = /^[A-Za-z0-9_-]{6,18}$/;
+			
+			if (!reg1.test($('#password1').val())) {
+				$('#pwdResult').addClass('fail').removeClass('success');
+			} else {
+				$('#pwdResult').addClass('success').removeClass('fail');
+			}
+		});
+	
+	
+	
+	/* 비밀번호 일치여부 */
+	$('#password2').change(
+			function() {
+				
+				if ($('#password1').val() == $('#password2').val()) {
+					$('#pwdResult').html("비밀번호 값이 일치합니다.").css('color', 'blue');
+				} else {
+					$('#pwdResult').html("비밀번호 값이 일치하지 않습니다").addClass('fail').removeClass('success').css('color', 'red');
+					$('#password2').val('');
+				}
+			});
+	
+	/* 번호 유효성체크  */
+	$('#Phone').change(function(){
+
+        var reg2 = /^[0-9]$/g;
+    
+        if (!reg2.test($('#Phone').val())) {
+            $('#phoneNumCheck').html("숫자만 입력하세요.").css('color', 'red');
+            $('#Phone').val('');
+			$('#Phone').focus();
+			} 
+    
+	});
+	
+	$('#Email').change(function(){
+		
+		var reg3 = /^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.([a-z\.]{2,6})$/;
+		
+		if (!reg3.test($('#Email').val())) {
+            $('#EmailCheck').html("이메일 형식에 맞게 입력해주세요").css('color', 'red');
+            $('#Email').val('');
+			$('#Email').focus();
+			}
+		
+	});
+	
+	/* 홈으로 이동 */
+	function goMain() {
+		location.href = '${pageContext.request.contextPath}/main.do';
+	};
+     
+     
+     
+     </script>
 
 </body>
 </html>
