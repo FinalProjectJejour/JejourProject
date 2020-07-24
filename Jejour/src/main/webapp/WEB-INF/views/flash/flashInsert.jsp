@@ -74,13 +74,13 @@
         <div class="row">
           <div class="col-md-8 ftco-animate mx-auto">
         	<form action="${pageContext.request.contextPath}/flashBoard/flashBoardInsert.fl" method="post">
-           	  <h2 class="mb-3"><label style="width: 15%;">제목 :</label><input type="text" name="fTitle" placeholder="" onfocus="this.placeholder = ''" onblur="this.placeholder = ''" required="" class="single-input" maxlength="25"></h2>
+           	  <h2 class="mb-3"><label style="width: 15%;">제목 :</label><input type="text" name="fTitle" placeholder="" onfocus="this.placeholder = ''" onblur="this.placeholder = ''" required class="single-input" maxlength="25"></h2>
               <br>
               <p><label style="width: 15%;">성별 :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;남자</p>
-              <p><label style="width: 15%;">인원 :</label><input type="number" name="fPeople" placeholder="ex)3" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)3명'" required="" class="multi-input"></p>
-              <p><label style="width: 15%;">일시 :</label><input type="datetime-local" name="fWhenDate" placeholder="ex)2020-11-11" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)2020-11-11'" required="" class="multi-input"></p>
-              <p><label style="width: 15%;">장소 :</label><input type="text" name="fMapTitle" id="fMapTitle" placeholder="ex)밑의 지도에서 검색하여 핀을 클릭하세요!" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)밑의 지도에서 검색하여 핀을 클릭하세요!'" required="" class="multi-input" readonly ></p>
-              <p><label style="width: 15%;">내용 :</label><input type="text" name="fContent" placeholder="ex)같이 맛있게 먹고 노실 분!" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)같이 맛있게 먹고 노실 분!'" required="" class="multi-input"></p>
+              <p><label style="width: 15%;">인원 :</label><input type="number" name="fPeople" placeholder="ex)3" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)3'" required class="multi-input"></p>
+              <p><label style="width: 15%;">일시 :</label><input type="datetime-local" name="fWhenDate" placeholder="ex)2020-11-11" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)2020-11-11'" required class="multi-input"></p>
+              <p><label style="width: 15%;">장소 :</label><input type="text" name="fMapTitle" id="fMapTitle" placeholder="ex)밑의 지도에서 검색하여 핀을 클릭하세요!" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)밑의 지도에서 검색하여 핀을 클릭하세요!'" required class="multi-input"></p>
+              <p><label style="width: 15%;">내용 :</label><input type="text" name="fContent" placeholder="ex)같이 맛있게 먹고 노실 분!" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)같이 맛있게 먹고 노실 분!'" required class="multi-input"></p>
               <input type="hidden" id="userId" name="userId" value="userId">
               <input type="hidden" id="fMapX" name="fMapX">
               <input type="hidden" id="fMapY" name="fMapY">
@@ -264,6 +264,7 @@
 	            // 마커 클릭시 이동
 	            kakao.maps.event.addListener(marker, 'click', function() {
 	            	$('#fMapTitle').val(title);
+	            	$('#fMapTitle').attr('readonly', true);
 	            	console.log(x);
 	            	console.log(y);
 	            	$('#fMapX').val(x);
