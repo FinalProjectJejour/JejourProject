@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class VisitCount {
 	
-	private String todayVisit;
-	private String totalVisit;
+	private String visitId;
+	private String visitIp;
 	private Date vDate;
 }
