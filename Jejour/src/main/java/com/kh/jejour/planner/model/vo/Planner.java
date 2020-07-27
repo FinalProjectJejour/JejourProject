@@ -15,7 +15,7 @@ public class Planner {
 	private String describe;
 	private String account;
 	private String theme;
-	private String filePath;
+	private String renamedFileName;
 	private String status;
 
 }
