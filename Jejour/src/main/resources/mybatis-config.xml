@@ -23,6 +23,7 @@
 		<typeAlias type="com.kh.jejour.hotspotComment.model.vo.HotspotComment" alias="HotspotComment"/>
 		<typeAlias type="com.kh.jejour.hotspotLike.model.vo.HotspotLike" alias="HotspotLike"/>
 		<typeAlias type="com.kh.jejour.planner.model.vo.Planner" alias="Planner"/>
+		<typeAlias type="com.kh.jejour.planner.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.jejour.plannerPart.model.vo.PlannerPart" alias="PlannerPart"/>
 		<typeAlias type="com.kh.jejour.plannerLike.model.vo.PlannerLike" alias="PlannerLike"/>
 		<typeAlias type="com.kh.jejour.visitCount.model.vo.VisitCount" alias="VisitCount"/>
