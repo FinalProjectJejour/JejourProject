@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+
+	<resultMap type="Member" id="memberMap">
+	</resultMap>
+	
+	
+	<select id="selectList" resultMap="memberMap">
+		SELECT ROWNUM, M.* 
+		FROM MEMBER M
+		WHERE USERID != 'admin'
+		ORDER BY ROWNUM DESC
+	</select>
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
