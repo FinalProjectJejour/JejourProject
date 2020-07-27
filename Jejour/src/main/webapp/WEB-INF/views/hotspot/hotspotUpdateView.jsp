@@ -33,30 +33,34 @@
 
 <section class="ftco-section">
 	<div class="container">
-		<form action="boardInsert.ho">
+		<form action="hotspotUpdate.ho">
+		
 			<div class="row">
 				<div class="col-md-8 ftco-animate mx-auto">
+				<input type="hidden" name="hNo" value="${HotspotBoard.HNo}">
 					<!-- 제목이 들어갈 부분 -->
 					<h2 class="mb-3">
 						<label style="width: 15%;">제목 :</label><input type="text"
 							name="hTitle" placeholder="제목을 입력해주세요."
 							onfocus="this.placeholder = ''"
 							onblur="this.placeholder = '제목을 입력하시라닌깐요!'" required=""
-							class="single-input"
-							maxlength ="25">
+							class="single-input" value="${HotspotBoard.HTitle}">
 					</h2>
 				</div>
 				<br>
-					<div class="mx-auto">
-						<textarea id="pdCont" class="summernote" name="hContent"></textarea>
-					</div>
-					<br>
+				<div class="mx-auto">
+					<textarea id="pdCont" class="summernote" name="hContent">${HotspotBoard.HContent}</textarea>
 				</div>
+				<br>
+			</div>
 			<div class="row">
 				<div class="mx-auto">
-				<br><br>
-					<input type="submit" class="search-submit btn btn-primary"value="작성완료"> &nbsp;&nbsp; 
-					<input type="button" class="search-submit btn btn-primary" onclick="fn_gohotspotlist();" value="목록으로">
+					<br>
+					<br> <input type="submit"
+						class="search-submit btn btn-primary" value="수정완료">
+					&nbsp;&nbsp; <input type="button"
+						class="search-submit btn btn-primary"
+						onclick="fn_gohotspotlist();" value="목록으로">
 				</div>
 			</div>
 			<!-- .col-md-8 -->
@@ -109,25 +113,31 @@
 								data = new FormData();
 								data.append("file", files[0]);
 
-								$.ajax({
-									data : data,
-									type : "post",
-									url : '${pageContext.request.contextPath}/hotspotBoard/summernote.ho', // servlet url
-									cache : false,
-									contentType : false,
-									processData : false,
-									success : function(fileUrl) {
-										check.summernote('insertImage', fileUrl);
-										alert("성공이미지 : " + fileUrl);
-									},
-									error : function(request, status, error) {
-										alert("code:" + request.status + "\n"
-												+ "message:"
-												+ request.responseText + "\n"
-												+ "error:" + error);
-										console.log("왜안되니 파일22" + files);
-									}
-								});
+								$
+										.ajax({
+											data : data,
+											type : "post",
+											url : '${pageContext.request.contextPath}/hotspotBoard/summernote.ho', // servlet url
+											cache : false,
+											contentType : false,
+											processData : false,
+											success : function(fileUrl) {
+												check.summernote('insertImage',
+														fileUrl);
+												alert("성공이미지 : " + fileUrl);
+											},
+											error : function(request, status,
+													error) {
+												alert("code:" + request.status
+														+ "\n" + "message:"
+														+ request.responseText
+														+ "\n" + "error:"
+														+ error);
+												console
+														.log("왜안되니 파일22"
+																+ files);
+											}
+										});
 							}
 						}
 					});
@@ -143,8 +153,8 @@
 						}
 						e.preventDefault();
 					});
-	  
-	function fn_gohotspotlist(){
+
+	function fn_gohotspotlist() {
 		location.href = "${pageContext.request.contextPath}/hotspotBoard/hotspotList.ho";
 	}
 </script>
