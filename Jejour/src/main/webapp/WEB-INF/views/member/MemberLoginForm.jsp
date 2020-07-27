@@ -8,7 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Login & Sign Up</title>
-<link rel = "stylesheet" href = "resources/assets/plugins/bootstrap/css/bootstrap.min.css"> 
+
+<%-- <link rel = "stylesheet" href ="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css">  --%>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="../resources/js/jquery-3.5.1.min.js"></script>
 
@@ -195,11 +196,14 @@ a{color:inherit;text-decoration:none}
     color:white;
 }
 
-div#userId-container{position:relative; padding:0px;}
-div#userId-container span.guide {display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
+div#userId-container{position:relative;}
+div#userId-container span.guide {display:none;font-size: 12px;position:absolute; top:12px; right:10px; margin-top:37px; margin-right: 25px;}
 div#userId-container span.ok{color:green;}
 div#userId-container span.error, span.invalid{color:red;}
-    
+div#email-container{position:relative;}
+div#email-container span.guide {display:none;font-size: 12px;position:absolute; top:12px; right:10px; margin-top:37px; margin-right: 25px;}
+div#email-container span.ok{color:green;}
+div#email-container span.error{color:red;}    
 </style>
 
 <body>
@@ -216,12 +220,12 @@ div#userId-container span.error, span.invalid{color:red;}
                         <br><br>
                         
                         <label for="user" class="label" style="font-size: 20px;">아이디</label><br><br>
-                        <input id="userId" name="userId" type="text" class="input" style="width: 90%;" required>
+                        <input id="userId" name="userId" type="text" class="input" style="width: 90%;" required/>
                     </div>
                     <div class="group" style="margin-left:25px; margin-top:50px;">
                         <br><br>
                         <label for="pass" class="label" style="font-size: 20px;">비밀번호</label><br><br>
-                        <input id="userPwd" name="userPwd" type="password" class="input" data-type="password" style="width: 90%;" required>
+                        <input id="userPwd" name="userPwd" type="password" class="input" data-type="password" style="width: 90%;" required oninvalid="this.setCustomValidity('비밀번호를 입력해주세요')">
                     </div>
                     <div class="group" style="text-align:center;">
                         <br><br>
@@ -237,8 +241,8 @@ div#userId-container span.error, span.invalid{color:red;}
                     </div>
                     <div class="hr"></div>
                     <div class="foot-lnk">
-                        <a href = '/WEB-INF/views/member/find.jsp' 
-                        onclick = "window.open(this.href, '개인정보 찾기','width = 580, height = 330');return false">아이디/비밀번호 찾기</a>
+                        <a href = '${pageContext.request.contextPath}/member/memberfindidForm.do' 
+                        onclick = "window.open(this.href, '개인정보 찾기','width = 600, height = 350');return false">아이디/비밀번호 찾기</a>
                     </div>
                 </div>
              </form>
@@ -250,7 +254,7 @@ div#userId-container span.error, span.invalid{color:red;}
                     <div class="group" id="userId-container" style="margin-left:40px;">
                         <br>
                     	<label for="user" class="label" style="font-size: 18px;">아이디</label><br>
-                        <input id="userId" name="userId" type="text" class="input" style="width: 90%;" required/>
+                        <input id="userIdcheck" name="userId" type="text" class="input" style="width: 90%;" required />
                         <br>
                         <!-- 중복체크 -->
                         <span class="guide ok">사용 가능</span>
@@ -261,8 +265,8 @@ div#userId-container span.error, span.invalid{color:red;}
                     </div>
                     <div class="group" style="margin-left:40px;">
                         <label for="user" class="label" style="font-size: 18px;">성명</label><br>
-                        <input id="userName" name="userName" type="text" class="input" style="width: 90%;" required
-                        placeholder="한글만 2-4글자 입력">
+                        <input id="userName" name="userName" type="text" class="input" style="width: 90%;" required oninvalid="this.setCustomValidity('이름을 입력해주세요')"
+                        placeholder="한글만 2-4글자 입력"/>
                     	<br>
                         <label class="nameCheck" id="nameCheck" for="nameCheck"></label>
                     </div>
@@ -276,7 +280,7 @@ div#userId-container span.error, span.invalid{color:red;}
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">비밀번호</label><br>
                         <input id="password1" name="userPwd" type="password" class="input" data-type="password" style="width: 90%;"
-                        		placeholder="영문과 숫자조합 최소 6~18자리 " required>
+                        		placeholder="영문과 숫자조합 최소 6~18자리 " required oninvalid="this.setCustomValidity('비밀번호를 입력해주세요')">
                     </div>
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">비밀번호 확인</label><br>
@@ -286,25 +290,21 @@ div#userId-container span.error, span.invalid{color:red;}
                         <!-- 비밀번호 확인 -->
                         <label id="pwdResult" class="pwdResult" for="pwdResult"></label>
                     </div>
-                    <div class="group" style="margin-left:40px;">
-                        <label for="pass" class="label" style="font-size: 18px;">이메일주소</label><br><br>
-                        <input id="Email" type="text" class="input" name="email" style="width: 90%;" required
+                    <div class="group" id="email-container" style="margin-left:40px;">
+                        <label for="pass" class="label" style="font-size: 18px;">이메일</label><br><br>
+                        <input id="email" type="text" class="input" name="email" style="width: 90%;" required oninvalid="this.setCustomValidity('이메일을 입력해주세요')"
                         placeholder="asd123@qwert.com">
-                    	<br>
-                        <label class="EmailCheck" id="EmailCheck" for="EmailCheck"></label>
-                    </div>
+                        <!-- 중복체크 -->
+						<span class="guide ok" style="right:20px;">사용 가능</span>
+						<span class="guide error" style="right:20px;">사용불가</span>
+						<input type="hidden" name="checkEmailDup" id="checkEmailDup" value="0"/>
+				   </div>
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">연락처</label><br>
                         <input type="text" id="Phone" name="phone" class="Phone" style="width: 90%;" placeholder="-없이입력">
-                     	<br><br>
+                     	<br>
                         <label class="phoneNumCheck" id="phoneNumCheck" for="phoneNumCheck"></label>
-                    </div>
-                    <!-- <div class="group" style="margin-left:40px;">
-                        <label for="pass" class="label" style="font-size: 18px;" >주민등록번호</label>
-                        <br><br>
-                        <input type="text" id="RRN1" name="RRN1"class="RRN">
-                        <input type="text" id="RRN2" name="RRN2"class="RRN">
-                    </div> -->
+                    </div>               
                       <div class="group" style="margin-left: 40px;">
                         <label for="pass" class="label" style="font-size: 18px;">우편번호</label>
                         <br>
@@ -326,10 +326,11 @@ div#userId-container span.error, span.invalid{color:red;}
                     </div>
                 
                 </div>
-                </form>
+               </form>
             </div>
         </div>
-     </div>
+      </div>
+     
 
 
 <script>
@@ -446,29 +447,10 @@ div#userId-container span.error, span.invalid{color:red;}
 		  }
     
 	});
-    
-    /* 이메일 유효성체크 */
-	$('#Email').change(function(){
-		
-		var reg3 = /^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.([a-z\.]{2,6})$/;
-		
-		if (!reg3.test($('#Email').val())) {
-            $('#EmailCheck').html("<p style='color:red'>이메일 형식에 맞게써주세요.</p>").fadeIn(500);
-			$("#EmailCheck").delay(2000);
-			$("#EmailCheck").fadeOut(500);
-            $('#Email').val('');
-			$('#Email').focus();
-		} else {
-			  $('#EmailCheck').html("<p style='color:#58FA58'>사용 가능한 이메일형식입니다.</p>").fadeIn(500);
-				$("#EmailCheck").delay(2000);
-				$("#EmailCheck").fadeOut(500);
-		}
-		
-	});
 
 	/* 홈으로 이동 */
 	function goMain() {
-		location.href = '${pageContext.request.contextPath}';
+		location.href = '${pageContext.request.contextPath}/';
 	};
 	
 	
@@ -513,56 +495,107 @@ div#userId-container span.error, span.invalid{color:red;}
 				}).open();
 	};
 	
-	/* 아이디 중복검사 이벤트 추가 */
-		$("#userId").on("keyup", function(){
-				  var userId = $(this).val().trim();
-				        
-				   if(userId.length<4) {
-				        	$(".guide.error").hide();
-				        	$(".guide.ok").hide();
-				        	$(".guide.invalid").show();
-				        	return;
-				        	
-				        } else {
-				        	
-					        $.ajax({
-					            url  : "${pageContext.request.contextPath}/member/checkIdDuplicate.do",
-					            data : {userId:userId},
-					            dataType: "json",
-					            success : function(data){
-					                console.log(data);
-					                // if(data=="true") //stream 방식
-					                if(data.isUsable==true){ //viewName 방식
-					                    $(".guide.error").hide();
-					                    $(".guide.invalid").hide();
-					                    $(".guide.ok").show();
-					                    $("#idDuplicateCheck").val(1);
-					                } else {
-					                    $(".guide.error").show();
-					                    $(".guide.invalid").hide();
-					                    $(".guide.ok").hide();
-					                    $("#idDuplicateCheck").val(0);
-					                }
-					            }, error : function(jqxhr, textStatus, errorThrown){
-					                console.log("ajax 처리 실패");
-					                //에러로그
-					                console.log(jqxhr);
-					                console.log(textStatus);
-					                console.log(errorThrown);
-					            }
-				        	});
-				     	}
-				     //console.log(userId);
-		});
+	$(function(){
 		
+		/* 이메일 유효성 체크 */
+		$("#email").on("change",function() {
+	            
+			var re2 = /^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.([a-z\.]{2,9})$/g;
+	            
+	            if (!re2.test($("#email").val())) {
+	                $("#email-container>.guide.error").show();
+	                $("#email-container>.guide.ok").hide();
+	                $("#email").val('');
+	                $("#email").focus();
+	            } else {
+	            	$.ajax({
+	                        url: "${pageContext.request.contextPath}/member/checkEmailDup.do",
+	                        data: { email : $("#email").val() },
+	                        dataType: "json",
+	                        success: function(data) {
+	                           
+	                        	console.log(data);
+	                            
+	                        	if (data.isUsable == true) {
+	                                $("#email-container>.guide.error").hide();
+	                                $("#email-container>.guide.ok").show();
+	                                $("#checkEmailDup").val(1);
+	                            } else {
+	                                $("#email-container>.guide.error").show();
+	                                $("#email-container>.guide.ok").hide();
+	                                $("#checkEmailDup").val(0);
+	                            }
+	                        },
+	                        error: function(jqxhr, textStatus, errorThrown) {
+	                            console.log("ajax 처리 실패");
+	                            //에러로그
+	                            console.log(jqxhr);
+	                            console.log(textStatus);
+	                            console.log(errorThrown);
+	                        }
+
+	                    });
+	            }
+
+	        });
+		
+		/* 아이디 중복검사 이벤트 추가 */
+		$("#userIdcheck").on("keyup", function(){
+			  var userId = $(this).val().trim();
+			   if(userId.length<4) {
+			        	$("#userId-container>.guide.error").hide();
+			        	$("#userId-container>.guide.ok").hide();
+			        	$("#userId-container>.guide.invalid").show();
+			        	return;
+			        	
+			        } else {
+			        	
+				        $.ajax({
+				            url  : "${pageContext.request.contextPath}/member/checkIdDuplicate.do",
+				            data : { userId : userId },
+				            dataType: "json",
+				            success : function(data){
+				                console.log(data);
+				                // if(data=="true") //stream 방식
+				                if(data.isUsable==true){ //viewName 방식
+				                    $("#userId-container>.guide.error").hide();
+				                    $("#userId-container>.guide.invalid").hide();
+				                    $("#userId-container>.guide.ok").show();
+				                    $("#idDuplicateCheck").val(1);
+				                } else {
+				                    $("#userId-container>.guide.error").show();
+				                    $("#userId-container>.guide.invalid").hide();
+				                    $("#userId-container>.guide.ok").hide();
+				                    $("#idDuplicateCheck").val(0);
+				                }
+				            }, error : function(jqxhr, textStatus, errorThrown){
+				                console.log("ajax 처리 실패");
+				                //에러로그
+				                console.log(jqxhr);
+				                console.log(textStatus);
+				                console.log(errorThrown);
+				            }
+			        	});
+			     	}
+				});
+	
 
 		function validate(){
-			var userId = $("#userId");
+			var userId = $("#userIdcheck");
 			if(userId.val().trim().length<4){
 				alert("아이디는 최소 4자리이상이어야 합니다.");
 				userId.focus();
 				return false;
 			}
+			
+			
+			//이메일 중복체크여부
+		    if($("#checkEmailDup").val()==0){
+		        alert("사용가능한 이메일을 입력해주세요.");
+		        return false();
+		    }
+			
+			
 			
 			//아이디중복체크여부
 		    if($("#idDuplicateCheck").val()==0){
@@ -572,6 +605,8 @@ div#userId-container span.error, span.invalid{color:red;}
 			
 			return true;
 		}
+		
+	});
 	</script>
 
 </body>

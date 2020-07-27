@@ -40,6 +40,12 @@
 			#{result, mode=OUT, jdbcType=NUMERIC, javaType=integer} )
 		}
 	</select>
+	<select id="emailDupCheck" parameterType="hashmap" statementType="CALLABLE">
+		{ CALL EMAIL_DUP_CHK(
+			#{email, mode=IN, jdbcType=VARCHAR},
+			#{result, mode=OUT, jdbcType=NUMERIC, javaType=integer} )
+		}
+	</select>
 	
 	
 	

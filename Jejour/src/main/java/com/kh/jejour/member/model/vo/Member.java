@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Member {
-	
+
 	private String userId;
 	private String userName;
 	private String userPwd;
@@ -16,21 +16,16 @@ public class Member {
 	private String phone;
 	private String email;
 	private String address;
-	
-	
-	// 회원정보 수정용 생성자
-	public Member(String userPwd, String phone, String email, String address) {
+
+
+	// 아이디 찾기
+	public Member(String userName, String email) {
 		super();
-		this.userPwd = userPwd;
-		this.phone = phone;
+		this.userName = userName;
 		this.email = email;
-		this.address = address;
 	}
 
 
-	
-	
-	
-	
+
 
 }

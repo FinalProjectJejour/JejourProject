@@ -15,5 +15,7 @@ public interface MemberService {
 	int checkIdDuplicate(String userId);
 
 	int selectCheck(String userId);
+
+	int checkEmailDup(String email);
 	
 }

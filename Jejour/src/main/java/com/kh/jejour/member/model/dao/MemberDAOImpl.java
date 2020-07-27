@@ -56,4 +56,11 @@ public class MemberDAOImpl implements MemberDAO {
 		return (Integer)hmap.get("result");
 	}
 
+	@Override
+	public int emailDupCheck(HashMap<String, Object> hmap) {
+		sqlSession.selectOne("memberMapper.emailDupCheck", hmap);
+		
+		return (Integer)hmap.get("result");
+	}
+
 }

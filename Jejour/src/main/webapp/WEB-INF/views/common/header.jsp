@@ -79,7 +79,7 @@
             <li class="nav-item dropdown">
               <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Page</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberUdpate.do">Update Info</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberUdpateFormView.do">Update Info</a>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberPlan.do">My Plan</a>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/admin.do">Manager</a>
               </div>
