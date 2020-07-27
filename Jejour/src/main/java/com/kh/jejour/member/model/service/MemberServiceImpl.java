@@ -58,4 +58,13 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.LoginCheck(hmap);
 	}
 
+	@Override
+	public int checkEmailDup(String email) {
+		
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("email", email);
+		
+		return memberDAO.emailDupCheck(hmap);
+	}
+
 }

@@ -35,7 +35,7 @@ public class MemberController {
 	BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	
-	// 회원 가입 기능 실행하기
+		// 회원 가입 기능 실행하기
 		@RequestMapping("/member/memberinsert.do")
 		public String memberEnrollEnd(Member member,
 									@RequestParam String zipCode,
@@ -128,10 +128,10 @@ public class MemberController {
 	return map;
  }
 		
-	
+	//로그인하기
 	@RequestMapping(value = "/member/memberLogin.do", method = RequestMethod.POST)
 	public ModelAndView memberLogin(@RequestParam String userId,
-										@RequestParam String userPwd) {
+									@RequestParam String userPwd) {
 
 			ModelAndView mav = new ModelAndView();
 
@@ -177,12 +177,27 @@ public class MemberController {
 	}
 	
 
+		// 로그인,회원가입 페이지 이동
+		@RequestMapping("/member/memberUpdateFormView.do")
+		public String memberUpdateFormView() {
+		
+				return "member/MemberUpdateForm";
+			}
+	
+	
+	
+	
 		// 회원 정보 수정 기능 메소드
 		@RequestMapping("/member/memberUpdate.do")
-		public String memberUpdate(Member member, Model model) {
+		public String memberUpdate(Member member,
+								  @RequestParam String zipCode,
+								  @RequestParam String address1,
+								  @RequestParam String address2, Model model) {
 
 			logger.debug("회원 정보 수정 발생!");
 
+			String address = zipCode + "-" +address1 + "-" + address2;
+			member.setAddress(address);
 			// 1. 서비스 로직 수행! (비즈니스 로직)
 			int result = memberService.updateMember(member);
 
@@ -203,6 +218,7 @@ public class MemberController {
 
 		}
 		
+		//아이디 중복체크
 		@RequestMapping("/member/checkIdDuplicate.do")
 		@ResponseBody
 		public Map<String, Object> responseBodyProcess(@RequestParam("userId") String userId) {
@@ -216,4 +232,55 @@ public class MemberController {
 			// 직접 그 결과 자체를 화면으로 전달한다.
 			return map;
 		}
+		
+		//이메일 중복체크
+		@RequestMapping("/member/checkEmailDup.do")
+		@ResponseBody
+		public Map<String, Object> checkEmailDup(@RequestParam("email") String email) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean isUsable = memberService.checkEmailDup(email) == 0 ? true : false;
+
+		map.put("isUsable", isUsable);
+		
+		return map;
+		
+	}
+		
+	
+	// 회원 탈퇴 기능 메소드
+	@RequestMapping("/member/memberDelete.do")
+	public String memberDelete(SessionStatus status, Model model, Member member) {
+			logger.debug("회원 탈퇴 기능 확인!");
+
+			try {
+				int result = memberService.deleteMember(member.getUserId());
+
+				String loc = "/";
+				String msg = "";
+
+				if (result > 0) {
+
+					msg = "회원 탈퇴 성공!";
+					status.setComplete(); // 세션 완료(만료) 처리
+
+				} else
+					msg = "회원 탈퇴 실패!";
+
+				model.addAttribute("loc", loc);
+				model.addAttribute("msg", msg);
+
+			} catch (Exception e) {
+				logger.error("회원 탈퇴 에러 : " + e.getMessage());
+
+				// 받은 에러를 서버 개발자가 의도한 형식으로 보내기
+				throw new MemberException(e.getMessage());
+			}
+
+			return "common/msg";
+
+		}
+		
 }
+

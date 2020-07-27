@@ -18,6 +18,8 @@ public interface MemberDAO {
 	int checkIdDuplicate(HashMap<String, Object> hmap);
 
 	int LoginCheck(HashMap<String, Object> hmap);
+
+	int emailDupCheck(HashMap<String, Object> hmap);
 	
 
 }
