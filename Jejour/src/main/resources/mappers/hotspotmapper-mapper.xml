@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotspotMapper">
+
+ 	<select id="HotspotPageList" resultType="HotspotBoard">
+		SELECT *
+		FROM HOTSPOT_BOARD
+		WHERE HSTATUS = 'Y'
+		ORDER BY HDATE DESC, HNO DESC
+	</select>
+
+	<!-- 페이징 처리 ROWNUM ROWBOUNDS -->
+ 	<select id="selectBoardTotalContents" resultType="_int">
+		SELECT COUNT(*)
+		FROM HOTSPOT_BOARD
+	</select>
+
+	<insert id="hotspotInsert">
+		INSERT INTO HOTSPOT_BOARD(HNO, USERID, HTITLE, HCONTENT, HWRITER,
+			HCOUNT, HDATE, HSTATUS, HPREVIEW)
+		VALUES
+		(SEQ_HNO.NEXTVAL,'admin',#{hTitle},#{hContent},#{hWriter},
+			0, DEFAULT, DEFAULT, #{hPreview}
+			 )
+		<!-- 전달한 board객체의 boardNo 프로퍼티에 결과값을 담는다. -->
+		<!-- 1. --><!-- <selectKey keyProperty="boardNo" resultType="_int" order="AFTER">
+					SELECT SEQ_BOARDNO.CURRVAL FROM DUAL 
+					</selectKey> -->
+	</insert>
+	
+	<!-- <insert id="insertAttachment">
+		다른방식
+		<selectKey keyProperty="boardNo" resultType="_int" order="BEFORE"> 
+			SELECT SEQ_BOARDNO.CURRVAL FROM DUAL 
+		</selectKey>
+		INSERT INTO ATTACHMENT(ATTACHMENTNO, BOARDNO, ORIGINALFILENAME,RENAMEDFILENAME) 
+		VALUES (SEQ_ATTACHMENTNO.NEXTVAL, #{boardNo}, #{originalFileName}, #{renamedFileName})
+	</insert>-->
+	
+	<select id="hotspotSelectOne" parameterType="_int" resultType="HotspotBoard">
+		SELECT * 
+		FROM HOTSPOT_BOARD
+		WHERE HNO = #{hNo}
+	</select>
+	
+	<update id ="hotspotUpdate" parameterType="HotspotBoard">
+		UPDATE HOTSPOT_BOARD SET
+		HTITLE = #{hTitle},
+		HCONTENT = #{hContent}
+		WHERE HNO = #{hNo}
+	</update>
+	
+	<!--  
+	<insert id="updateAttachment" parameterType="Attachment">
+		INSERT INTO ATTACHMENT 
+		VALUES (SEQ_ATTACHMENTNO.NEXTVAL, #{boardNo}, 
+				#{originalFileName}, #{renamedFileName},
+				DEFAULT,DEFAULT,DEFAULT)
+	</insert>
+	
+	<delete id="deleteAttachment" parameterType="_int">
+		DELETE FROM ATTACHMENT
+		WHERE BOARDNO = #{boardNo}
+	</delete>
+	-->
+	
+	<update id="hotspotDelete" parameterType="HotspotBoard">
+		UPDATE HOTSPOT_BOARD SET
+		HSTATUS = 'N'
+		WHERE HNO = #{hNo}
+	</update>
+	
+	<!--  
+	<delete id="deleteAttachmentOne" parameterType="_int">
+		DELETE FROM ATTACHMENT
+		WHERE ATTACHMENTNO = #{attNo}
+	</delete>-->
+</mapper> 
+
+
+
+
+
+
+
+
+
+
