@@ -25,5 +25,7 @@ public class FlashBoard {
 	private Double fMapX;
 	private Double fMapY;
 	private char fStatus;
+	
+	private int commentCount;
 
 }

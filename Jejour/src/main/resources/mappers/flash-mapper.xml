@@ -3,9 +3,14 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="flashMapper">
-	
+
 	<select id="selectFlashBoardList" resultType="FlashBoard">
-		SELECT * FROM FLASH_BOARD WHERE FSTATUS = 'Y' ORDER BY FDATE DESC, FNO DESC
+		SELECT F.FNO, F.USERID, F.FTITLE, F.FPEOPLE, F.FMEETDATE, F.FMEETTIME, F.FCONTENT, F.FCOUNT, F.FWRITER, F.FDATE, F.FMAPTITLE, F.FMAPX, F.FMAPY, F.FSTATUS, NVL(COUNT(FC.FCNO),0) "COMMENTCOUNT" 
+		FROM FLASH_BOARD F
+		LEFT JOIN FLASH_COMMENT FC ON(F.FNO = FC.FNO)
+		WHERE F.FSTATUS = 'Y'
+		GROUP BY F.FNO, F.USERID, F.FTITLE, F.FPEOPLE, F.FMEETDATE, F.FMEETTIME, F.FCONTENT, F.FCOUNT, F.FWRITER, F.FDATE, F.FMAPTITLE, F.FMAPX, F.FMAPY, F.FSTATUS
+		ORDER BY F.FDATE DESC, F.FNO DESC
 	</select>
 	
 	<select id="selectFlashBoardTotalContent" resultType="_int">
@@ -37,31 +42,34 @@
 	</delete>
 	
 	<select id="search" parameterType="hashmap" resultType="FlashBoard">
-		SELECT * FROM FLASH_BOARD 
+		SELECT F.FNO, F.USERID, F.FTITLE, F.FPEOPLE, F.FMEETDATE, F.FMEETTIME, F.FCONTENT, F.FCOUNT, F.FWRITER, F.FDATE, F.FMAPTITLE, F.FMAPX, F.FMAPY, F.FSTATUS, NVL(COUNT(FC.FCNO),0) "COMMENTCOUNT" 
+		FROM FLASH_BOARD F
+		LEFT JOIN FLASH_COMMENT FC ON(F.FNO = FC.FNO)
 		
 		<bind name="myPattern" value="'%' + keyword + '%'" />
 		
 		<where>
 			<if test="searchCondition == 'all'">
-				USERID LIKE #{myPattern} OR
-				FMAPTITLE LIKE #{myPattern} OR
-				FCONTENT LIKE #{myPattern} AND
-				FSTATUS = 'Y'
+				(F.FWRITER LIKE #{myPattern} OR
+				F.FMAPTITLE LIKE #{myPattern} OR
+				F.FTITLE LIKE #{myPattern}) AND
+				F.FSTATUS = 'Y'
 			</if>
-	 		<if test="searchCondition == 'userId'">
-	 			USERID LIKE #{myPattern} AND
-				FSTATUS = 'Y'
+	 		<if test="searchCondition == 'fWriter'">
+	 			F.FWRITER LIKE #{myPattern} AND
+				F.FSTATUS = 'Y'
 	 		</if>
 	 		<if test="searchCondition == 'fMapTitle'">
-	 			FMAPTITLE LIKE #{myPattern} AND
-				FSTATUS = 'Y'
+	 			F.FMAPTITLE LIKE #{myPattern} AND
+				F.FSTATUS = 'Y'
 	 		</if>
-	 		<if test="searchCondition == 'fContent'">
-	 			FCONTENT LIKE #{myPattern} AND
-				FSTATUS = 'Y'
+	 		<if test="searchCondition == 'fTitle'">
+	 			F.FTITLE LIKE #{myPattern} AND
+				F.FSTATUS = 'Y'
 	 		</if>
 		</where>
-		ORDER BY FDATE DESC, FNO DESC
+		GROUP BY F.FNO, F.USERID, F.FTITLE, F.FPEOPLE, F.FMEETDATE, F.FMEETTIME, F.FCONTENT, F.FCOUNT, F.FWRITER, F.FDATE, F.FMAPTITLE, F.FMAPX, F.FMAPY, F.FSTATUS
+		ORDER BY F.FDATE DESC, F.FNO DESC
 	</select>
 	
 	<select id="selectFlashBoardSearchContents" parameterType="hashmap" resultType="_int">
@@ -71,21 +79,21 @@
 		
 		<where>
 			<if test="searchCondition == 'all'">
-				USERID LIKE #{myPattern} OR
+				(FWRITER LIKE #{myPattern} OR
 				FMAPTITLE LIKE #{myPattern} OR
-				FCONTENT LIKE #{myPattern} AND
+				FTITLE LIKE #{myPattern}) AND
 				FSTATUS = 'Y'
 			</if>
-	 		<if test="searchCondition == 'userId'">
-	 			USERID LIKE #{myPattern} AND
+	 		<if test="searchCondition == 'fWriter'">
+	 			FWRITER LIKE #{myPattern} AND
 				FSTATUS = 'Y'
 	 		</if>
 	 		<if test="searchCondition == 'fMapTitle'">
 	 			FMAPTITLE LIKE #{myPattern} AND
 				FSTATUS = 'Y'
 	 		</if>
-	 		<if test="searchCondition == 'fContent'">
-	 			FCONTENT LIKE #{myPattern} AND
+	 		<if test="searchCondition == 'fTitle'">
+	 			FTITLE LIKE #{myPattern} AND
 				FSTATUS = 'Y'
 	 		</if>
 		</where>
