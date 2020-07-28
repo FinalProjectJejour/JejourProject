@@ -18,6 +18,7 @@ import com.kh.jejour.common.util.Utils;
 import com.kh.jejour.flashBoard.model.exception.FlashBoardException;
 import com.kh.jejour.flashBoard.model.service.FlashService;
 import com.kh.jejour.flashBoard.model.vo.FlashBoard;
+import com.kh.jejour.member.model.vo.Member;
 
 @Controller
 public class FlashBoardController {
@@ -65,9 +66,9 @@ public class FlashBoardController {
 			@RequestParam String fTitle, @RequestParam int fPeople, 
 			@RequestParam String fWhenDate, @RequestParam String fMapTitle, 
 			@RequestParam String fContent, @RequestParam String fMapX,
-			@RequestParam String fMapY) {
+			@RequestParam String fMapY, @RequestParam String userId, @RequestParam String userName) {
 		System.out.println("flashBoardInsert 도착");
-		System.out.println(fWhenDate.substring(0, 10));
+		System.out.println("userId : " + userId);
 		
 		String fSetDate = fWhenDate.substring(0, 10);
 		String fSetTime = fWhenDate.substring(11);
@@ -84,14 +85,10 @@ public class FlashBoardController {
 							intArr[0], intArr[1] - 1, intArr[2]
 							).getTimeInMillis());
 		
-		// 임의의 ID 삽입용 추후에 Member 들어오면 삭제 필요
-		String userId = "admin";
-		
 		FlashBoard fb = new FlashBoard();
-		
-		// 임의의 ID 삽입용 추후에 Member 들어오면 삭제 필요
+
 		fb.setUserId(userId);
-		
+		fb.setFWriter(userName);
 		fb.setFTitle(fTitle);
 		fb.setFPeople(fPeople);
 		fb.setFMeetDate(writeDate);
@@ -246,6 +243,7 @@ public class FlashBoardController {
 		
 		// 2. 페이지 계산을 위한 총 페이지 갯수
 		int totalContents = flashService.selectFlashBoardSearchContents(hmap);
+		System.out.println("총페이지 갯수 : " + totalContents);
 		
 		// 3. 페이지 HTML 생성
 		String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "flashList.fl");

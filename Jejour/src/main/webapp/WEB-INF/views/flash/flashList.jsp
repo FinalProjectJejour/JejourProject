@@ -25,6 +25,8 @@
 	</head>
 
 	<c:import url="../common/header.jsp"/>
+	
+	<!-- <c:set var="m" value="${ sessionScope.member }" /> -->
 
     <section class="ftco-section bg-light" style="padding-top: 4em;">
       <div class="container">
@@ -32,9 +34,9 @@
         	<div class="col-md-2">
 				<select class="custom-select" id="searchCondition" name="searchCondition" style="height:40px;">
 				  <option value="all">전체 검색</option>
-				  <option value="userId">작성자</option>
+				  <option value="fWriter">작성자</option>
 				  <option value="fMapTitle">장소</option>
-				  <option value="fContent">내용</option>
+				  <option value="fTitle">제목</option>
 				</select>
 			</div>
 			<div class="col-md-7">
@@ -61,14 +63,14 @@
                 <div class="meta">
                   <div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=${f.FNo}">${f.FMeetDate} ${f.FMeetTime}</a></div>
                   &nbsp;
-                  <div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=${f.FNo}">${f.userId}</a></div>
+                  <div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=${f.FNo}">${f.FWriter}</a></div>
                 </div>
                 <div style="height: 120px;">
                 <h3 class="heading"><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=${f.FNo}">${f.FTitle}</a></h3>
                 </div>
                 <p class="clearfix">
                   <a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=${f.FNo}" class="float-left">Read more</a>
-                  <a href="#" class="float-right meta-chat"><span class="icon-chat"></span> 3</a>
+                  <a href="#" class="float-right meta-chat"><span class="icon-chat"></span> ${f.commentCount}</a>
                 </p>
               </div>
             </div>
@@ -87,7 +89,11 @@
     
     <script>
      function goFlashBoardInsert(){
-    	 location.href = "${pageContext.request.contextPath}/flashBoard/flashBoardForm.fl";
+    	 if('${member}' != null && '${member}' != '') {
+   	 		location.href = "${pageContext.request.contextPath}/flashBoard/flashBoardForm.fl";
+    	 } else {
+    		 alert("로그인 후 이용하세요!");
+    	 }
      }
     </script>
     
@@ -124,6 +130,7 @@
 						function fn_paging(cPage,numPerPage){location.href='flashList.fl?cPage='+cPage;}
     					
     					for(var i in list.list){
+    						console.log(list.list);
     						console.log(new Date(list.list[i].fmeetDate));
     						var fullDate = (new Date(list.list[i].fmeetDate));
     						var year = fullDate.getFullYear();
@@ -147,14 +154,14 @@
 		    				              '<div class="text p-4">' +
 		    				                '<div class="meta">' +
 		    				                  '<div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=' + list.list[i].fno + '"' + '>' + year + '-' + fmonth + '-' + day + '  ' + list.list[i].fmeetTime + '</a></div>' +
-		    				                  '<div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=' + list.list[i].fno + '"' + '>' + list.list[i].userId + '</a></div>' +
+		    				                  '<div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=' + list.list[i].fno + '"' + '>' + list.list[i].fwriter + '</a></div>' +
 		    				                '</div>' +
 		    				                '<div style="height: 120px;">' +
 		    				                '<h3 class="heading"><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=' + list.list[i].fno + '"' + '>' + list.list[i].ftitle + '</a></h3>' +
 		    				                '</div>' +
 		    				                '<p class="clearfix">' +
 		    				                  '<a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=' + list.list[i].fno + '"' + 'class="float-left">Read more</a>' +
-		    				                  '<a href="#" class="float-right meta-chat"><span class="icon-chat"></span> 3</a>' +
+		    				                  '<a href="#" class="float-right meta-chat"><span class="icon-chat"></span>' + '&nbsp;' + list.list[i].commentCount + '</a>' +
 		    				                '</p>' +
 		    				              '</div>' +
 		    				            '</div>' +

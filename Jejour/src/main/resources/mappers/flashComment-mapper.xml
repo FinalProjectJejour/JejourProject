@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="flashCommentMapper">
+	
+	<resultMap type="FlashComment" id="resultComment">
+		<id property="fcNo" column="FCNO"/>
+		<id property="reffcNo" column="REF_FCNO"/>
+	</resultMap>
+	
+	<select id="selectComment" parameterType="_int" resultMap="resultComment">
+		SELECT * FROM FLASH_COMMENT
+		WHERE FNO = #{fNo}
+		ORDER BY FCNO ASC
+	</select>
+	
+	<insert id="insertComment" parameterType="FlashComment">
+		INSERT INTO FLASH_COMMENT
+		VALUES(SEQ_FCNO.NEXTVAL, #{fNo}, #{userId}, #{fcWriter}, #{fcContent}, DEFAULT, #{reffcNo}, #{fcLevel})
+	</insert>
+	
+	<delete id="deleteComment" parameterType="_int">
+		DELETE FROM FLASH_COMMENT
+		WHERE FCNO = #{fcNo}
+	</delete>
+	
+	<select id="selectOneComment" resultMap="resultComment">
+		SELECT * FROM FLASH_COMMENT
+		WHERE FCNO = (SELECT MAX(FCNO) FROM FLASH_COMMENT)
+	</select>
+	
+	<update id="updateComment">
+		UPDATE FLASH_COMMENT SET FCCONTENT = #{fcContent}
+		WHERE FCNO = #{fcNo}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+

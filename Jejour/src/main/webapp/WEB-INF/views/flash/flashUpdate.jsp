@@ -82,7 +82,6 @@
               <p><label style="width: 15%;">장소 :</label><input type="text" name="fMapTitle" id="fMapTitle" placeholder="ex)밑의 지도에서 검색하여 핀을 클릭하세요!" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)밑의 지도에서 검색하여 핀을 클릭하세요!'" required class="multi-input" value="${FlashBoard.FMapTitle}"></p>
               <p><label style="width: 15%;">내용 :</label><input type="text" name="fContent" placeholder="ex)같이 맛있게 먹고 노실 분!" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)같이 맛있게 먹고 노실 분!'" required class="multi-input" value="${FlashBoard.FContent}"></p>
               <input type="hidden" id="fNo" name="fNo" value="${FlashBoard.FNo}">
-              <input type="hidden" id="userId" name="userId" value="${FlashBoard.userId}">
               <input type="hidden" id="fMapX" name="fMapX" value="${FlashBoard.FMapX}">
               <input type="hidden" id="fMapY" name="fMapY" value="${FlashBoard.FMapY}">
               <!-- input hidden으로 경도, 위도 받아오기! -->

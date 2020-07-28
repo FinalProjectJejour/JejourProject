@@ -14,6 +14,7 @@ public class FlashComment {
 	private int fcNo;
 	private int fNo;
 	private String userId;
+	private String fcWriter;
 	private String fcContent;
 	private Date fcDate;
 	private int reffcNo;
