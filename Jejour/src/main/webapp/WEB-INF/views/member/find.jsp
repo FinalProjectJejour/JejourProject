@@ -11,10 +11,14 @@
 <style>
        
        *{
-         margin: 0; padding: 0;
-          font-size:15px; 
-          line-height:1.3;
+         
+         margin: 0;
+         padding: 0;
+         font-size:15px; 
+         line-height:1;
+        
         }
+        
         ul{list-style:none;}
         
       
@@ -30,7 +34,8 @@
         }
         
         .card-title {
-           text-align: center; font-size : 1.5rem;
+           text-align: center;
+           font-size : 1.5rem;
            margin : 20px;
            font-weight: bold;
            font-size: 1.5rem;
@@ -41,23 +46,30 @@
         }
         
         #tb{
-        margin : 30px;
-
-        text-align:center;
-        border: 1px black solid;
+        margin-left: 75px;
+        margin-top : 40px;
+        padding : auto;
+		text-align:center;
         border-radius: 1rem;
-        }
+		}
         
         .searchbtn {
-           border: 0;
-           border-radius: 1rem;
+           border : 0;
+           border-radius: 10px;
            letter-spacing: .1rem;
            font-weight: bold;
            padding: 1rem;
            color: black;
            width: 100px;
-           height: 55px;
-           background:rgba(0,51,153,.5);
+           height: 70px;
+           background:rgba(0,51,153,.4);
+        }
+        
+        .searchbtn:hover
+        { color : white;
+         border : 1px white solid;
+         cursor: pointer;
+        
         }
         
         header {
@@ -78,18 +90,28 @@
            color: black;
            background:rgba(0,51,153,.5);
         }
+            
+        table.formtag {
+        	
+        	border-radius: 5px;
+        	background-color: #f2f2f2;
+        	padding: 40px;
+        
+        }
+
+
         
         </style>
 </head>
 <body>
 
 <header>
-    <img src="${pageContext.request.contextPath}/resources/images/LOGO_white.png" width="150"
+    <img src="${pageContext.request.contextPath}/resources/images/jejulogo.png" width="150"
        alt="logo" style = " left : 15px; "/>
 </header>
  
    
-        <h3 class="card-title" style="margin-top:30px;">아이디 찾기</h3>
+        <h3 class="card-title" style="margin-top:60px;">아이디 찾기</h3>
           <form action="${pageContext.request.contextPath}/member/memberFindid.do" class="findid" method="get">
           <div id ="tb">
              
@@ -99,22 +121,25 @@
                    <td>
                    	  <div class="form-label-group" >
                          <input type="text" id="name" name="name" class="name"
-                            placeholder="성명" required autofocus>
+                            placeholder="성명" style="height:30px;"required autofocus>
                       </div>
                    </td>
                    <td rowspan="3">
                        <div>
-                          <button class="searchbtn" type="submit">찾기</button>
+                          <button class="searchbtn" type="submit" style="margin-top:20px;">찾기</button>
                        </div>
+                  <br><br><br>    
                   </td>
             </tr>
             <tr>
                 <td>이메일 입력</td>
                 <td>
                     <div class="form-label-group">
-                        <input type="text" id="email" name="email" class="email" required>
+                        <input type="text" id="email" name="email" class="email"
+                        style="height:30px;" placeholder="example@example.com" required>
                     </div>
-                </td>              
+                </td>
+                <td></td>             
            	</tr>
            	
          </table>

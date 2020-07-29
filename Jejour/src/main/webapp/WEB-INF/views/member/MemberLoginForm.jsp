@@ -3,15 +3,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% 
+   request.setCharacterEncoding("UTF-8");  //한글깨지면 주석제거
+   //request.setCharacterEncoding("EUC-KR");  //해당시스템의 인코딩타입이 EUC-KR일경우에
+   String email = request.getParameter("email"); 
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Login & Sign Up</title>
 
-<%-- <link rel = "stylesheet" href ="${pageContext.request.contextPath}/resources/assets/plugins/bootstrap/css/bootstrap.min.css">  --%>
+
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="../resources/js/jquery-3.5.1.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.min.js"></script>
 
 </head>
    <style>
@@ -114,9 +119,7 @@ a{color:inherit;text-decoration:none}
 	background:#1161ee;
 }
 
-#dupliCheck {
-    background:#1161ee;
-}
+
 
 .Phone {
     width: 29%;
@@ -194,16 +197,32 @@ a{color:inherit;text-decoration:none}
 .foot-lnk{
 	text-align:center;
     color:white;
+    
 }
 
 div#userId-container{position:relative;}
-div#userId-container span.guide {display:none;font-size: 12px;position:absolute; top:12px; right:10px; margin-top:37px; margin-right: 25px;}
+div#userId-container span.guide{display:none;
+								font-size: 12px;
+								position:absolute;
+								top:12px; right:10px;
+								margin-top:37px;
+								margin-right: 35px;}
 div#userId-container span.ok{color:green;}
 div#userId-container span.error, span.invalid{color:red;}
 div#email-container{position:relative;}
-div#email-container span.guide {display:none;font-size: 12px;position:absolute; top:12px; right:10px; margin-top:37px; margin-right: 25px;}
+div#email-container span.guide {display:none;
+								font-size: 12px;
+								position:absolute;
+								top:12px; right:10px;
+								margin-top:42px;
+								margin-right: 100px;}
 div#email-container span.ok{color:green;}
 div#email-container span.error{color:red;}    
+
+button, .button{
+	cursor: pointer;
+}
+
 </style>
 
 <body>
@@ -242,14 +261,15 @@ div#email-container span.error{color:red;}
                     <div class="hr"></div>
                     <div class="foot-lnk">
                         <a href = '${pageContext.request.contextPath}/member/memberfindidForm.do' 
-                        onclick = "window.open(this.href, '개인정보 찾기','width = 600, height = 350');return false">아이디/비밀번호 찾기</a>
+                        onclick = "createPopupWin('memberfindidForm.do',
+                            '개인정보 찾기', 600, 400);return false">아이디/비밀번호 찾기</a>
                     </div>
                 </div>
              </form>
            <!-- 로그인폼의 끝 -->
                
            <!-- 회원가입 -->    
-           <form action="${pageContext.request.contextPath}/member/memberinsert.do" method="post">
+           <form action="${pageContext.request.contextPath}/member/memberinsert.do" id="memberinsert" method="post">
                <div class="sign-up-htm">
                     <div class="group" id="userId-container" style="margin-left:40px;">
                         <br>
@@ -280,7 +300,7 @@ div#email-container span.error{color:red;}
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">비밀번호</label><br>
                         <input id="password1" name="userPwd" type="password" class="input" data-type="password" style="width: 90%;"
-                        		placeholder="영문과 숫자조합 최소 6~18자리 " required oninvalid="this.setCustomValidity('비밀번호를 입력해주세요')">
+                        		placeholder="영문,숫자 6~18자리 " required oninvalid="this.setCustomValidity('비밀번호를 입력해주세요')">
                     </div>
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">비밀번호 확인</label><br>
@@ -289,16 +309,23 @@ div#email-container span.error{color:red;}
                         
                         <!-- 비밀번호 확인 -->
                         <label id="pwdResult" class="pwdResult" for="pwdResult"></label>
-                    </div>
+                    </div>  
+  
                     <div class="group" id="email-container" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">이메일</label><br><br>
-                        <input id="email" type="text" class="input" name="email" style="width: 90%;" required oninvalid="this.setCustomValidity('이메일을 입력해주세요')"
-                        placeholder="asd123@qwert.com">
+                        <input id="email" type="email" class="input" name="email" style="width: 70%;" required
+                        	   oninvalid="this.setCustomValidity('이메일을 인증해주세요')"
+                        	   placeholder="이메일 인증해주세요!" readonly>
                         <!-- 중복체크 -->
-						<span class="guide ok" style="right:20px;">사용 가능</span>
-						<span class="guide error" style="right:20px;">사용불가</span>
+						<span class="guide ok">사용 가능</span>
+						<span class="guide error">사용불가</span>
 						<input type="hidden" name="checkEmailDup" id="checkEmailDup" value="0"/>
+                        
+                        <button class="input"
+                        onclick = "createEmailCer('certifyForm.do',
+                            '이메일 인증', 600, 400);return false" style="color:white; background-color:#1161ee;">인증</button>
 				   </div>
+
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">연락처</label><br>
                         <input type="text" id="Phone" name="phone" class="Phone" style="width: 90%;" placeholder="-없이입력">
@@ -310,7 +337,7 @@ div#email-container span.error{color:red;}
                         <br>
 						<input type="text" class="input" id="zipCode"
 												name="zipCode" style="width: 70%;" required>
-						<button type="button" class="input" onclick="addrSearch();">검색</button>
+						<button type="button" class="input" style="color:white; background-color:#1161ee;" onclick="addrSearch();">검색</button>
                         <br><br>
                         <label for="pass" class="label" style="font-size: 18px;">주소</label>
                         <br>
@@ -322,7 +349,8 @@ div#email-container span.error{color:red;}
                     </div>				
                     <br>
                     <div class="group" style="text-align:center; margin-top:30px;">
-                        <input type="submit" class="button" value="Sign Up" style="width: 80%; font-size: 20px; font-weight: bold;">
+                    	<button type="button" class="button" style="width: 80%; font-size: 20px; font-weight: bold;" onclick="updateMember();">Sign up</button>
+                        <!-- <input type="submit" class="button" value="Sign Up" style="width: 80%; font-size: 20px; font-weight: bold;"> -->
                     </div>
                 
                 </div>
@@ -334,6 +362,28 @@ div#email-container span.error{color:red;}
 
 
 <script>
+	
+
+	function createPopupWin(pageURL, pageTitle,popupWinWidth, popupWinHeight)
+	{ var left = (screen.width - popupWinWidth) / 2; 
+	  var top = (screen.height - popupWinHeight) / 2; 
+				  
+	  var myWindow = window.open(pageURL, pageTitle,  
+				        	'width='  + popupWinWidth 
+				        + ', height=' + popupWinHeight
+				        + ', top='    + top
+				        + ', left='   + left); } 
+	
+	function createEmailCer(pageURL, pageTitle,popupWinWidth, popupWinHeight)
+	{ var left = (screen.width - popupWinWidth) / 2; 
+	  var top = (screen.height - popupWinHeight) / 2; 
+				  
+	  var myWindow = window.open(pageURL, pageTitle,  
+				        	'width='  + popupWinWidth 
+				        + ', height=' + popupWinHeight
+				        + ', top='    + top
+				        + ', left='   + left); }
+
 	$('#memberlogin').submit(function(event){
 		$.ajax({
 			url : '${pageContext.request.contextPath}/member/memberLogincheck.do',
@@ -364,19 +414,6 @@ div#email-container span.error{color:red;}
 		
 	});
 	
-	/* 회원가입시 유효성체크 */
-	function updateMember() {
-		 var confirm = window.confirm("이대로 회원가입 하시겠습니까?");
-		 
-		if($('.fail').length == 0 && confirm){
-			$("#memberinsert").submit();
-			window.confirm("회원가입을 축하드립니다!");
-       } else {
-           alert('비밀번호 양식에 맞지 않습니다.');
-           event.preventDefault();
-     
-       }
-	};
 	
 	/* 비밀번호 양식 */
 		$('#password1').change(function() {
@@ -495,10 +532,11 @@ div#email-container span.error{color:red;}
 				}).open();
 	};
 	
+	
 	$(function(){
 		
 		/* 이메일 유효성 체크 */
-		$("#email").on("change",function() {
+		$("#email").on("keyup",function() {
 	            
 			var re2 = /^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.([a-z\.]{2,9})$/g;
 	            
@@ -578,9 +616,19 @@ div#email-container span.error{color:red;}
 			        	});
 			     	}
 				});
-	
+		/* 회원가입시 유효성체크 */
+		
+		function updateMember() {
+			var confirm = window.confirm("이대로 회원가입 하시겠습니까?");
+			 
+			if($('.fail').length == 0 && confirm){
+				$("#memberinsert").submit();
+	       } else {
+	           alert('비밀번호 양식에 맞지 않습니다.');
 
-		function validate(){
+	           event.preventDefault();
+	      }
+		
 			var userId = $("#userIdcheck");
 			if(userId.val().trim().length<4){
 				alert("아이디는 최소 4자리이상이어야 합니다.");

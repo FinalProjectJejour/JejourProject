@@ -125,7 +125,6 @@ a{color:inherit;text-decoration:none}
     background:rgba(255,255,255,.9);
     
 }
-
 .RRN {
     width: 45%;
     border:none;
@@ -287,7 +286,7 @@ a{color:inherit;text-decoration:none}
                     </div>
                     <br>
                     <div class="group" style="text-align:center;">
-                    	<button type="button" class="btn hover4"" style="width: 90%; font-size: 20px; font-weight: bold;" onclick="goMain();">홈으로</button>
+                    	<button type="button" class="btn hover4" style="width: 90%; font-size: 20px; font-weight: bold;" onclick="goMain();">홈으로</button>
                     </div>
                 </div>
                </form>

@@ -181,8 +181,11 @@ public class MemberController {
 		@RequestMapping("/member/memberUpdateFormView.do")
 		public String memberUpdateFormView() {
 		
-				return "member/MemberUpdateForm";
-			}
+				
+			
+			return "member/MemberUpdateForm";
+			
+		}
 	
 	
 	
