@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.jejour.hotspotBoard.model.exception.HotspotBoardException;
 import com.kh.jejour.hotspotBoard.model.service.HotspotService;
 import com.kh.jejour.hotspotBoard.model.vo.HotspotBoard;
+import com.kh.jejour.hotspotLike.model.service.HotspotLikeService;
 import com.kh.jejour.common.util.HotspotUtils;
 
 
@@ -29,6 +30,9 @@ public class HotspotController {
 	
 	@Autowired
 	HotspotService hotspotService;
+	
+	@Autowired
+	HotspotLikeService hotspotLikeService;
 	
 	@RequestMapping("/hotspotBoard/hotspotInsert.ho")
 	public String goHotspotInsertBoard() {
@@ -40,8 +44,11 @@ public class HotspotController {
 		System.out.println("no : "+  no);
 		HotspotBoard h = hotspotService.hotspotSelectOne(no);
 		System.out.println("h : " + h);
+
 		
 		model.addAttribute("hotspotBoard", h);
+		model.addAttribute("like" , hotspotLikeService.hotspotLikeCountSelect(no));
+		model.addAttribute("unlike", hotspotLikeService.hotspotUnLikeCountSelect(no));
 		
 		return "hotspot/hotspotDetail";
 	}
@@ -174,9 +181,7 @@ public class HotspotController {
 	@RequestMapping("/hotspotBoard/hotspotUpdateView.ho")
 	public String boardUpdateView(@RequestParam int no, Model model) {
 		
-		
-		  model.addAttribute("HotspotBoard", hotspotService.hotspotSelectOne(no));
-		  
+		model.addAttribute("HotspotBoard", hotspotService.hotspotSelectOne(no));
 		
 		return "hotspot/hotspotUpdateView";
 	}

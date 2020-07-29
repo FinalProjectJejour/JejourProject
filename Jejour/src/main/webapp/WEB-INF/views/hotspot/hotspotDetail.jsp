@@ -28,20 +28,39 @@
             <h2 class="mb-3">${hotspotBoard.HTitle}</h2>
             <br>
             <div class="meta text-left" style="color: tomato; font-weight: 400; margin-top: -15px;">
-              작성자 : ${hotspotBoard.HWriter} &nbsp;&nbsp;
-              작성일 : ${hotspotBoard.HDate}
+				작성자 : ${hotspotBoard.HWriter} &nbsp;&nbsp;
+				작성일 : ${hotspotBoard.HDate}
             </div>
             <br>
             ${hotspotBoard.HContent}
-            <!-- 좋아요 싫어요 img and button -->
+            <br>
+            <br>
+            <br>
+            <br>
+            <!-- 좋아요 싫어요 img and button -------------------------------->
             <div class="mx-auto" style="text-align: center;">
-                <img class ="img" src="${pageContext.request.contextPath}/resources/images/like.jpg" alt="" onclick="" >
+                <img class ="img" src="${pageContext.request.contextPath}/resources/images/like.jpg" id="1" onclick="like();" >
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <img class ="img" src="${pageContext.request.contextPath}/resources/images/unlike.jpg" alt="" onclick="">
+                <img class ="img" src="${pageContext.request.contextPath}/resources/images/unlike.jpg" id="2" onclick="unlike();">
               <br>
               <!-- 좋아요 갯수 -->
-              <h2 style=>0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</h2>
-
+              <h2><span class="likeCount">${like}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="unlikeCount">${unlike}</span></h2>
+			  <br>
+			  
+			  
+			  <div class="text-right">
+              <input type="hidden" name="cno" value="11"/>
+              <c:if test="${member.userId eq hotspotBoard.userId}">
+              <button type="button" class="updateBtn btn btn-md btn-info" 
+                      onclick="goUpdate();" style="border-radius: 10px;">수정하기</button>
+              <button type="button" class="deleteBtn btn btn-md btn-info"
+                       onclick="goDelete();" style="border-radius: 10px;">삭제하기</button> &nbsp;
+              </c:if>
+              </div>
+              <br>
+			  <br>
+			  <br>
+			  
             </div>
           </div> <!-- .col-md-8 -->
 
@@ -59,15 +78,13 @@
                     <td>2020-07-17</td>
                     <td align="center">
                       <div class="text-right">
-                        <input type="hidden" name="cno" value="11"/>  
+                        <input type="hidden" name="cno" value="11"/>
+                         <c:if test="${member.userId eq hotspotBoard.userId}">
                         <button type="button" class="updateBtn btn btn-md btn-info" 
                           onclick="goUpdate();" style="border-radius: 10px;">수정하기</button>
-           <%--                		    <c:if test="${member.userId eq board.boardWriter}">
-		    &nbsp;
-			<button class="btn btn-outline-info" type="button" onclick="location.href='${pageContext.request.contextPath}/board/boardUpdateView.do?boardNo=${board.boardNo}'">수정 페이지</button>
-			</c:if> --%>
                         <button type="button" class="deleteBtn btn btn-md btn-info"
                           onclick="goDelete();" style="border-radius: 10px;">삭제하기</button> &nbsp;
+                          </c:if>
                       </div>
                     </td>
                   </tr>
@@ -126,6 +143,48 @@
 		function goUpdate(){
 			location.href="${pageContext.request.contextPath}/hotspotBoard/hotspotUpdateView.ho?no=${hotspotBoard.HNo}"
 		};
+		
+		//var obj = {"hNo" : "${hotspotBoard.HNo}", "userId" : "${member.userId}"};
+		function like(){	
+			console.log("${hotspotBoard.HNo}");
+			$.ajax({
+				url:"${pageContext.request.contextPath}/hotspotLike/hotspotLike.ho",
+				type: "post", 
+				data: {
+					hNo : '${hotspotBoard.HNo}',
+					userId : '${member.userId}'
+				},  
+				
+				success: function(likeCount) { 
+						alert("LIKE!   "+ likeCount);
+						$('.likeCount').html(likeCount);
+	
+					},
+					error: function() { 
+					}
+			});
+		}
+		
+		function unlike(){	
+			console.log("${hotspotBoard.HNo}");
+			$.ajax({
+				url:"${pageContext.request.contextPath}/hotspotLike/hotspotUnlike.ho",
+				type: "post", 
+				data: {
+					hNo : '${hotspotBoard.HNo}',
+					userId : '${member.userId}'
+				},  
+				
+				success: function(likeCount) { 
+						alert("LIKE!   "+ likeCount);
+						$('.unlikeCount').html(likeCount);
+	
+					},
+					error: function() { 
+					}
+			});
+		}
+
     </script>
 
     <!------------------------------------------------------------------------------------------------------->
