@@ -34,6 +34,8 @@
 <section class="ftco-section">
 	<div class="container">
 		<form action="boardInsert.ho">
+		<input type="hidden" name="userId" value="${member.userId}">
+		<input type="hidden" name="hWriter" value="${member.userName}">
 			<div class="row">
 				<div class="col-md-8 ftco-animate mx-auto">
 					<!-- 제목이 들어갈 부분 -->
@@ -147,6 +149,8 @@
 	function fn_gohotspotlist(){
 		location.href = "${pageContext.request.contextPath}/hotspotBoard/hotspotList.ho";
 	}
+	
+	
 </script>
 
 

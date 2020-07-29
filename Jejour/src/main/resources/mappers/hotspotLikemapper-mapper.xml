@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotspotLikeMapper">
+
+ 	<select id="hotspotLikeCount" parameterType="_int" resultType="_int">
+		SELECT COUNT (DISTINCT USERID)
+		FROM HOTSPOT_LIKE
+		WHERE HNO = #{hNo} AND GOOD = 'Y'
+	</select>
+	
+	<select id="hotspotUnLikeCount" parameterType="_int" resultType="_int">
+		SELECT COUNT (DISTINCT USERID)
+		FROM HOTSPOT_LIKE
+		WHERE HNO = #{hNo} AND GOOD = 'N'
+	</select>
+
+	<insert id="hotspotLikeInsert" parameterType="HotspotLike">
+		INSERT INTO HOTSPOT_LIKE
+		VALUES (#{hNo}, #{userId}, 'Y')
+	</insert>
+	
+	<insert id="hotspotUnlikeInsert" parameterType="HotspotLike">
+		INSERT INTO HOTSPOT_LIKE
+		VALUES (#{hNo}, #{userId}, 'N')
+	</insert>
+	
+</mapper> 
+
+
+
+
+
+
+
+
+
+

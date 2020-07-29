@@ -17,11 +17,11 @@
 		FROM HOTSPOT_BOARD
 	</select>
 
-	<insert id="hotspotInsert">
+	<insert id="hotspotInsert" parameterType="HotspotBoard">
 		INSERT INTO HOTSPOT_BOARD(HNO, USERID, HTITLE, HCONTENT, HWRITER,
 			HCOUNT, HDATE, HSTATUS, HPREVIEW)
 		VALUES
-		(SEQ_HNO.NEXTVAL,'admin',#{hTitle},#{hContent},#{hWriter},
+		(SEQ_HNO.NEXTVAL,#{userId},#{hTitle},#{hContent},#{hWriter},
 			0, DEFAULT, DEFAULT, #{hPreview}
 			 )
 		<!-- 전달한 board객체의 boardNo 프로퍼티에 결과값을 담는다. -->
@@ -29,15 +29,6 @@
 					SELECT SEQ_BOARDNO.CURRVAL FROM DUAL 
 					</selectKey> -->
 	</insert>
-	
-	<!-- <insert id="insertAttachment">
-		다른방식
-		<selectKey keyProperty="boardNo" resultType="_int" order="BEFORE"> 
-			SELECT SEQ_BOARDNO.CURRVAL FROM DUAL 
-		</selectKey>
-		INSERT INTO ATTACHMENT(ATTACHMENTNO, BOARDNO, ORIGINALFILENAME,RENAMEDFILENAME) 
-		VALUES (SEQ_ATTACHMENTNO.NEXTVAL, #{boardNo}, #{originalFileName}, #{renamedFileName})
-	</insert>-->
 	
 	<select id="hotspotSelectOne" parameterType="_int" resultType="HotspotBoard">
 		SELECT * 
@@ -52,31 +43,12 @@
 		WHERE HNO = #{hNo}
 	</update>
 	
-	<!--  
-	<insert id="updateAttachment" parameterType="Attachment">
-		INSERT INTO ATTACHMENT 
-		VALUES (SEQ_ATTACHMENTNO.NEXTVAL, #{boardNo}, 
-				#{originalFileName}, #{renamedFileName},
-				DEFAULT,DEFAULT,DEFAULT)
-	</insert>
-	
-	<delete id="deleteAttachment" parameterType="_int">
-		DELETE FROM ATTACHMENT
-		WHERE BOARDNO = #{boardNo}
-	</delete>
-	-->
-	
 	<update id="hotspotDelete" parameterType="HotspotBoard">
 		UPDATE HOTSPOT_BOARD SET
 		HSTATUS = 'N'
 		WHERE HNO = #{hNo}
 	</update>
 	
-	<!--  
-	<delete id="deleteAttachmentOne" parameterType="_int">
-		DELETE FROM ATTACHMENT
-		WHERE ATTACHMENTNO = #{attNo}
-	</delete>-->
 </mapper> 
 
 
