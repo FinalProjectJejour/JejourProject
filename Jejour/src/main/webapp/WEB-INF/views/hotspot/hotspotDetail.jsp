@@ -144,7 +144,7 @@
 			location.href="${pageContext.request.contextPath}/hotspotBoard/hotspotUpdateView.ho?no=${hotspotBoard.HNo}"
 		};
 		
-		//var obj = {"hNo" : "${hotspotBoard.HNo}", "userId" : "${member.userId}"};
+		// 좋아요 AJAX
 		function like(){	
 			console.log("${hotspotBoard.HNo}");
 			$.ajax({
@@ -156,15 +156,58 @@
 				},  
 				
 				success: function(likeCount) { 
+					
+					console.log("likeCount : " + likeCount);
+					
+					if(likeCount == 0){
+						
+					  likeCheck();
+						
+					} else if(likeCount != 0){
+						
 						alert("LIKE!   "+ likeCount);
 						$('.likeCount').html(likeCount);
+					};
 	
-					},
-					error: function() { 
-					}
+				},
+				error: function() { 
+				}
 			});
-		}
+		};
 		
+		function likeCheck(){	
+			$.ajax({
+				url:"${pageContext.request.contextPath}/hotspotLike/likeCheck.ho",
+				type: "post", 
+				data: {
+					hNo : '${hotspotBoard.HNo}',
+					userId : '${member.userId}'
+				},  
+				
+				success: function(data) { 
+					
+					console.log("data : " + data.likeCount);
+					console.log("data : " + data.unlikeCount);
+					console.log("data : " + data.non);
+					
+					if(data.non == 0){
+						
+						alert("이미 좋아요 클릭 되었습니다.");
+						
+					} else if(data.non != 0){
+						
+						alert("LIKE!   "+ data.likeCount);
+						$('.likeCount').html(data.likeCount);
+						$('.unlikeCount').html(data.unlikeCount);
+					};
+				},
+				error: function() { 
+				}
+			});
+		};
+		
+		
+		// 싫어요 AJAX
 		function unlike(){	
 			console.log("${hotspotBoard.HNo}");
 			$.ajax({
@@ -176,15 +219,56 @@
 				},  
 				
 				success: function(likeCount) { 
-						alert("LIKE!   "+ likeCount);
-						$('.unlikeCount').html(likeCount);
-	
+					
+					console.log("likeCount : " + likeCount);
+					
+						if(likeCount == 0){
+							
+							unlikeCheck();
+							
+						} else if(likeCount != 0){
+							
+							alert("LIKE!   "+ likeCount);
+							$('.unlikeCount').html(likeCount);
+						};
 					},
 					error: function() { 
 					}
 			});
-		}
-
+		};
+		
+		function unlikeCheck(){	
+			$.ajax({
+				url:"${pageContext.request.contextPath}/hotspotLike/unlikeCheck.ho",
+				type: "post", 
+				data: {
+					hNo : '${hotspotBoard.HNo}',
+					userId : '${member.userId}'
+				},  
+				
+				success: function(data) { 
+					
+					console.log("data : " + data.likeCount);
+					console.log("data : " + data.unlikeCount);
+					console.log("data : " + data.non);
+					
+					if(data.non == 0){
+						
+						alert("이미 싫어요 클릭 되었습니다.");
+						
+					} else if(data.non != 0){
+						
+						alert("UNLIKE!   "+ data.unlikeCount);
+						$('.likeCount').html(data.likeCount);
+						$('.unlikeCount').html(data.unlikeCount);
+					};
+				},
+				error: function() { 
+				}
+			});
+		};
+	
+		
     </script>
 
     <!------------------------------------------------------------------------------------------------------->

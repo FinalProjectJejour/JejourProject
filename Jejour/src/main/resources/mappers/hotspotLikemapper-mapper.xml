@@ -26,6 +26,43 @@
 		VALUES (#{hNo}, #{userId}, 'N')
 	</insert>
 	
+	<select id="hotspotCheckSelect" parameterType="HotspotLike" resultType="_int">
+		SELECT COUNT (*)
+		FROM HOTSPOT_LIKE
+		WHERE HNO = #{hNo} AND USERID= #{userId}
+	</select>
+	
+	<select id="likeCheck" parameterType="HotspotLike" resultType="_int">
+		SELECT COUNT (*)
+		FROM HOTSPOT_LIKE
+		WHERE HNO = #{hNo} AND USERID= #{userId} AND GOOD = 'Y'
+	</select>
+	
+	<update id ="likeUpdate" parameterType="HotspotLike">
+		UPDATE HOTSPOT_LIKE SET
+		GOOD ='Y'
+		WHERE HNO = #{hNo} AND USERID= #{userId}
+	</update>
+	
+	
+<!-- 	<select id="likeCheck" parameterType="HotspotLike" resultType="_int">
+		SELECT COUNT (*)
+		FROM HOTSPOT_LIKE
+		WHERE HNO = #{hNo} AND USERID= #{userId} AND GOOD = 'N'
+	</select> -->
+	
+	<select id="unlikeCheck" parameterType="HotspotLike" resultType="_int">
+		SELECT COUNT (*)
+		FROM HOTSPOT_LIKE
+		WHERE HNO = #{hNo} AND USERID= #{userId} AND GOOD = 'N'
+	</select>
+	
+	<update id ="unlikeUpdate" parameterType="HotspotLike">
+		UPDATE HOTSPOT_LIKE SET
+		GOOD ='N'
+		WHERE HNO = #{hNo} AND USERID= #{userId}
+	</update>
+	
 </mapper> 
 
 

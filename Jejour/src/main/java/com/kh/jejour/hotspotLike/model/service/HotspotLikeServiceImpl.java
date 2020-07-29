@@ -37,4 +37,35 @@ public class HotspotLikeServiceImpl implements HotspotLikeService {
 		return hotspotLikeDAO.hotspotUnLikeCountSelect(hNo);
 	}
 
+	@Override
+	public int hotspotCheckSelect(HotspotLike hotspotLike) {
+	
+		return hotspotLikeDAO.hotspotCheckSelect(hotspotLike);
+	}
+
+	@Override
+	public int likeCheck(HotspotLike hotspotLike) {
+		
+		return hotspotLikeDAO.likeCheck(hotspotLike);
+	}
+
+	@Override
+	public int likeUpdate(HotspotLike hotspotLike) {
+		
+		return hotspotLikeDAO.likeUpdate(hotspotLike);
+	}
+	
+	@Override
+	public int unlikeCheck(HotspotLike hotspotLike) {
+		
+		return hotspotLikeDAO.unlikeCheck(hotspotLike);
+	}
+
+	@Override
+	public int unlikeUpdate(HotspotLike hotspotLike) {
+		
+		return hotspotLikeDAO.unlikeUpdate(hotspotLike);
+	}
+	
+
 }
