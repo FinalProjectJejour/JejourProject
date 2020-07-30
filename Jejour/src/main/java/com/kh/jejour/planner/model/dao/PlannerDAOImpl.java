@@ -28,6 +28,18 @@ public class PlannerDAOImpl implements PlannerDAO {
 		return sqlSession.insert("plannerMapper.insertAttachment", a);
 	}
 	
+	public Planner selectOnePlanner(int pNo) {
+		
+		return sqlSession.selectOne("plannerMapper.selectOnePlanner", pNo);
+	}
+
+	@Override
+	public int setStatus(Planner planner) {
+		return sqlSession.update("plannerMapper.updateStatus", planner);
+		
+	}
+	
+	
 	
 
 }

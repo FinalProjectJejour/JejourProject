@@ -18,5 +18,11 @@ public interface PlannerService {
 		int insertAttachment(Planner planner, List<Attachment> attachList);
 		
 		int settingPlanner(Planner planner);
+
+		Planner selectOnePlanner(int pNo);
+
+		int setStatus(Planner planner);
+
+		// Planner selectOnePlanner(int pNo);
 	
 }

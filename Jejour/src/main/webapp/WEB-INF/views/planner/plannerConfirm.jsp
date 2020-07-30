@@ -12,123 +12,34 @@
     
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/animate.css">
     
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/aos.css">
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/ionicons.min.css">
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery.timepicker.css">
 
     
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/flaticon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/icomoon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
     
-    <link href='lib/main.css' rel='stylesheet' />
-    <script src='lib/main.js'></script>
-    <script>
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
+    <link href='${pageContext.request.contextPath }/resources/lib/main.css' rel='stylesheet' />
+    <script src='${pageContext.request.contextPath }/resources/lib/main.js'></script>
     
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          now: '2020-06-07',
-          editable: true, // enable draggable events
-          aspectRatio: 1.8,
-          scrollTime: '00:00', // undo default 6am scrollTime
-          headerToolbar: {
-            left: 'today prev,next',
-            center: 'title',
-            right: 'resourceTimelineDay,resourceTimelineThreeDays,timeGridWeek,dayGridMonth'
-          },
-          initialView: 'resourceTimelineDay',
-          views: {
-            resourceTimelineThreeDays: {
-              type: 'resourceTimeline',
-              duration: { days: 3 },
-              buttonText: '3 days'
-            }
-          },
-          resourceAreaHeaderContent: 'Rooms',
-          resourceLabelContent: function(arg) {
-            return 'Auditorium ' + arg.resource.id.toUpperCase();
-          },
-          resourceLabelDidMount: function(arg) {
-            if (arg.resource.id == 'h') {
-              arg.el.style.backgroundColor = 'rgb(255, 243, 206)';
-            }
-          },
-          resources: [
-            { id: 'a' },
-            { id: 'b', eventColor: 'green' },
-            { id: 'c', eventColor: 'orange' },
-            { id: 'd' },
-            { id: 'e' },
-            { id: 'f', eventColor: 'red' },
-            { id: 'g' },
-            { id: 'h' },
-            { id: 'i' }
-          ],
-          events: [
-            { id: '1', resourceId: 'b', start: '2020-06-07T02:00:00', end: '2020-06-07T07:00:00', title: 'event 1' },
-            { id: '2', resourceId: 'c', start: '2020-06-07T05:00:00', end: '2020-06-07T22:00:00', title: 'event 2' },
-            { id: '3', resourceId: 'd', start: '2020-06-06', end: '2020-06-08', title: 'event 3' },
-            { id: '4', resourceId: 'e', start: '2020-06-07T03:00:00', end: '2020-06-07T08:00:00', title: 'event 4' },
-            { id: '5', resourceId: 'f', start: '2020-06-07T00:30:00', end: '2020-06-07T02:30:00', title: 'event 5' }
-          ]
-        });
-    
-        calendar.render();
-      });
-
-      
-    
-    </script>
+    <c:import url="../common/header.jsp"/>
   </head>
   <body>
     
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-      <div class="container">
-        <a class="navbar-brand" href="index.html">Voyage</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="oi oi-menu"></span> Menu
-        </button>
-
-        <div class="collapse navbar-collapse" id="ftco-nav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="services.html" class="nav-link">Tours</a></li>
-            <li class="nav-item"><a href="hotels.html" class="nav-link">Hotels</a></li>
-            <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-            <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-            <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-            <li class="nav-item active"><a href="contact.html" class="nav-link">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- END nav -->
     
-    <section class="home-slider owl-carousel">
-      <div class="slider-item" style="background-image: url('images/bg_5.jpg');" data-stellar-background-ratio="0.5">
-        <div class="overlay"></div>
-        <div class="container">
-          <div class="row slider-text align-items-center">
-            <div class="col-md-7 col-sm-12 ftco-animate">
-              <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Contact</span></p>
-              <h1 class="mb-3">Contact</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    
     <!-- END slider -->
 
     <section class="ftco-section contact-section">
@@ -137,63 +48,18 @@
         <div class="row mt-5">
           <div class="col-md-12" id="map"></div>
         </div>
-        <!--
-        <div class="row block-9 mb-4">
-          <div class="col-md-6 pr-md-5 flex-column">
-            <div class="row d-block flex-row">
-              
-              
-              <div class="col mb-3 d-flex py-4 border" style="background: white;">
-                <div class="align-self-center">
-                  <p class="mb-0"><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
-                </div>
-              </div>
-              <div class="col mb-3 d-flex py-4 border" style="background: white;">
-                <div class="align-self-center">
-                  <p class="mb-0"><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
-                </div>
-              </div>
-              <div class="col mb-3 d-flex py-4 border" style="background: white;">
-                <div class="align-self-center">
-                  <p class="mb-0"><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
-                </div>
-              </div>
-              <div class="col mb-3 d-flex py-4 border" style="background: white;">
-                <div class="align-self-center">
-                  <p class="mb-0"><span>Website</span> <a href="#">yoursite.com</a></p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <form action="#">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Name">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Your Email">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Subject">
-              </div>
-              <div class="form-group">
-                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
-              </div>
-              <div class="form-group">
-                <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
-              </div>
-            </form>
-          </div>
-        </div>
-        -->
+        
         <div id='calendar'></div>
-        <div class="form-group" style="float:right">
-          <input type="radio" name="status" value="Y" checked>공개
-            &nbsp;&nbsp;&nbsp;
-          <input type="radio" name="status" value="">비공개
-            &nbsp;&nbsp;&nbsp;
-          <input type="submit" value="일정 완료" class="btn btn-primary py-3 px-4">
-        </div>
+       	<form action="${pageContext.request.contextPath}/planner/planConfirm.do"  id="Plan" method="post">
+	        <div class="form-group" style="float:right" id="confirmed">
+	          <input type="radio" name="status" value="Y" checked>공개
+	            &nbsp;&nbsp;&nbsp;
+	          <input type="radio" name="status" value="N">비공개
+	            &nbsp;&nbsp;&nbsp;
+	          <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+	          <button type="button" class="btn btn-primary py-3 px-4" onclick="planConfirmed();">일정 완료</button>
+	        </div>
+        </form>
       </div>
 
       
@@ -275,22 +141,81 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/bootstrap-datepicker.js"></script>
-  <script src="js/jquery.timepicker.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/popper.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.easing.1.3.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.waypoints.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.stellar.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/owl.carousel.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.magnific-popup.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/aos.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.animateNumber.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/bootstrap-datepicker.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.timepicker.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="js/google-map.js"></script>
-  <script src="js/main.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/google-map.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
+  
+  <script>
+  	
+	function planConfirmed(){
+			
+		$("#Plan").submit();
+			
+	}
+  
+  
+  
+ 	document.addEventListener('DOMContentLoaded', function() {
+  	
+      var calendarEl = document.getElementById('calendar');
+  
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        now: '2020-07-28',
+        editable: true, // enable draggable events
+        aspectRatio: 1.8,
+        scrollTime: '00:00', // undo default 6am scrollTime
+        headerToolbar: {
+          left: 'today prev,next',
+          center: 'title',
+          right: 'resourceTimelineDay,timeGridWeek,dayGridMonth'
+        },
+        initialView: 'resourceTimelineDay',
+        views: {
+          resourceTimelineThreeDays: {
+            type: 'resourceTimeline',
+            duration: { days: 3 },
+            buttonText: '3 days'
+          }
+        },
+        resourceAreaHeaderContent: 'Rooms',
+        resourceLabelContent: function(arg) {
+          return 'Auditorium ' + arg.resource.id.toUpperCase();
+        },
+        resourceLabelDidMount: function(arg) {
+          if (arg.resource.id == 'h') {
+            arg.el.style.backgroundColor = 'rgb(255, 243, 206)';
+          }
+        },
+        resources: [
+      	  <c:forEach items="${list}" var="p" varStatus="loop">
+      	  	{ id: '${p.ppNo}' }
+      	  	<c:if test="${!loop.last}">,</c:if>
+      	  </c:forEach>
+        ],
+        events: [
+      	  	<c:forEach items="${list}" var="pl" varStatus="status">
+    	  			{ id: '${pl.ppNo}', resourceId: '${pl.ppNo}', start: '${pl.startTime}', end: '${pl.endTime}',  title: '${pl.mapTitle}' }
+    	  			<c:if test="${!status.last}">,</c:if>
+    	 		</c:forEach>
+        ]
+      });
+  
+      calendar.render();
+    });
+  </script>
     
   </body>
 </html>

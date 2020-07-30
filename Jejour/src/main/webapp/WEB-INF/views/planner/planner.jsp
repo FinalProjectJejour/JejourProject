@@ -3,6 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%  
+	request.setCharacterEncoding("UTF-8");
+	String no = request.getParameter("no");
+	String title = request.getParameter("title");
+	String theme = request.getParameter("theme");
+	String start_date = request.getParameter("start_date");
+	String return_date = request.getParameter("return_date");
+%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -56,13 +64,32 @@
     
     </style>
   </head>
+  
   <body>
-    
     
     <!-- END nav -->
     
     
     <!-- END slider -->
+    <c:set var="no" value="<%=no %>"/>
+    <c:set var="title" value="<%=title %>"/>
+    <c:set var="theme" value="<%=theme %>"/>
+    <c:set var="start_date" value="<%=start_date %>"/>
+    <c:set var="return_date" value="<%=return_date %>"/>
+    <c:set var="reservationPage" value="window.open('${pageContext.request.contextPath}/planner/goReservation.do', 'reservationPage', 'width=1000,height=800');"/>
+    
+    <!-- 
+    <div style="position: fixed; right: 20px; bottom: 50px;">
+    	<form action="${pageContext.request.contextPath}/planner/goReservation.do" id="goreservation">
+			<button type="button" class="btn btn-primary py-3 px-4" onclick="goreservation()">예매페이지</button>  
+		</form> 
+  	</div>
+  	 -->
+  	 
+  	
+  	
+   
+    <c:if test="${no eq null and pNo eq null }">
     <div class="ftco-section-search">
       <div class="container">
         <div class="row">
@@ -80,7 +107,7 @@
             <div class="tab-content py-5" id="v-pills-tabContent">
               <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead" onsubmit="return validate1();" enctype="multipart/form-data">
+                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead1" onsubmit="return validate1();" enctype="multipart/form-data">
                     <div class="fields d-block d-lg-flex">
                     
                       <!-- <div class="fileArea" style="background-image: url('${pageContext.request.contextPath}/resources/images/insert-picture-icon.jpg'); background-repeat: no-repeat;"> -->
@@ -90,101 +117,106 @@
                       
                       <div class="check-in one-third"><input type="text" name="title" id="title1" class="form-control" placeholder="일정 제목"></div>
 
-                      <div class="check-in one-third"><input type="text" id="start_date" class="form-control" placeholder="Start date"></div>
+                      <div class="check-in one-third"><input type="date" id="start_date1" class="form-control" name="start_date" placeholder="Start date"></div>
 
-                      <div class="check-out one-third"><input type="text" id="return_date" class="form-control" placeholder="Return date"></div>
+                      <div class="check-out one-third"><input type="date" id="return_date1" class="form-control" name="return_date" placeholder="Return date"></div>
                       
                     </div>
                     <input type="hidden" name="theme" id="theme" value="혼자">  
+                    <input type="hidden" name="status" id="status" value="Y"> 
                     <!-- <input type="submit" class="search-submit btn btn-primary" value="나홀로 GO"> -->  
-                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner();">나홀로 GO</button>
+                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner1();">나홀로 GO</button>
                   </form>
                 </div>
               </div>
               <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                 <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead" onsubmit="return validate2();" enctype="multipart/form-data">
+                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead2" onsubmit="return validate2();" enctype="multipart/form-data">
                     <div class="fields d-block d-lg-flex">
                     
                       
 
                       <div class="fileArea2" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile1">
+                      	<input type="file" class="custom-file-input" name="upFile" id="upFile2">
                       </div>
                       
                       <div class="check-in one-third"><input type="text" name="title" id="title2" class="form-control" placeholder="일정 제목"></div>
 
-                      <div class="check-in one-third"><input type="text" id="start_date" class="form-control" placeholder="Start date"></div>
+                      <div class="check-in one-third"><input type="date" id="start_date2" class="form-control" name="start_date" placeholder="Start date"></div>
 
-                      <div class="check-out one-third"><input type="text" id="return_date" class="form-control" placeholder="Return date"></div>
+                      <div class="check-out one-third"><input type="date" id="return_date2" class="form-control" name="return_date" placeholder="Return date"></div>
                       
                     </div>
-                    <input type="hidden" name="theme" id="theme" value="연인">    
-                    <input type="submit" class="search-submit btn btn-primary" value="연인과 함께">  
+                    <input type="hidden" name="theme" id="theme" value="연인">
+                    <input type="hidden" name="status" id="status" value="Y"> 
+                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner2();">연인과 함께</button>
                   </form>
                 </div>
               </div>
               <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                 <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead" onsubmit="return validate3();" enctype="multipart/form-data">
+                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead3" onsubmit="return validate3();" enctype="multipart/form-data">
                     <div class="fields d-block d-lg-flex">
 
                       <div class="fileArea3" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile1">
+                      	<input type="file" class="custom-file-input" name="upFile" id="upFile3">
                       </div>
                       
 					  <div class="check-in one-third"><input type="text" name="title" id="title3" class="form-control" placeholder="일정 제목"></div>
 
-                      <div class="check-in one-third"><input type="text" id="start_date" class="form-control" placeholder="Start date"></div>
+                      <div class="check-in one-third"><input type="date" id="start_date3" class="form-control" name="start_date" placeholder="Start date"></div>
 
-                      <div class="check-out one-third"><input type="text" id="return_date" class="form-control" placeholder="Return date"></div>
+                      <div class="check-out one-third"><input type="date" id="return_date3" class="form-control" name="return_date" placeholder="Return date"></div>
                       
                     </div>
-                    <input type="hidden" name="theme" id="theme" value="친구">    
-                    <input type="submit" class="search-submit btn btn-primary" value="친구랑~">  
+                    <input type="hidden" name="theme" id="theme" value="친구">  
+                    <input type="hidden" name="status" id="status" value="Y">   
+                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner3();">친구랑~</button>
                   </form>
                 </div>
               </div>
               <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
                 <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead" onsubmit="return validate4();" enctype="multipart/form-data">
+                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead4" onsubmit="return validate4();" enctype="multipart/form-data">
                     <div class="fields d-block d-lg-flex">
                       
                       <div class="fileArea4" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile1">
+                      	<input type="file" class="custom-file-input" name="upFile" id="upFile4">
                       </div>
                       
 					  <div class="check-in one-third"><input type="text" name="title" id="title4" class="form-control" placeholder="일정 제목"></div>
 
-                      <div class="check-in one-third"><input type="text" id="start_date" class="form-control" placeholder="Start date"></div>
+                      <div class="check-in one-third"><input type="date" id="start_date4" class="form-control" name="start_date" placeholder="Start date"></div>
 
-                      <div class="check-out one-third"><input type="text" id="return_date" class="form-control" placeholder="Return date"></div>
+                      <div class="check-out one-third"><input type="date" id="return_date4" class="form-control" name="return_date" placeholder="Return date"></div>
 
                       
                     </div>
                     <input type="hidden" name="theme" id="theme" value="부모님">   
-                    <input type="submit" class="search-submit btn btn-primary" value="부모님^^">  
+                    <input type="hidden" name="status" id="status" value="Y"> 
+                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner4();">부모님^^</button>
                   </form>
                 </div>
               </div>
               <div class="tab-pane fade" id="v-pills-family" role="tabpanel" aria-labelledby="v-pills-family-tab">
                 <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead" onsubmit="return validate5();" enctype="multipart/form-data">
+                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead5" onsubmit="return validate5();" enctype="multipart/form-data">
                     <div class="fields d-block d-lg-flex">
 
                       <div class="fileArea5" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile1">
+                      	<input type="file" class="custom-file-input" name="upFile" id="upFile5">
                       </div>
 
 				 	  <div class="check-in one-third"><input type="text" name="title" id="title5" class="form-control" placeholder="일정 제목"></div>
 
-                      <div class="check-in one-third"><input type="text" id="start_date" class="form-control" placeholder="Start date"></div>
+                      <div class="check-in one-third"><input type="date" id="start_date5" class="form-control" name="start_date" placeholder="Start date"></div>
 
-                      <div class="check-out one-third"><input type="text" id="return_date" class="form-control" placeholder="Return date"></div>
+                      <div class="check-out one-third"><input type="date" id="return_date5" class="form-control" name="return_date" placeholder="Return date"></div>
                       
                     </div>
                     <input type="hidden" name="theme" id="theme" value="가족">   
-                    <input type="submit" class="search-submit btn btn-primary" value="가족과 함께">  
+                    <input type="hidden" name="status" id="status" value="Y"> 
+                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner5();">가족과 함께</button>
                   </form>
                 </div>
               </div>
@@ -193,40 +225,57 @@
         </div>
       </div>
     </div>
-
+    </c:if>
 
     <section class="ftco-section contact-section">
       <div class="container">
         <div class="row block-9 mb-4">
-          
         </div>
         <div class="row mt-5">
           <div class="col-md-8" id="map"></div>
           <div class="col-md-4">
-            <form action="#">
+            <form action="${pageContext.request.contextPath}/plannerPart/plannerPartMake.do" id="makingPlan" method="post">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="TITLE">
+                <input type="datetime-local" min="${start_date}" max="${return_date}" class=" form-control" name="startTime">
               </div>
               <div class="form-group">
-                <input type="datetime-local" min="" max=""class=" form-control">
+                <input type="datetime-local" min="${start_date}" max="${return_date}" class=" form-control" name="endTime">
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="ACCOUNT">
+                <input type="number" class="form-control" name="money" placeholder="ACCOUNT">
               </div>
               <div class="form-group">
-                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="DESCRIBE"></textarea>
+                <textarea cols="30" rows="7" class="form-control" name="reason" id="describe" placeholder="DESCRIBE"></textarea>
               </div>
+              
+              <input type="hidden" name="calendar_set" id="calendar_set" value="${calendar_set}">
+              <c:if test="${no ne null }"><input type="hidden" name="pNo" id="pNo" value="${no}"></c:if>
+              <c:if test="${pNo ne null }"><input type="hidden" name="pNo" id="pNo" value="${pNo}"></c:if>
+              <input type="hidden" name="start_date" id="start_date" value="${start_date}">
+              <input type="hidden" name="return_date" id="return_date" value="${return_date}">
               <div class="form-group" style="float:right">
-                <input type="submit" value="Save" class="btn btn-primary py-3 px-4">
+                <button type="button" class="btn btn-primary py-3 px-4" onclick="save();">Save</button>
               </div>
             </form>
           </div>
         </div>
         
         <div id='calendar'></div>
-        <div class="form-group" style="float:right">
-          <input type="submit" value="확인하러 가기" class="btn btn-primary py-3 px-4">
-        </div>
+        
+        <div style="position: fixed; right: 20px; bottom: 50px;">
+			<input type="submit" class="btn btn-primary py-3 px-4" onclick="${reservationPage}" value="예매페이지" />
+  		</div>
+        
+        <c:if test="${pNo ne null }">
+        	<form action="${pageContext.request.contextPath}/planner/plannerSeeConfirm.do?pNo=${pNo}" id="confirming">
+        		<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+        		
+		        <div class="form-group" style="float:right">
+		        	<button type="button" class="btn btn-primary py-3 px-4" onclick="confirm();">확인하러 가기</button>
+		        </div>
+		        
+	        </form>
+        </c:if>
       </div>
         
       
@@ -331,49 +380,124 @@
   /* textarea에도 required속성을 적용가능하지만, 공백이 입력된 경우 대비 유효성검사를 실시함. */
 	function validate1(){
 		var content = $("#title1").val();
+		var start = $("#start_date1").val();
+		var end = $("#return_date1").val();
+		
 		if(content.trim().length==0){
 			alert("제목을 입력하세요");
+			return false;
+		}
+		if(start.trim().length==0){
+			alert("출발 날짜를 입력하시오 ");
+			return false;
+		}
+		if(end.trim().length==0){
+			alert("마지막 날짜를 입력하시오");
 			return false;
 		}
 		return true;
 	}
 	function validate2(){
 		var content = $("#title2").val();
+		var start = $("#start_date2").val();
+		var end = $("#return_date2").val();
 		if(content.trim().length==0){
 			alert("제목을 입력하세요");
+			return false;
+		}
+		if(start.trim().length==0){
+			alert("출발 날짜를 입력하시오 ");
+			return false;
+		}
+		if(end.trim().length==0){
+			alert("마지막 날짜를 입력하시오");
 			return false;
 		}
 		return true;
 	}
 	function validate3(){
 		var content = $("#title3").val();
+		var start = $("#start_date3").val();
+		var end = $("#return_date3").val();
 		if(content.trim().length==0){
 			alert("제목을 입력하세요");
+			return false;
+		}
+		if(start.trim().length==0){
+			alert("출발 날짜를 입력하시오 ");
+			return false;
+		}
+		if(end.trim().length==0){
+			alert("마지막 날짜를 입력하시오");
 			return false;
 		}
 		return true;
 	}
 	function validate4(){
 		var content = $("#title4").val();
+		var start = $("#start_date4").val();
+		var end = $("#return_date4").val();
 		if(content.trim().length==0){
 			alert("제목을 입력하세요");
+			return false;
+		}
+		if(start.trim().length==0){
+			alert("출발 날짜를 입력하시오 ");
+			return false;
+		}
+		if(end.trim().length==0){
+			alert("마지막 날짜를 입력하시오");
 			return false;
 		}
 		return true;
 	}
 	function validate5(){
 		var content = $("#title5").val();
+		var start = $("#start_date5").val();
+		var end = $("#return_date5").val();
 		if(content.trim().length==0){
 			alert("제목을 입력하세요");
+			return false;
+		}
+		if(start.trim().length==0){
+			alert("출발 날짜를 입력하시오 ");
+			return false;
+		}
+		if(end.trim().length==0){
+			alert("마지막 날짜를 입력하시오");
 			return false;
 		}
 		return true;
 	}
   
-	function setPlanner(){
+	function setPlanner1(){
 		$('#upFile1').click();
 		
-		$("#goAhead").submit();
+		$("#goAhead1").submit();
+		
+	}
+	function setPlanner2(){
+		$('#upFile2').click();
+		
+		$("#goAhead2").submit();
+		
+	}
+	function setPlanner3(){
+		$('#upFile3').click();
+		
+		$("#goAhead3").submit();
+		
+	}
+	function setPlanner4(){
+		$('#upFile4').click();
+		
+		$("#goAhead4").submit();
+		
+	}
+	function setPlanner5(){
+		$('#upFile5').click();
+		
+		$("#goAhead5").submit();
 		
 	}
 	
@@ -389,23 +513,39 @@
 		    $(this).next('.fileArea').html(titleName);
 		})
 	});
-  
-  	
-  
+
+	function save(){
+		
+		$("#makingPlan").submit();
+		
+	}
+	
+	function confirm(){
+		
+		$("#confirming").submit();
+		
+	}
+	
+	/*
+	function goreservation(){
+		${"goreservation"}.submit();
+	}
+  	*/
 
     
     document.addEventListener('DOMContentLoaded', function() {
+    	
         var calendarEl = document.getElementById('calendar');
     
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          now: '2020-06-07',
+          now: '2020-07-29',
           editable: true, // enable draggable events
           aspectRatio: 1.8,
           scrollTime: '00:00', // undo default 6am scrollTime
           headerToolbar: {
             left: 'today prev,next',
             center: 'title',
-            right: 'resourceTimelineDay,resourceTimelineThreeDays,timeGridWeek,dayGridMonth'
+            right: 'resourceTimelineDay,timeGridWeek,dayGridMonth'
           },
           initialView: 'resourceTimelineDay',
           views: {
@@ -425,22 +565,16 @@
             }
           },
           resources: [
-            { id: 'a' },
-            { id: 'b', eventColor: 'green' },
-            { id: 'c', eventColor: 'orange' },
-            { id: 'd' },
-            { id: 'e' },
-            { id: 'f', eventColor: 'red' },
-            { id: 'g' },
-            { id: 'h' },
-            { id: 'i' }
+        	  <c:forEach items="${list}" var="p" varStatus="loop">
+        	  	{ id: '${p.ppNo}' }
+        	  	<c:if test="${!loop.last}">,</c:if>
+        	  </c:forEach>
           ],
           events: [
-            { id: '1', resourceId: 'b', start: '2020-06-07T02:00:00', end: '2020-06-07T07:00:00', title: 'event 1' },
-            { id: '2', resourceId: 'c', start: '2020-06-07T05:00:00', end: '2020-06-07T22:00:00', title: 'event 2' },
-            { id: '3', resourceId: 'd', start: '2020-06-06', end: '2020-06-08', title: 'event 3' },
-            { id: '4', resourceId: 'e', start: '2020-06-07T03:00:00', end: '2020-06-07T08:00:00', title: 'event 4' },
-            { id: '5', resourceId: 'f', start: '2020-06-07T00:30:00', end: '2020-06-07T02:30:00', title: 'event 5' }
+        	  	<c:forEach items="${list}" var="pl" varStatus="status">
+      	  			{ id: '${pl.ppNo}', resourceId: '${pl.ppNo}', start: '${pl.startTime}', end: '${pl.endTime}',  title: '${pl.mapTitle}' }
+      	  			<c:if test="${!status.last}">,</c:if>
+      	 		</c:forEach>
           ]
         });
     
@@ -448,7 +582,7 @@
       });
 
       
-    
+ 
     
   </script>
     
