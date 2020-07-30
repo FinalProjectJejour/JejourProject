@@ -83,8 +83,11 @@ a{color:inherit;text-decoration:none}
 .login-html .sign-in:checked + .tab,
 .login-html .sign-up:checked + .tab{
 	color:#fff;
-	border-color:#1161ee;
+	border-color:white;
+	cursor: pointer;
+	/* #1161ee */
 }
+
 .login-form{
 	min-height:345px;
 	position:relative;
@@ -95,8 +98,7 @@ a{color:inherit;text-decoration:none}
 	margin-bottom:15px;
 }
 .login-form .group .label,
-.login-form .group .button,
-#dupliCheck{
+.login-form .group .button{
 	color:#fff;
 }
 
@@ -124,16 +126,6 @@ a{color:inherit;text-decoration:none}
 .Phone {
     width: 29%;
     height: 100%;
-    border:none;
-    text-align: center;
-    padding:15px 20px;
-    border-radius:25px;
-    background:rgba(255,255,255,.9);
-    
-}
-
-.RRN {
-    width: 45%;
     border:none;
     text-align: center;
     padding:15px 20px;
@@ -194,6 +186,7 @@ a{color:inherit;text-decoration:none}
 	margin:60px 0 50px 0;
 	background:rgba(255,255,255,.2);
 }
+
 .foot-lnk{
 	text-align:center;
     color:white;
@@ -616,6 +609,7 @@ button, .button{
 			        	});
 			     	}
 				});
+	});
 		/* 회원가입시 유효성체크 */
 		
 		function updateMember() {
@@ -635,15 +629,7 @@ button, .button{
 				userId.focus();
 				return false;
 			}
-			
-			
-			//이메일 중복체크여부
-		    if($("#checkEmailDup").val()==0){
-		        alert("사용가능한 이메일을 입력해주세요.");
-		        return false();
-		    }
-			
-			
+				
 			
 			//아이디중복체크여부
 		    if($("#idDuplicateCheck").val()==0){
@@ -654,7 +640,6 @@ button, .button{
 			return true;
 		}
 		
-	});
 	</script>
 
 </body>

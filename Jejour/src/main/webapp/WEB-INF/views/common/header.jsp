@@ -73,14 +73,14 @@
             <li class="nav-item"><a href="${pageContext.request.contextPath}/member/memberLoginFormView.do" class="nav-link">Login</a></li>
             </c:if>
             <c:if test="${ !empty member }">
-            <li class="nav-item"><a href="${pageContext.request.contextPath}/member/memberLogout.do" class="nav-link">LogOut</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" onclick="logOutCheck();">LogOut</a></li>
             </c:if>
             
             <c:if test="${ !empty member }">
             <li class="nav-item dropdown">
               <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Page</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberUdpateFormView.do">Update Info</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberUpdateFormView.do">Update Info</a>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberPlan.do">My Plan</a>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/admin.do">Manager</a>
               </div>
@@ -131,5 +131,19 @@
     function goReservation() {
     window.open('${pageContext.request.contextPath}/planner/goReservation.do','reservationPage','width=1350,height=950');
     };
+    
+    function logOutCheck() {
+
+    	 if (confirm("정말 로그아웃하실껀가요? ㅠ,.ㅠ") == true){    
+
+    	    location.href="${pageContext.request.contextPath}/member/memberLogout.do"; 
+
+    	 }else{   //취소
+
+    	     return false;
+
+    	 }
+
+    }
     </script>
     
