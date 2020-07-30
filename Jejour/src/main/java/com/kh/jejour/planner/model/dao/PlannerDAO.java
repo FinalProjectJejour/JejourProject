@@ -10,4 +10,10 @@ public interface PlannerDAO {
 	int updateTitle(Planner planner);
 	
 	int insertAttachment(Attachment a);
+
+	Planner selectOnePlanner(int pNo);
+
+	int setStatus(Planner planner);
+
+	// Planner selectOnePlanner(int pNo);
 }

@@ -13,8 +13,8 @@ public class PlannerPart {
 	
 	private int ppNo;
 	private int pNo;
-	private Date pDate;
-	private String time;
+	private String startTime;
+	private String endTime;
 	private String mapTitle;
 	private String category;
 	private String mapX;

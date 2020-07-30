@@ -20,6 +20,8 @@ import com.kh.jejour.planner.model.exception.PlannerException;
 import com.kh.jejour.planner.model.service.PlannerService;
 import com.kh.jejour.planner.model.vo.Attachment;
 import com.kh.jejour.planner.model.vo.Planner;
+import com.kh.jejour.plannerPart.model.service.PlannerPartService;
+import com.kh.jejour.plannerPart.model.vo.PlannerPart;
 
 @Controller
 public class PlannerController {
@@ -27,12 +29,56 @@ public class PlannerController {
 	@Autowired
 	PlannerService plannerService;
 	
+	@Autowired
+	PlannerPartService plannerPartService;
+	
+	@RequestMapping("/planner/goReservation.do")
+	public String goReservation() {
+		
+		return "reservation/reservation";
+	}
+	
 	@RequestMapping("/planner/plannerSee.do")
 	public String seePlanner() {
+		
 		
 		return "planner/planner";
 	}
 	
+	@RequestMapping("/planner/plannerSeeConfirm.do")
+	public String seePlannerConfirm(Model model, HttpSession session,
+									@RequestParam("pNo") int pNo) {
+		
+		System.out.println(pNo);
+		
+		List<PlannerPart> list = plannerPartService.selectPlanList(pNo);
+		
+		System.out.println(list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pNo", pNo);
+		
+		return "planner/plannerConfirm";
+	}
+	
+	@RequestMapping("/planner/planConfirm.do")
+	public String PlannerConfirm(Planner planner, Model model, HttpSession session) {
+		
+		plannerService.setStatus(planner);
+		
+		return "../index";
+	}
+	/*
+	@RequestMapping("/planner/plannerSeePlan.do")
+	public String seeSetPlanner(@RequestParam("list") List<PlannerPart> list, Model model) {
+		
+		System.out.println(list);
+		
+		model.addAttribute("list", list);
+		
+		return "planner/planner";
+	}
+	*/
 	@RequestMapping("/planner/plannerMake.do")
 	public String makePlanner(Planner planner, Model model, HttpSession session) {
 		
@@ -44,8 +90,15 @@ public class PlannerController {
 	
 	@RequestMapping("/planner/AttachmentInsert.do")
 	public String insertAttachment(Planner planner, Model model, HttpSession session,
-			@RequestParam(value = "upFile", required = false) MultipartFile[] upFile) {
+			@RequestParam(value = "upFile", required = false) MultipartFile[] upFile,
+			@RequestParam("start_date") String start_date,
+			@RequestParam("return_date") String return_date) {
 
+
+		
+		start_date += "T00:00";
+		return_date += "T23:00";
+		
 		String saveDir = session.getServletContext().getRealPath("/resources/upload/planner");
 		
 		List<Attachment> attachList = new ArrayList<Attachment>();
@@ -92,19 +145,35 @@ public class PlannerController {
 			
 			System.out.println("good2");
 			result = plannerService.insertAttachment(planner, attachList);
+			
+			model.addAttribute("planner", planner);
+			
 
 		} catch (Exception e) {
 
 			throw new PlannerException("planner 등록 오류!");
 
 		}
+		
+		System.out.println(plannerService.selectOnePlanner(planner.getPNo()));
+		
+		Planner pn = plannerService.selectOnePlanner(planner.getPNo());
+		
+		System.out.println(pn.getPNo());
+		
+
+		model.addAttribute("pNo", pn.getPNo());
+		model.addAttribute("start_date", start_date);
+		model.addAttribute("return_date", return_date);
+		
+		
 
 		String loc = "/planner/plannerSee.do";
 		String msg = "";
 
 		if (result > 0) {
 			msg = "플래너 등록 성공!";
-			loc = "/planner/plannerSee.do?no=" + planner.getPNo();
+			loc = "/planner/plannerSee.do?no=" + pn.getPNo()+"&title="+pn.getTitle()+"&theme="+pn.getTheme()+"&start_date="+start_date+"&return_date="+return_date;
 
 		} else {
 			msg = "게시글 등록 실패!";
@@ -116,5 +185,16 @@ public class PlannerController {
 		return "common/msg";
 	}
 	
+	/*
+	@RequestMapping("/planner/LatestPno.do")
+	public int LatestPno(Planner planner, Model model, HttpSession session) {
+		
+		int pNo = planner.getPNo();
+		
+		Planner pl = plannerService.selectPlanner(pNo);
+		
+		return pl.getPNo();
+	}
+	*/
 	
 }

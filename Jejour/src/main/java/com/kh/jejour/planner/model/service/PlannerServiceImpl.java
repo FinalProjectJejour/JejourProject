@@ -57,4 +57,21 @@ public class PlannerServiceImpl implements PlannerService {
 		
 		return plannerDAO.insertPlanner(planner);
 	}
+	
+	@Override
+	public Planner selectOnePlanner(int pNo) {
+		
+		return plannerDAO.selectOnePlanner(pNo);
+	}
+
+	@Override
+	public int setStatus(Planner planner) {
+
+		return plannerDAO.setStatus(planner);
+		
+	}
+	
+	
+
+	
 }

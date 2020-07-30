@@ -4,18 +4,22 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="plannerMapper">
 
-	<insert id="insertPlanner">
+	<insert id="insertPlanner" parameterType="Planner">
+		
 		INSERT INTO PLANNER(PNO, USERID, TITLE, DESCRIBE, ACCOUNT, THEME, STATUS)
 		VALUES (SEQ_PNO.NEXTVAL,#{userId},#{title},#{describe},#{account},#{theme},#{status})
+		<!-- <selectKey keyProperty="plannerNo" resultType="_int" order="AFTER"> SELECT SEQ_PNO.CURRVAL FROM DUAL </selectKey> -->
 		<!-- 전달한 board객체의 boardNo 프로퍼티에 결과값을 담는다. -->
-		<!-- 1. --><!-- <selectKey keyProperty="boardNo" resultType="_int" order="AFTER"> SELECT SEQ_BOARDNO.CURRVAL FROM DUAL </selectKey> -->
+		<!-- <selectKey keyProperty="boardNo" resultType="_int" order="AFTER"> SELECT SEQ_BOARDNO.CURRVAL FROM DUAL </selectKey> -->
 	</insert>
+	
+	
 	
 	<insert id="insertAttachment" parameterType="Attachment">
 		<!-- 다른방식 -->
 		<selectKey keyProperty="plannerNo" resultType="_int" order="BEFORE"> 
 			SELECT SEQ_PNO.CURRVAL FROM DUAL 
-		</selectKey>
+		</selectKey> 
 		INSERT INTO ATTACHMENT(ATTACHMENTNO, PNO, ORIGINALFILENAME,RENAMEDFILENAME) 
 		VALUES (SEQ_ATTACHMENTNO.NEXTVAL, #{plannerNo}, #{originalFileName}, #{renamedFileName})
 	</insert>
@@ -35,6 +39,31 @@
 		WHERE BOARDNO = #{boardNo}
 	</select>
 	-->
+	
+	<select id="selectOnePlanner" parameterType="_int" resultType="Planner">
+		SELECT * FROM PLANNER
+		WHERE PNO = (SELECT max(PNO) FROM PLANNER)
+	</select>
+	
+	
+	<insert id="setplan" parameterType="PlannerPart">
+		INSERT INTO PLANNER_PART(PPNO, PNO, STARTTIME, ENDTIME, MAPTITLE, CATEGORY, MAPX, MAPY, MONEY, REASON) 
+		VALUES (SEQ_PPNO.NEXTVAL, #{pNo}, #{startTime}, #{endTime}, #{mapTitle}, #{category}, #{mapX}, #{mapY}, #{money}, #{reason})
+	</insert>
+	
+	<select id="selectPlanList" parameterType="_int" resultType="PlannerPart">
+		SELECT * FROM PLANNER_PART
+		WHERE PNO = #{pNo}
+	</select>
+	
+	<update id="updateStatus" parameterType="Planner">
+      UPDATE PLANNER
+      <set>
+      	STATUS=#{status}
+      </set>
+      WHERE PNO = #{pNo}
+   </update>
+	
 </mapper>
 
 
