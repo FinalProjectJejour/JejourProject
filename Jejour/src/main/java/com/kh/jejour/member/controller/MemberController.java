@@ -78,8 +78,17 @@ public class MemberController {
 			return "common/msg";
 		}
 	
-	
-	
+		// 예약홈페이지 이동
+		@RequestMapping("/planner/goReservation.do")
+		public String moveReservation() {
+
+			
+			
+			
+			return "reservation/reservationGo";
+		}
+		
+		
 		// 로그인,회원가입 페이지 이동
 		@RequestMapping("/member/memberLoginFormView.do")
 		public String memberLoginFormView() {
