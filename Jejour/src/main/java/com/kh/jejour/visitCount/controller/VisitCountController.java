@@ -1,22 +1,39 @@
 package com.kh.jejour.visitCount.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.kh.jejour.visitCount.model.service.VisitCountService;
+
+import com.kh.jejour.visitCount.model.dao.VisitCountDAO;
+
+
 
 @Controller
-public class VisitCountController {
+public class VisitCountController implements HttpSessionListener{
 	
 	@Autowired
-	VisitCountService visitCountService;
+	VisitCountDAO visitDAO;
 	
-	@RequestMapping("/board/visitCounter.do")
-	public String visitCounter(HttpSessionEvent arg) {
+	@Override
+    public void sessionCreated(HttpSessionEvent arg0){
+		System.out.println("방문자세션 실행");
 		
-		return ""; 
-	}
+
+          
+        visitDAO.visitCounter();
+    }
+	
+    @Override
+    public void sessionDestroyed(HttpSessionEvent arg0){
+        //TODO Auto-generated method stub
+    }
+	
+
+	
+	
 }

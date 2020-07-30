@@ -87,24 +87,14 @@
                   </tr>
                 </thead>
                 <tbody>
+                 <c:forEach items="${hrang}" var="hrang">
                   <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>24</td>
+                    <td></td>
+                    <td>${hrang.userId}</td>
+                    <th></th>
+                    <td>${hrang.HCount}</td>
                   </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>15</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>11</td>
-                  </tr>
+                  </c:forEach>
                 </tbody>
               </table>
             </div>
@@ -159,82 +149,33 @@
                 <thead>
                   <tr>
                     <th><i class="fa fa-bullhorn"></i> 제 목</th>
+                    <th><i class="fa fa-arrow-right"></i> 글 번호 </th>
                     <th class="hidden-phone"><i class="fa fa-user"></i> 작성자</th>
-                    <th><i class="fa fa-bookmark"></i> 조회수</th>
                     <th><i class=" fa fa-edit"></i> Status</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
+                  
+                  <c:forEach items="${list}" var="hboard">
                   <tr>
                     <td>
-                      <a href="basic_table.html#">Company Ltd</a>
-                    </td>
-                    <td class="hidden-phone">Lorem Ipsum dolor</td>
-                    <td>12000.00$ </td>
-                    <td><span class="label label-info label-mini">Due</span></td>
-                    <td>
-                      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                      <button class="btn btn-danger btn-xs" type="button" onclick="deletebtn();"><i class="fa fa-trash-o "></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="basic_table.html#">
-                        Dashio co
+                      <a href="#" onclick="window.open('${pageContext.request.contextPath}/hotspotBoard/hotspotDetail.ho?no=${hboard.HNo}','width=1150px','height=500px')">
+                        ${hboard.HTitle}
                         </a>
                     </td>
-                    <td class="hidden-phone">Lorem Ipsum dolor</td>
-                    <td>17900.00$ </td>
-                    <td><span class="label label-warning label-mini">Due</span></td>
+                    <td name="hNo">${hboard.HNo} </td>
+                    <td class="hidden-phone">${hboard.userId}</td>
+                   
+                    <td><span class="label label-warning label-mini" name="${hboard.HNo}">${hboard.HStatus}</span></td>
                     <td>
-                      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                      <button class="btn btn-danger btn-xs" type="button" onclick="deletebtn();"><i class="fa fa-trash-o "></i></button>
+                      <button class="btn btn-success btn-xs"><i class="fa fa-check" onclick="changeStatus(${hboard.HNo });" name="${hboard.HNo}"></i></button>
+                      
+                      <button class="btn btn-danger btn-xs" type="button" onclick="deletebtn(${hboard.HNo});"><i class="fa fa-trash-o "></i></button>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <a href="basic_table.html#">
-                        Another Co
-                        </a>
-                    </td>
-                    <td class="hidden-phone">Lorem Ipsum dolor</td>
-                    <td>14400.00$ </td>
-                    <td><span class="label label-success label-mini">Paid</span></td>
-                    <td>
-                      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                      <button class="btn btn-danger btn-xs" type="button" onclick="deletebtn();"><i class="fa fa-trash-o "></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="basic_table.html#">Dashio ext</a>
-                    </td>
-                    <td class="hidden-phone">Lorem Ipsum dolor</td>
-                    <td>22000.50$ </td>
-                    <td><span class="label label-success label-mini">Paid</span></td>
-                    <td>
-                      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                      <button class="btn btn-danger btn-xs" type="button" onclick="deletebtn();"><i class="fa fa-trash-o "></i></button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="basic_table.html#">Total Ltd</a>
-                    </td>
-                    <td class="hidden-phone">Lorem Ipsum dolor</td>
-                    <td>12120.00$ </td>
-                    <td><span class="label label-warning label-mini">Due</span></td>
-                    <td>
-                      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                      <button class="btn btn-danger btn-xs" type="button" onclick="deletebtn();"><i class="fa fa-trash-o "></i></button>
-                    </td>
-                  </tr>
+                  </c:forEach>
+                  
                 </tbody>
               </table>
               </div>
@@ -247,13 +188,42 @@
 
         <!--스크립트-->
         <script>
-          function deletebtn(){
+          function deletebtn(hno){
             if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-              document.form.submit();
+            	
+            	location.href = '${pageContext.request.contextPath}/admin/deleteHotspotBoard.do?hNo=' + hno;
+            	
             }else{   //취소
+            	
             return;
+            
             }
+            
           }
+          
+          function changeStatus(hNo){
+        	  $.ajax({
+        		  async:true,
+        		  url:'${pageContext.request.contextPath}/admin/hotspotBoardStatusChange.do',
+        		  data:{
+        			  hNo:hNo,
+        			  hStatus: $('[name='+hNo+']').text()
+        		  		},
+        		  dataType:'json',
+        		  success:function(data){
+        			  console.log(data[0].hno);
+        			  console.log(data[0].hstatus);
+        			  
+        			  $('span[name='+data[0].hno+']').text(data[0].hstatus);
+        			  
+        			  
+        		  }, error: function(){
+        			  alert('변환중 에러발생');
+        			  
+        		  }
+        	  })
+          }
+          
         </script>
 
       </section>

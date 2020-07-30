@@ -9,9 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.jejour.admin.model.exception.adminException;
 import com.kh.jejour.admin.model.service.AdminService;
+import com.kh.jejour.flashBoard.model.vo.FlashBoard;
+import com.kh.jejour.hotspotBoard.model.vo.HotspotBoard;
 import com.kh.jejour.member.model.vo.Member;
 
 @SessionAttributes(value = { "member" })
@@ -46,6 +51,15 @@ public class AdminController {
 	public String hotspotManager(Model model) {
 		// 리뷰관리페이지리스트/랭킹 호출
 		
+		//핫스팟 게시글출력
+		List<HotspotBoard> list = adminService.selectHotspotBoardList();
+		System.out.println("list : " + list); 
+		
+		//게시글 랭킹
+		List<HotspotBoard> hrang = adminService.hBoardRanking();
+		
+		model.addAttribute("list", list)
+			.addAttribute("hrang",hrang);
 		
 		return "admin/basic_table";   
 	}
@@ -53,9 +67,21 @@ public class AdminController {
 	@RequestMapping("/admin/flashManager.do")
 	public String flashManager(Model model) {
 		// 번개페이지리스트/랭킹 호출
+
+		List<FlashBoard> list = adminService.selectFlashBoardLsit();
+		System.out.println("list : " + list); // 결과 확인용
+		
+		//게시글 랭킹
+				List<FlashBoard> frang = adminService.fBoardRanking(); 
+		
+		model.addAttribute("list", list)
+			.addAttribute("frang",frang);
+			
 		
 		return "admin/responsive_table";   
 	}
+	
+	//===========UI관리페이지===============================
 	
 	@RequestMapping("/admin/general.do")
 	public String general() {
@@ -80,36 +106,118 @@ public class AdminController {
 		return "admin/font_awesome";   
 	}
 	
-	//==========기능====================================
+	//==========강퇴===================================
 	
 	@RequestMapping("/admin/banMember.do")
-	public String banMember(Member member,Model model) {
+	public String banMember(@RequestParam String userId) {
 		//멤버 강퇴
-		return "";   
+		System.out.println("멤버강퇴실행");
+		try {
+			
+		adminService.banMember(userId);
+		
+		}catch(Exception e) {
+			
+			throw new adminException("멤버강퇴중 오류발생");
+			
+		}
+		
+		
+		return "redirect:/admin/memberManager.do";   
 	}
 	
-	@RequestMapping("/board/deleteHotspotBoard.do")
-	public String deleteHotspotBoard(@RequestParam int hNo, HttpSession session, Model model) {
-		//핫스팟보드삭제
-		return ""; 
+	//============삭제===============================
+	
+	@RequestMapping("/admin/deleteHotspotBoard.do")
+	public String deleteHotspotBoard(@RequestParam int hNo) {
+		/* 보류
+		 * 
+		System.out.println("핫스팟보드삭제실행");
+		try {
+			
+		adminService.deleteHotspotBoard(hNo);
+		
+		}catch(Exception e) {
+			
+			throw new adminException("게시글 삭제중 오류발생");
+			
+		}
+		*/
+		
+		return "redirect:/admin/hotspotManager.do"; 
 	}
 	
-	@RequestMapping("/board/deleteFlashBoard.do")
-	public String deleteFlashBoard(@RequestParam int fNo, HttpSession session, Model model) {
+	@RequestMapping("/admin/deleteFlashBoard.do")
+	public String deleteFlashBoard(@RequestParam int fNo) {
 		//플래시보드 삭제
-		return ""; 
+		System.out.println("플래시보드삭제실행");
+		try {
+			
+		adminService.deleteFlashBoard(fNo);
+		
+		}catch(Exception e) {
+			
+			throw new adminException("게시글 삭제중 오류발생");
+			
+		}
+		
+		return "redirect:/admin/flashManager.do"; 
 	}
 	
-	@RequestMapping("/board/hotspotBoardStatusChange.do")
-	public String hotspotBoardStatusChange(@RequestParam int hNo, HttpSession session, Model model) {
+	//========================스테이터스==========================
+	
+	@RequestMapping("/admin/hotspotBoardStatusChange.do")
+	@ResponseBody
+	public List<HotspotBoard> hotspotBoardStatusChange(@RequestParam int hNo, @RequestParam char hStatus) {
 		//핫스팟보드 활성상태
-		return ""; 
+		System.out.println("게시글활성/비활성");
+		System.out.println(hNo);
+		System.out.println(hStatus);
+		HotspotBoard hb = new HotspotBoard();
+		
+		hb.setHNo(hNo);
+		
+		if(hStatus=='Y') {
+			hb.setHStatus('N');
+		}
+		if(hStatus=='N') {
+			hb.setHStatus('Y');
+		}
+		
+		
+			List<HotspotBoard> hotspot = adminService.hotspotBoardStatusChange(hb);
+			System.out.println("리턴");
+			System.out.println(hotspot);
+		
+		
+		return hotspot; 
 	}
 	
-	@RequestMapping("/board/flashBoardStatusChange.do")
-	public String flashBoardStatusChange(@RequestParam int fNo, HttpSession session, Model model) {
+	@RequestMapping("/admin/flashBoardStatusChange.do")
+	@ResponseBody
+	public List<FlashBoard> flashBoardStatusChange(@RequestParam int fNo,@RequestParam char fStatus) {
 		//플래스보드 활성상태
-		return ""; 
+		System.out.println("게시글활성/비활성");
+		System.out.println(fNo);
+		System.out.println(fStatus);
+		FlashBoard fb = new FlashBoard();
+		
+		fb.setFNo(fNo);
+		
+		if(fStatus=='Y') {
+			fb.setFStatus('N');
+		}
+		if(fStatus=='N') {
+			fb.setFStatus('Y');
+		}
+		
+		
+			List<FlashBoard> flash = adminService.flashBoardStatusChange(fb);
+			System.out.println("리턴");
+			System.out.println(flash);
+			
+			
+		return flash; 
 	}
 	
 	

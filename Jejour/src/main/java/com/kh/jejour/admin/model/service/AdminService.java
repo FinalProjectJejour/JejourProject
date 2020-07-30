@@ -29,7 +29,7 @@ public interface AdminService {
 	
 	int deleteFlashBoard(int fNo);
 	
-	int flashBoardStatusChange(int hNo);
+	List<FlashBoard> flashBoardStatusChange(FlashBoard fb);
 	
-	int hotspotBoardStatusChange(int fno);
+	List<HotspotBoard> hotspotBoardStatusChange(HotspotBoard hb);
 }

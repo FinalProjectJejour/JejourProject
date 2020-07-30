@@ -1,6 +1,5 @@
 package com.kh.jejour.visitCount.model.vo;
 
-import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class VisitCount {
 	
-	private String visitId;
+	private int visitNum;
 	private String visitIp;
-	private Date vDate;
+	private int vDate;
 }

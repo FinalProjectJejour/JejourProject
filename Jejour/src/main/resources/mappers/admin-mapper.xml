@@ -6,17 +6,113 @@
 
 	<resultMap type="Member" id="memberMap">
 	</resultMap>
-	
-	
-	<select id="selectList" resultMap="memberMap">
-		SELECT ROWNUM, M.* 
+	<resultMap type="HotspotBoard" id="hotspotMap">
+	</resultMap>
+	<resultMap type="FlashBoard" id="flashMap">
+	</resultMap>
+
+
+	<select id="selectMemberList" resultMap="memberMap">
+		SELECT ROWNUM, M.*
 		FROM MEMBER M
 		WHERE USERID != 'admin'
 		ORDER BY ROWNUM DESC
 	</select>
+
+	<select id="selectHotspotList" resultMap="hotspotMap">
+		SELECT *
+		FROM
+		HOTSPOT_BOARD
+		ORDER BY HNO DESC
+	</select>
+
+	<select id="selectFlashList" resultMap="flashMap">
+		SELECT *
+		FROM FLASH_BOARD
+		ORDER BY FNO DESC
+	</select>
+	
+	<!-- =================삭제 =====================-->
+
+	<delete id="deleteFlashBoard" parameterType="_int">
+		DELETE FLASH_BOARD
+		WHERE FNO = #{fNo}
+	</delete>
+
+	<delete id="deleteHotspotBoard" parameterType="_int">
+		DELETE HOTSPOT_BOARD
+		WHERE HNO = #{hNo}
+	</delete>
+	
+	<!-- =================강퇴 ====================-->
+
+	<delete id="banMember" parameterType="String">
+		DELETE MEMBER
+		WHERE USERID =
+		#{userId}
+	</delete>
+	
+	<!--=================== 게시글 랭킹 ================-->
+
+	<select id="fBoardRanking" resultMap="flashMap">
+	<![CDATA[
+		SELECT *
+		FROM
+		(
+		SELECT USERID, COUNT(*) FCOUNT
+		FROM FLASH_BOARD
+		GROUP BY USERID
+		ORDER BY FCOUNT DESC
+		)
+		WHERE ROWNUM <=3]]>
+	</select>
+	
+	<select id="hBoardRanking" resultMap="hotspotMap">
+	<![CDATA[
+		SELECT *
+		FROM
+		(
+		SELECT USERID, COUNT(*) HCOUNT
+		FROM HOTSPOT_BOARD
+		GROUP BY USERID
+		ORDER BY HCOUNT DESC
+		)
+		WHERE ROWNUM <=3]]>
+	</select>
+	
+	<!-- ===============댓글 랭킹 ================-->
 	
 	
 	
+	
+	<!-- ===============스테이터스전환 ==============-->
+	
+	<update id="changeHotspot" parameterType="List">
+		UPDATE HOTSPOT_BOARD SET
+		HSTATUS = #{hStatus}
+		WHERE HNO = #{hNo}
+	</update>
+	
+	<update id="changeFlash" parameterType="List">
+		UPDATE FLASH_BOARD SET 
+		FSTATUS = #{fStatus}
+		WHERE FNO = #{fNo}
+	</update>
+	
+	<select id="fStatusSelect" parameterType="List" resultMap="flashMap">
+		SELECT FSTATUS,FNO
+		FROM FLASH_BOARD
+		WHERE FNO = #{fNo}
+	</select>
+	
+	<select id="hStatusSelect" parameterType="List" resultMap="hotspotMap">
+		SELECT HSTATUS,HNO
+		FROM HOTSPOT_BOARD
+		WHERE HNO = #{hNo}
+	</select>
+	
+	<!-- ========================================= -->
+
 </mapper>
 
 

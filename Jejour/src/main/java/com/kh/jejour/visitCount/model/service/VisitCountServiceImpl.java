@@ -14,8 +14,7 @@ public class VisitCountServiceImpl implements VisitCountService {
 	
 	@Override
 	public int visitCounter(VisitCount vi) {
-		// TODO Auto-generated method stub
-		return 0;
+		return visitCountDAO.visitCounter(vi);
 	}
 
 }

@@ -26,68 +26,84 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<FlashBoard> selectFlashBoardLsit() {
+		
+		return adminDAO.selectFlashBoardLsit();
+	}
+	
+	
+
+	@Override
+	public List<HotspotBoard> selectHotspotBoardList() {
+		
+		return adminDAO.selectHotspotBoardList();
+	}
+	
+	//==============게시글 랭킹==================
+
+	@Override
+	public List<HotspotBoard> hBoardRanking() {
 		// TODO Auto-generated method stub
-		return null;
+		return adminDAO.hBoardRanking();
 	}
 	
 	@Override
 	public List<FlashBoard> fBoardRanking() {
+		
+		return adminDAO.fBoardRanking();
+	}
+
+	//=====================댓글랭킹-==============
+	
+	@Override
+	public List<HotspotComment> hCommentRanking() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 	@Override
 	public List<FlashComment> fCommentRanking() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public List<HotspotBoard> selectHotspotBoardList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<HotspotBoard> hBoardRanking() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<HotspotComment> hCommentRanking() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	//================강퇴==================
 
 	@Override
 	public int banMember(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return adminDAO.banMember(userId);
 	}
+	
+	//===============삭제=====================
 
 	@Override
 	public int deleteHotspotBoard(int hNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return adminDAO.deleteHotspotBoard(hNo);
 	}
 
 	@Override
 	public int deleteFlashBoard(int fNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return adminDAO.deleteFlashBoard(fNo);
+	}
+	
+	//========================스테이터스=====================
+
+	@Override
+	public List<FlashBoard> flashBoardStatusChange(FlashBoard flashBoard) {
+		
+		adminDAO.flashBoardStatusChange(flashBoard);
+		
+		return adminDAO.fStatusSelect(flashBoard);
 	}
 
 	@Override
-	public int flashBoardStatusChange(int hNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int hotspotBoardStatusChange(int fno) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<HotspotBoard> hotspotBoardStatusChange(HotspotBoard hotspotBoard) {
+		
+		adminDAO.hotspotBoardStatusChange(hotspotBoard);
+		
+		return adminDAO.hStatusSelect(hotspotBoard);
 	}
 
 	

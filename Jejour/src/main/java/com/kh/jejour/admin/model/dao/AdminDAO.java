@@ -29,7 +29,11 @@ public interface AdminDAO {
 	
 	int deleteFlashBoard(int fNo);
 	
-	int flashBoardStatusChange(int hNo);
+	List<FlashBoard> flashBoardStatusChange(FlashBoard flashBoard);
 	
-	int hotspotBoardStatusChange(int fno);
+	List<HotspotBoard> hotspotBoardStatusChange(HotspotBoard hotspotBoard);
+
+	List<FlashBoard> fStatusSelect(FlashBoard flashBoard);
+
+	List<HotspotBoard> hStatusSelect(HotspotBoard hotspotBoard);
 }

@@ -13,9 +13,9 @@ public class VisitCountDAOImpl implements VisitCountDAO {
 	SqlSessionTemplate sqlSession;
 	
 	@Override
-	public int visitCounter(VisitCount vi) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int visitCounter() {
+		
+		return sqlSession.insert("visitMapper.visitCount");
 	}
 
 }

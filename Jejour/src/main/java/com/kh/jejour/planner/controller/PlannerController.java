@@ -32,7 +32,7 @@ public class PlannerController {
 	@Autowired
 	PlannerPartService plannerPartService;
 	
-	@RequestMapping("/planner/goReservation.do")
+	@RequestMapping("/planner/reservationGo.do")
 	public String goReservation() {
 		
 		return "reservation/reservation";
