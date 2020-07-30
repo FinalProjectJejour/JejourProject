@@ -83,8 +83,8 @@
 				<c:out value="${pageBar}" escapeXml="false"/>
            	</div>
         </div>
-        
       </div>
+         
     </section>
     
     <script>
@@ -127,7 +127,7 @@
 	    			           	'</div>'
     					);
 	    					
-						function fn_paging(cPage,numPerPage){location.href='flashList.fl?cPage='+cPage;}
+						//function fn_paging(cPage,numPerPage){location.href='flashList.fl?cPage='+cPage;}
     					
     					for(var i in list.list){
     						console.log(list.list);
