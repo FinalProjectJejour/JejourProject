@@ -36,4 +36,34 @@ public class HotspotLikeDAOImpl implements HotspotLikeDAO {
 		return sqlSession.selectOne("hotspotLikeMapper.hotspotUnLikeCount", hNo);
 	}
 
+	@Override
+	public int hotspotCheckSelect(HotspotLike hotspotLike) {
+		
+		return sqlSession.selectOne("hotspotLikeMapper.hotspotCheckSelect", hotspotLike);
+	}
+
+	@Override
+	public int likeCheck(HotspotLike hotspotLike) {
+		
+		return sqlSession.selectOne("hotspotLikeMapper.likeCheck", hotspotLike);
+	}
+
+	@Override
+	public int likeUpdate(HotspotLike hotspotLike) {
+		
+		return sqlSession.update("hotspotLikeMapper.likeUpdate", hotspotLike);
+	}
+	
+	@Override
+	public int unlikeCheck(HotspotLike hotspotLike) {
+		
+		return sqlSession.selectOne("hotspotLikeMapper.unlikeCheck", hotspotLike);
+	}
+
+	@Override
+	public int unlikeUpdate(HotspotLike hotspotLike) {
+		
+		return sqlSession.update("hotspotLikeMapper.unlikeUpdate", hotspotLike);
+	}
+
 }
