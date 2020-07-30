@@ -50,16 +50,17 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active"><a href="${pageContext.request.contextPath}" class="nav-link">Home</a></li>
+            <%-- <li class="nav-item active"><a href="${pageContext.request.contextPath}" class="nav-link">Home</a></li> --%>
             <li class="nav-item dropdown">
               <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Plan</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/planner/plannerSee.do">Schedule</a>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/planner/goReservation.do">Reservation</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/member/reservation.do">Reservation</a>
               </div>
             </li>
             <!--<li class="nav-item"><a href="#" class="nav-link">Developer</a></li>-->
             <li class="nav-item"><a href="${pageContext.request.contextPath}/planner/plannerShare.do" class="nav-link">Share Plan</a></li>
+            <li class="nav-item"><a href="${pageContext.request.contextPath}/tour/tourList.do" class="nav-link">Place</a></li>
             <li class="nav-item dropdown">
               <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Board</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
