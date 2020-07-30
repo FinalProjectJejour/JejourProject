@@ -18,42 +18,42 @@ public class AdminDAOImpl implements AdminDAO {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	
+	//리스트불러오기
+	
 	@Override
 	public List<Member> selectMemberList() {
 		System.out.println("2");
-		return sqlSession.selectList("memberMapper.selectList");
+		return sqlSession.selectList("adminMapper.selectMemberList");
 	}
 
 	@Override
 	public List<FlashBoard> selectFlashBoardLsit() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public List<FlashBoard> fBoardRanking() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<FlashComment> fCommentRanking() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("2");
+		return sqlSession.selectList("adminMapper.selectFlashList");
 	}
 
 	@Override
 	public List<HotspotBoard> selectHotspotBoardList() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("2");
+		return sqlSession.selectList("adminMapper.selectHotspotList");
 	}
 
+	//===========================게시글랭킹==================
+	
 	@Override
 	public List<HotspotBoard> hBoardRanking() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return sqlSession.selectList("adminMapper.hBoardRanking");
+	}
+	
+	@Override
+	public List<FlashBoard> fBoardRanking() {
+		
+		return sqlSession.selectList("adminMapper.fBoardRanking");
 	}
 
+	//=====================댓글랭킹===========================
+	
 	@Override
 	public List<HotspotComment> hCommentRanking() {
 		// TODO Auto-generated method stub
@@ -61,34 +61,59 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 	
 	@Override
-	public int banMember(String userId) {
+	public List<FlashComment> fCommentRanking() {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
+	
+	//==============강퇴=================
+	
+	@Override
+	public int banMember(String userId) {
+		
+		return sqlSession.delete("adminMapper.banMember",userId);
+	}
+	
+	//===============삭제==================
 
 	@Override
 	public int deleteHotspotBoard(int hNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete("adminMapper.deleteHotspotBoard", hNo);
 	}
 
 	@Override
 	public int deleteFlashBoard(int fNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return sqlSession.delete("adminMapper.deleteFlashBoard", fNo);
+	}
+	
+	//=================스테이터스변환
+
+	@Override
+	public List<FlashBoard> flashBoardStatusChange(FlashBoard flashBoard) {
+		
+		return sqlSession.selectList("adminMapper.changeFlash",flashBoard);
+	}
+	
+	@Override
+	public List<FlashBoard> fStatusSelect(FlashBoard flashBoard) {
+		
+		return sqlSession.selectList("adminMapper.fStatusSelect",flashBoard);
 	}
 
 	@Override
-	public int flashBoardStatusChange(int hNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<HotspotBoard> hotspotBoardStatusChange(HotspotBoard hotspotBoard) {
+		
+		return sqlSession.selectList("adminMapper.changeHotspot",hotspotBoard);
 	}
 
 	@Override
-	public int hotspotBoardStatusChange(int fno) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<HotspotBoard> hStatusSelect(HotspotBoard hotspotBoard) {
+		
+		return sqlSession.selectList("adminMapper.hStatusSelect",hotspotBoard);
 	}
+
+	//스테이터스변환
 
 	
 

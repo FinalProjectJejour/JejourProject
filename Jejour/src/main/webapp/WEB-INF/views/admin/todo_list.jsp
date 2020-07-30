@@ -101,8 +101,7 @@
 								</td>
 								<td>${member.address}</td>
 								<td>
-									<button type="button" class="btn btn-danger btn-xs"
-										onclick="deletebtn();">
+									<button type="button" class="btn btn-danger btn-xs" onclick="deletebtn('${member.userId}');">
 										<i class="fa fa-trash-o "></i>
 									</button>
 								</td>
@@ -117,13 +116,20 @@
 		</div>
 
 		<script>
-			function deletebtn() {
-				if (confirm("정말 삭제하시겠습니까??") == true) { //확인
-					document.form.submit();
+		
+			function deletebtn(userId) {
+				
+				
+				if (confirm("정말 강퇴하시겠습니까??") == true) { //확인
+					
+					location.href = '${pageContext.request.contextPath}/admin/banMember.do?userId='+userId;
+					
 				} else { //취소
 					return;
 				}
 			}
+			
+			 
 		</script>
 		<!-- /row -->
 	</section>
