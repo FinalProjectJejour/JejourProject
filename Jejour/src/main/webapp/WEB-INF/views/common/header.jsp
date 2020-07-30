@@ -55,7 +55,7 @@
               <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Plan</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/planner/plannerSee.do">Schedule</a>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/member/reservation.do">Reservation</a>
+                <a class="dropdown-item" href="#" onclick="goReservation();">Reservation</a>
               </div>
             </li>
             <!--<li class="nav-item"><a href="#" class="nav-link">Developer</a></li>-->
@@ -126,4 +126,10 @@
         </div>
       </div>
     </section>
+    
+    <script>
+    function goReservation() {
+    window.open('${pageContext.request.contextPath}/planner/goReservation.do','reservationPage','width=1350,height=950');
+    };
+    </script>
     

@@ -32,14 +32,14 @@
         </div>
       </div>
       
-   <p>총 ${totalContents }건의 게시물이 있습니다.</p>
+   <p>총 ${ totalContents }건의 게시물이 있습니다.</p>
    <br><br>
 
    <!-- 나의 일정리스트 시작-->
     <section class="ftco-section bg-light">
       <div class="container">
         <div class="row">
-          <c:forEach items="${list}" var="b"> 
+          <c:forEach items="${list}" var="p"> 
           <!-- 게시물 하나의 UI -->
           <div class="col-md-6 col-lg-3 ftco-animate">
             <div class="blog-entry">
@@ -47,13 +47,13 @@
               </a>
               <div class="text p-4">
                 <div class="meta">
-                  <div><a href="#">${ planner.date }</a></div>
-                  <div><a href="#">${ member.userName }</a></div>
+                  <div><a href="${pageContext.request.contextPath}/">${ p.Date }</a></div>
+                  <div><a href="${pageContext.request.contextPath}/">${ member.userName }</a></div>
                 </div>
-                <h3 class="heading"><a href="#">${ planner.describe }</a></h3>
+                <h3 class="heading"><a href="${pageContext.request.contextPath}/">${ p.Describe }</a></h3>
                 <p class="clearfix">
-                  <a href="#" class="float-left">Read more</a>
-                  <a href="#" class="float-right meta-chat"><span class="icon-thumbs-o-up"></span>${ plannerLike.good }</a>
+                  <a href="${pageContext.request.contextPath}/" class="float-left">Read more</a>
+                  <a href="${pageContext.request.contextPath}/" class="float-right meta-chat"><span class="icon-thumbs-o-up"></span>${ p.Good }</a>
                 </p>
               </div>
             </div>
@@ -63,21 +63,12 @@
        
        </div>
 
-        <!-- 페이징처리 UI <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
-        </div> -->
+        <div class="row mt-5" style="margin-bottom: -40px;" id="pageBarDiv">
+        	<div class="col text-center" id="pageBar">
+				<c:out value="${pageBar}" escapeXml="false"/>
+           	</div>
+        </div>
+     
       </div>
     </section>
    <!-- 나의일정 보관함의 끝 -->
