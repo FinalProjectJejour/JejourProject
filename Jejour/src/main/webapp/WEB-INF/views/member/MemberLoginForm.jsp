@@ -255,7 +255,7 @@ button, .button{
                     <div class="foot-lnk">
                         <a href = '${pageContext.request.contextPath}/member/memberfindidForm.do' 
                         onclick = "createPopupWin('memberfindidForm.do',
-                            '개인정보 찾기', 600, 400);return false">아이디/비밀번호 찾기</a>
+                            '개인정보 찾기', 700, 550);return false">아이디/비밀번호 찾기</a>
                     </div>
                 </div>
              </form>
@@ -303,16 +303,17 @@ button, .button{
                         <!-- 비밀번호 확인 -->
                         <label id="pwdResult" class="pwdResult" for="pwdResult"></label>
                     </div>  
-  
+  					
+  					<!-- 이메일 인증 -->
                     <div class="group" id="email-container" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">이메일</label><br><br>
                         <input id="email" type="email" class="input" name="email" style="width: 70%;" required
                         	   oninvalid="this.setCustomValidity('이메일을 인증해주세요')"
                         	   placeholder="이메일 인증해주세요!" readonly>
-                        <!-- 중복체크 -->
+                        
 						<span class="guide ok">사용 가능</span>
 						<span class="guide error">사용불가</span>
-						<input type="hidden" name="checkEmailDup" id="checkEmailDup" value="0"/>
+
                         
                         <button class="input"
                         onclick = "createEmailCer('certifyForm.do',

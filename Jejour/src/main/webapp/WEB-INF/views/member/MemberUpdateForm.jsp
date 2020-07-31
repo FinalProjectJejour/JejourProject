@@ -10,22 +10,22 @@
 <title>Member Update Info</title>
 <link rel = "stylesheet" href = "resources/assets/plugins/bootstrap/css/bootstrap.min.css">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="../resources/js/jquery-3.5.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <style>
 body{
-	margin:auto;
+	
 	color:#6a6f8c;
 	background:#c8c8c8;
 	font:600 16px/18px 'Open Sans',sans-serif;
     background-repeat: no-repeat;
     background-size : cover;
-    background-image: url('../resources/images/updateinfo5.jpg');
+    background-image: url('${pageContext.request.contextPath }/resources/images/updateinfo5.jpg');
 }
 
 *,:after,:before{box-sizing:border-box}
 .clearfix:after,.clearfix:before{content:'';display:table}
-.clearfix:after{clear:both;display:block}
-a{color:inherit;text-decoration:none}
+.clearfix:after{clear:both;display:block;}
+a{color:inherit;text-decoration:none;}
 
 .login-wrap{
   
@@ -75,7 +75,8 @@ a{color:inherit;text-decoration:none}
 .login-html .sign-in:checked + .tab,
 .login-html .sign-up:checked + .tab{
 	color:#fff;
-	border-color:#1161ee;
+	border-color:white;
+	/* #1161ee */
 }
 .login-form{
 	min-height:345px;
@@ -87,15 +88,14 @@ a{color:inherit;text-decoration:none}
 	margin-bottom:15px;
 }
 .login-form .group .label,
-.login-form .group .button,
-#dupliCheck{
+.login-form .group .button{
 	color:#fff;
 }
 
 .login-form .group .input,
 .login-form .group .button{
 	border:none;
-	padding:15px 20px;
+	padding:15px 25px;
 	border-radius:25px;
     background:rgba(255,255,255,.9);
 
@@ -107,32 +107,15 @@ a{color:inherit;text-decoration:none}
 	color:#aaa;
 	font-size:12px;
 }
-.login-form .group .button{
-	background:#1161ee;
-}
 
-#dupliCheck {
-    background:#1161ee;
-}
 
 .Phone {
-    width: 29%;
     height: 100%;
     border:none;
     text-align: center;
     padding:15px 20px;
     border-radius:25px;
     background:rgba(255,255,255,.9);
-    
-}
-.RRN {
-    width: 45%;
-    border:none;
-    text-align: center;
-    padding:15px 20px;
-    border-radius:25px;
-    background:rgba(255,255,255,.9);
-    
 }
 
 .login-form .group label .icon{
@@ -192,18 +175,47 @@ a{color:inherit;text-decoration:none}
     color:white;
 }
 
-.btn {
-	   line-height:50px;
-	   border:1px #3399dd solid;
-	   border-radius:25px;
-	   background-color:#66aaff;
-	   text-align:center;
-	   cursor: pointer;
-	   color:#333;
-	   transition:all 0.9s, color 0.3;
-	  }
+/* 버튼 CSS */
 
-.btn:hover{color:#fff;}
+button {
+
+  background-color: #233142;
+  border: none;
+  border-radius: 4px;
+  color: #ccc;
+  font-size: 15px;
+  letter-spacing: 2px;
+  
+}
+
+
+
+#button1 {
+   background-color: #233142;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+}
+
+.button {
+  background-color: #233142;
+  cursor: pointer;
+  -webkit-transition: box-shadow 0.1s linear;
+  transition: box-shadow 0.1s linear;
+}
+
+.button:hover {
+  box-shadow: 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+div#email-container{position:relative;}
+div#email-container span.guide {display:none;
+								font-size: 12px;
+								position:absolute;
+								top:12px; right:10px;
+								margin-top:39px;
+								margin-right: 115px;}
+div#email-container span.ok{color:green;}
+div#email-container span.error{color:red;}
 
 
 
@@ -221,18 +233,18 @@ a{color:inherit;text-decoration:none}
             <!-- 회원정보 수정폼의 시작  -->
             <form id="memberupdate" action="${pageContext.request.contextPath}/member/memberUpdate.do" method="post">
                 <div class="sign-in-htm">
-                    <div class="group" style="margin-left:40px; margin-top:30px">
+                    <div class="group" style="margin-left:40px; margin-top:25px">
                         <br><br>
                         <label for="user" class="label" style="font-size: 18px;">아이디</label>
                         <label style="color:white; margin-left: 70px;">${ member.userId }</label>
                     </div>
                     <br>
-                    <div class="group" style="margin-left:40px; margin-top:30px">
+                    <div class="group" style="margin-left:40px; margin-top:25px">
                         <label for="user" class="label" style="font-size: 18px; width: 50%;">이름</label>
                         <label style="color:white; margin-left: 90px;">${ member.userName }</label>
                     </div>
                     <br>
-                    <div class="group" style="margin-left:40px; margin-top:30px">
+                    <div class="group" style="margin-left:40px; margin-top:25px">
                         <label for="user" class="label" style="font-size: 18px;">성별</label><br>
                         <select name="gender" id="gender" class=input id="gender" style="width: 90%;" required>
                             <option  value="M">남자</option>
@@ -242,7 +254,7 @@ a{color:inherit;text-decoration:none}
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">비밀번호</label><br>
                         <input id="password1" name="userPwd" type="password" class="input" data-type="password" style="width: 90%;"
-                        	   placeholder="영문과 숫자 최소 6자리 최대18자리입력" required>
+                        	   placeholder="영문과 숫자 최소6~18자 입력" required>
                     </div>
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">비밀번호 확인</label><br>
@@ -250,16 +262,25 @@ a{color:inherit;text-decoration:none}
                         <br>
                         <label id="pwdResult" class="pwdResult" for="pwdResult"></label>
                     </div>
-                    <div class="group" style="margin-left:40px;">
-                        <label for="pass" class="label" style="font-size: 18px;">이메일주소</label><br>
-                        <input id="Email" id="Email" type="text" class="input" name="Email" style="width: 90%; text-align:center;"
-                        placeholder="asd123@qwert.com 형식으로입력">
-                        <br>
-                        <label class="EmailCheck" id="EmailCheck" for="EmailCheck"></label>
-                    </div>
+                    
+                    <!-- 이메일 인증란 -->
+                    <div class="group" id="email-container" style="margin-left:40px;">
+                        <label for="pass" class="label" style="font-size: 18px;">이메일</label><br><br>
+                        <input id="email" type="email" class="input" name="email" style="width: 65%;" required
+                        	   oninvalid="this.setCustomValidity('이메일을 인증해주세요')"
+                        	   placeholder="이메일 인증해주세요!" readonly>
+                       
+						<span class="guide ok">사용 가능</span>
+						<span class="guide error">사용불가</span>
+
+                        <span class="button" id="button1"
+                        onclick = "createEmailCer('certifyForm.do',
+                            '이메일 인증', 700, 500);return false" >인증</span>
+				   </div>
+				   <!-- 이메일의 끝  -->
                     <div class="group" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">휴대폰번호</label><br>
-                        <input type="text" id="Phone" name="Phone" class="Phone" style="width: 90%;" placeholder="-없이입력">
+                        <input type="text" id="Phone" name="Phone" class="Phone" style="width:90%;" placeholder="-없이입력">
                         <br>
                         <label class="phoneNumCheck" id="phoneNumCheck" for="phoneNumCheck"></label>
                     </div>
@@ -268,8 +289,9 @@ a{color:inherit;text-decoration:none}
                         <label for="pass" class="label" style="font-size: 18px;">우편번호</label>
                         <br>
 						<input type="text" class="input" id="zipCode"
-												name="zipCode" style="width: 70%;" required>
-						<button type="button" class="input" onclick="addrSearch();">검색</button>
+												name="zipCode" style="width: 65%;" required>
+						
+						<span class="button" id="button1" onclick="addrSearch();">검색</span>
                         <br><br>
                         <label for="pass" class="label" style="font-size: 18px;">주소</label>
                         <br>
@@ -280,14 +302,18 @@ a{color:inherit;text-decoration:none}
                         <input type="text" class="input" id="address2" name="address2" style="width: 90%;">
                     </div>
                   	
-                    <div class="group" style="text-align:center; margin-top:75px;">
-                        <input type="submit" class="btn hover4"" value="정보수정" style="width: 44%; font-size: 20px; font-weight: bold; ">
-                        <button type="button" class="btn hover4"" style="width: 44%; font-size: 20px; font-weight: bold;" onclick="godelete();">회원탈퇴</button>
+                    <div class="group" style="margin-top:100px; margin-left:190px;">
+                        <input type="submit" class="button" id="button1" value="정보수정"
+                               style="width:310px; font-size:18px; font-weight:bold;"/>
                     </div>
+                    <div class="group" style="margin-top:20px; float:right;">
+                    	<button class="button" id="button1" style="width:130px; font-size: 18px; font-weight: bold;" onclick="godelete();">회원탈퇴</button>
+                    	<button class="button" id="button1" style="width:130px; font-size: 18px; font-weight: bold;" onclick="goMain();">홈으로</button>
+                    </div>
+                    
+                    
                     <br>
-                    <div class="group" style="text-align:center;">
-                    	<button type="button" class="btn hover4" style="width: 90%; font-size: 20px; font-weight: bold;" onclick="goMain();">홈으로</button>
-                    </div>
+                    
                 </div>
                </form>
                <!-- 회원정보수정 폼의 끝 --> 
@@ -336,6 +362,19 @@ a{color:inherit;text-decoration:none}
      
 
 <script>
+
+//이메일 인증창 띄우기
+function createEmailCer(pageURL, pageTitle,popupWinWidth, popupWinHeight)
+{ var left = (screen.width - popupWinWidth) / 2; 
+  var top = (screen.height - popupWinHeight) / 2; 
+			  
+  var myWindow = window.open(pageURL, pageTitle,  
+			        	'width='  + popupWinWidth 
+			        + ', height=' + popupWinHeight
+			        + ', top='    + top
+			        + ', left='   + left); }
+
+
 $(function(){
  	<c:if test="${ !empty member }">
 		
@@ -354,7 +393,7 @@ $(function(){
 		// 사용자 이메일 가져오기
 		var email = '${ member.getEmail()}'
 		
-		$('#Email').val(email);
+		$('#email').val(email);
 		
 	</c:if>	
  });
@@ -451,7 +490,17 @@ $(function(){
 		};
 		
 		function godelete() {
-			location.href = '${pageContext.request.contextPath}/member/memberDelete.do';
+			
+			if (confirm("정말 회원탈퇴 하실껀가요? (ノTДT)ノ") == true){    
+
+				location.href = '${pageContext.request.contextPath}/member/memberDelete.do';
+
+	    	 }else{   //취소
+
+	    	     return false;
+
+	    	 }
+			
 		};
 		
 		
@@ -496,6 +545,73 @@ $(function(){
 					}).open();
 		};
      
+     // 버튼 JS
+     var $btn = document.getElementsByClassName("button");
+	var mouseObj = {
+	  mouseCoords: null,
+	  mousetThreshold: 0.12,
+	  manageMouseLeave: function (event) {
+	    event.currentTarget.style.boxShadow = "0 0 0 rgba(0,0,0,0.2)";
+	    // update btn gradient
+	    event.currentTarget.style.background = "#233142";
+	  },
+	  manageMouseMove: function (event) {
+	    var dot, eventDoc, doc, body, pageX, pageY;
+	
+	    event = event || window.event; // IE-ism
+	    target = event.currentTarget;
+	    // (old IE)
+	    if (event.pageX == null && event.clientX != null) {
+	      eventDoc = (event.target && event.target.ownerDocument) || document;
+	      doc = eventDoc.documentElement;
+	      body = eventDoc.body;
+	
+	      event.pageX =
+	        event.clientX +
+	        ((doc && doc.scrollLeft) || (body && body.scrollLeft) || 0) -
+	        ((doc && doc.clientLeft) || (body && body.clientLeft) || 0);
+	      event.pageY =
+	        event.clientY +
+	        ((doc && doc.scrollTop) || (body && body.scrollTop) || 0) -
+	        ((doc && doc.clientTop) || (body && body.clientTop) || 0);
+	    }
+	
+	    // Use event.pageX / event.pageY here
+	
+	    //normalize
+	    //bodyRect = document.body.getBoundingClientRect(),
+	    var elemRect = target.getBoundingClientRect(), //$btn.getBoundingClientRect(),
+	      mean = Math.round(elemRect.width / 2);
+	    //offset   = elemRect.top - bodyRect.top;
+	
+	    //mouseObj.mouseCoords = {mouse_x: event.pageX - elemRect.left , mouse_y:event.pageY - elemRect.top}
+	    mouseObj.mouseCoords = {
+	      mouse_true_x: event.pageX - elemRect.left,
+	      mouse_x: (event.pageX - elemRect.left - mean) * mouseObj.mousetThreshold,
+	      mouse_y: event.pageY - elemRect.top
+	    };
+	    mouseObj.manageButtonShadow(-1, target);
+	  },
+	  manageButtonShadow: function (direction, target) {
+	    if (mouseObj.mouseCoords) {
+	      mouseObj.mouseCoords.mouse_x = Math.floor(mouseObj.mouseCoords.mouse_x);
+	      target.style.boxShadow =
+	        direction * mouseObj.mouseCoords.mouse_x + "px 10px 0 rgba(0,0,0,0.2)";
+	
+	      // update btn gradient
+	      target.style.background =
+	        "radial-gradient(at " +
+	        mouseObj.mouseCoords.mouse_true_x +
+	        "px, #2a3d52 0%, #233142 80%)";
+	    }
+	  }
+	};
+
+	// init listeners
+	for (i = 0; i < $btn.length; i++) {
+	  $btn[i].addEventListener("mousemove", mouseObj.manageMouseMove, false);
+	  $btn[i].addEventListener("mouseleave", mouseObj.manageMouseLeave, false);
+	}
      
      
      </script>

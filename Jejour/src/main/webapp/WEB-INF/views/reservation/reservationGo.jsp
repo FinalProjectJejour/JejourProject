@@ -342,16 +342,16 @@ body{
   	   <div class="section">
             <ul class="case-study-wrapper">
                 <li class="case-study-name">                                
-                    <a href="#" class="hover-target">Plane Reservation</a>
+                    <a href="https://www.tripadvisor.co.kr/CheapFlightsHome" target="_blank" class="hover-target">Plane Reservation</a>
                 </li>
                 <li class="case-study-name">                                            
-                    <a href="#" class="hover-target">Rental Car</a>
+                    <a href="https://rentinjeju.com/?gclid=CjwKCAjw34n5BRA9EiwA2u9k39wmGrtWSF3hqYCRp1uupXa-k6bhfFfVdy8Okug-HKdQoz_qjonXgBoC0Z8QAvD_BwE" target="_blank" class="hover-target">Rental Car</a>
                 </li>
                 <li class="case-study-name">                                            
-                    <a href="#" class="hover-target">Accommodations</a>
+                    <a href="https://www.booking.com/accommodation/region/kr/jeju.ko.html?aid=398997;label=jeju-3xiYXZYm3X%2A2qNM_AZxxWgS366455538929%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg%3Afi%3Atikwd-2635673379%3Alp1009871%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YeHkCqp9rpjzBdqoe_CbKeE;sid=005483c1c45b0a1e8a696d863701beaa;keep_landing=1&gclid=CjwKCAjw34n5BRA9EiwA2u9k3-InhufTgO-4yH9yteJix-vUhL2X2NSmDetijOgSSZltW31WDxQo4RoCpXIQAvD_BwE&" target="_blank" class="hover-target">Accommodations</a>
                 </li>
                 <li class="case-study-name">                                            
-                    <a href="#" class="hover-target">Cruise</a>
+                    <a href="http://www.vepyo.com/html/" target="_blank" class="hover-target">Cruise</a>
                 </li>
             </ul>
             <ul class="case-study-images">

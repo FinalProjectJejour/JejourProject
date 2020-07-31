@@ -134,7 +134,7 @@
     
     function logOutCheck() {
 
-    	 if (confirm("정말 로그아웃하실껀가요? ㅠ,.ㅠ") == true){    
+    	 if (confirm("어디가삼 ㅠㅠㅠ 진짜 로그아웃하삼?") == true){    
 
     	    location.href="${pageContext.request.contextPath}/member/memberLogout.do"; 
 
