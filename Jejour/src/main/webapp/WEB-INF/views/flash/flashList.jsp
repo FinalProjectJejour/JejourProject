@@ -61,9 +61,10 @@
               </div>
               <div class="text p-4">
                 <div class="meta">
-                  <div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=${f.FNo}">${f.FMeetDate} ${f.FMeetTime}</a></div>
-                  &nbsp;
-                  <div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=${f.FNo}">${f.FWriter}</a></div>
+                  <div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=${f.FNo}">날짜 : ${f.FMeetDate} ${f.FMeetTime}</a></div>
+                </div>
+                <div class="meta">
+                  <div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=${f.FNo}">작성자 : ${f.FWriter}</a></div>
                 </div>
                 <div style="height: 120px;">
                 <h3 class="heading"><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=${f.FNo}">${f.FTitle}</a></h3>

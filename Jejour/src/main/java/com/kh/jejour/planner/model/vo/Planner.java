@@ -8,14 +8,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Planner {
-	
+   
 	private int pNo;
 	private String userId;
+	private String pWriter;
 	private String title;
+	private String startDay;
+	private String endDay;
 	private String describe;
 	private String account;
 	private String theme;
-	private String renamedFileName;
 	private String status;
+	private int likeCount;
 
 }
