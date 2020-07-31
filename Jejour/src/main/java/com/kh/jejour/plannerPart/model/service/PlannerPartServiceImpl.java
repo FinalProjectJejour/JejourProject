@@ -72,7 +72,12 @@ public class PlannerPartServiceImpl implements PlannerPartService {
 		return plannerPartDAO.selectPlanList(pNo);
 	}
 
-	
+	@Override
+	public int deletePlanner(int ppNo) {
+		// TODO Auto-generated method stub
+		return plannerPartDAO.deletePlan(ppNo);
+	}
+
 	
 
 	

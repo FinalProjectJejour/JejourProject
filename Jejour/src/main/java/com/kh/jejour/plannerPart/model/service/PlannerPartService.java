@@ -19,5 +19,7 @@ public interface PlannerPartService {
 		int settingPlanner(PlannerPart plannerPart);
 
 		List<PlannerPart> selectPlanList(int pNo);
+
+		int deletePlanner(int ppNo);
 	
 }

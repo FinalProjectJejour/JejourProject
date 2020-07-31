@@ -15,5 +15,7 @@ public interface PlannerDAO {
 
 	int setStatus(Planner planner);
 
+	Planner getThisPlanner(int pNo);
+
 	// Planner selectOnePlanner(int pNo);
 }

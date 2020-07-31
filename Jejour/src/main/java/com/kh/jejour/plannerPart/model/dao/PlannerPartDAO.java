@@ -12,5 +12,7 @@ public interface PlannerPartDAO {
 
 	List<PlannerPart> selectPlanList(int pNo);
 
+	int deletePlan(int ppNo);
+
 	// Planner selectOnePlanner(int pNo);
 }

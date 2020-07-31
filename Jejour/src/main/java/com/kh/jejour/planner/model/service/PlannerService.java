@@ -23,6 +23,8 @@ public interface PlannerService {
 
 		int setStatus(Planner planner);
 
+		Planner getThisPlanner(int pNo);
+
 		// Planner selectOnePlanner(int pNo);
 	
 }

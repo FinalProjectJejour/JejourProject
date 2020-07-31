@@ -27,6 +27,12 @@ public class PlannerPartDAOImpl implements PlannerPartDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("plannerMapper.selectPlanList", pNo);
 	}
+
+	@Override
+	public int deletePlan(int ppNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("plannerMapper.deleteplan", ppNo);
+	}
 	
 	
 	

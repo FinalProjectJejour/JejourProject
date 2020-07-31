@@ -35,7 +35,13 @@ public class PlannerController {
 	@RequestMapping("/planner/reservationGo.do")
 	public String goReservation() {
 		
-		return "reservation/reservation";
+		return "reservation/reservationGo";
+	}
+	
+	@RequestMapping("/planner/maintenanceGo.do")
+	public String maintenanceGo() {
+		
+		return "planner/maintenance";
 	}
 	
 	@RequestMapping("/planner/plannerSee.do")
@@ -52,11 +58,13 @@ public class PlannerController {
 		System.out.println(pNo);
 		
 		List<PlannerPart> list = plannerPartService.selectPlanList(pNo);
+		Planner pl = plannerService.getThisPlanner(pNo);
 		
 		System.out.println(list);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pNo", pNo);
+		model.addAttribute("start", pl.getStartDay());
 		
 		return "planner/plannerConfirm";
 	}
@@ -94,7 +102,8 @@ public class PlannerController {
 			@RequestParam("start_date") String start_date,
 			@RequestParam("return_date") String return_date) {
 
-
+		planner.setStartDay(start_date);
+		planner.setEndDay(return_date);
 		
 		start_date += "T00:00";
 		return_date += "T23:00";

@@ -6,8 +6,8 @@
 
 	<insert id="insertPlanner" parameterType="Planner">
 		
-		INSERT INTO PLANNER(PNO, USERID, TITLE, DESCRIBE, ACCOUNT, THEME, STATUS)
-		VALUES (SEQ_PNO.NEXTVAL,#{userId},#{title},#{describe},#{account},#{theme},#{status})
+		INSERT INTO PLANNER(PNO, USERID, PWRITER, TITLE, STARTDAY, ENDDAY, DESCRIBE, ACCOUNT, THEME, STATUS)
+		VALUES (SEQ_PNO.NEXTVAL,#{userId},#{pWriter},#{title},#{startDay},#{endDay},#{describe},#{account},#{theme},#{status})
 		<!-- <selectKey keyProperty="plannerNo" resultType="_int" order="AFTER"> SELECT SEQ_PNO.CURRVAL FROM DUAL </selectKey> -->
 		<!-- 전달한 board객체의 boardNo 프로퍼티에 결과값을 담는다. -->
 		<!-- <selectKey keyProperty="boardNo" resultType="_int" order="AFTER"> SELECT SEQ_BOARDNO.CURRVAL FROM DUAL </selectKey> -->
@@ -54,6 +54,7 @@
 	<select id="selectPlanList" parameterType="_int" resultType="PlannerPart">
 		SELECT * FROM PLANNER_PART
 		WHERE PNO = #{pNo}
+		ORDER BY STARTTIME ASC
 	</select>
 	
 	<update id="updateStatus" parameterType="Planner">
@@ -63,6 +64,16 @@
       </set>
       WHERE PNO = #{pNo}
    </update>
+   
+   <select id="thisPlanner" parameterType="_int" resultType="Planner">
+		SELECT * FROM PLANNER
+		WHERE PNO = #{pNo}
+	</select>
+	
+	<delete id="deleteplan" parameterType="_int">
+      DELETE FROM PLANNER_PART
+      WHERE PPNO = #{ppNo}
+   </delete>
 	
 </mapper>
 
