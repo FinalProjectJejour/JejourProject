@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sharePlanMapper">
+
+	<select id="selectSharePlanList" resultType="Planner">
+		SELECT PNO, P.USERID, PWRITER, P.TITLE, P.STARTDAY, P.ENDDAY, P.DESCRIBE, P.ACCOUNT, P.THEME, P.STATUS, NVL(SUM(DECODE(PL.GOOD, 'Y', 1,' N', 0)),0) "LIKECOUNT"
+		FROM PLANNER P
+		FULL JOIN PLANNER_LIKE PL USING(PNO)
+		WHERE P.STATUS = 'Y'
+		GROUP BY PNO, P.USERID, PWRITER, P.TITLE, P.STARTDAY, P.ENDDAY, P.DESCRIBE, P.ACCOUNT, P.THEME, P.STATUS
+		ORDER BY PNO DESC
+	</select>
+	
+	<select id="selectSharePlanTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM PLANNER WHERE STATUS = 'Y'
+	</select>
+	
+	<select id="searchShare" parameterType="hashmap" resultType="Planner">
+		SELECT PNO, P.USERID, PWRITER, P.TITLE, P.STARTDAY, P.ENDDAY, P.DESCRIBE, P.ACCOUNT, P.THEME, P.STATUS, NVL(SUM(DECODE(PL.GOOD, 'Y', 1,' N', 0)),0) "LIKECOUNT"
+		FROM PLANNER P
+		FULL JOIN PLANNER_LIKE PL USING(PNO)
+		<bind name="myPattern" value="'%' + keyword + '%'" />
+		
+		<where>
+			<if test="searchCondition == 'all'">
+				(P.PWRITER LIKE #{myPattern} OR
+				P.TITLE LIKE #{myPattern}) AND
+				P.STATUS = 'Y'
+			</if>
+	 		<if test="searchCondition == 'title'">
+	 			P.TITLE LIKE #{myPattern} AND
+				P.STATUS = 'Y'
+	 		</if>
+	 		<if test="searchCondition == 'pWriter'">
+	 			P.PWRITER LIKE #{myPattern} AND
+				P.STATUS = 'Y'
+	 		</if>
+		</where>
+		GROUP BY PNO, P.USERID, PWRITER, P.TITLE, P.STARTDAY, P.ENDDAY, P.DESCRIBE, P.ACCOUNT, P.THEME, P.STATUS
+		ORDER BY PNO DESC
+	</select>
+	
+	<select id="selectSearchShareContents" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*) FROM PLANNER
+		<bind name="myPattern" value="'%' + keyword + '%'" />
+		
+		<where>
+			<if test="searchCondition == 'all'">
+				(PWRITER LIKE #{myPattern} OR
+				TITLE LIKE #{myPattern}) AND
+				STATUS = 'Y'
+			</if>
+	 		<if test="searchCondition == 'title'">
+	 			TITLE LIKE #{myPattern} AND
+				STATUS = 'Y'
+	 		</if>
+	 		<if test="searchCondition == 'pWriter'">
+	 			PWRITER LIKE #{myPattern} AND
+				STATUS = 'Y'
+	 		</if>
+		</where>
+		ORDER BY PNO DESC
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
