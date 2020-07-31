@@ -38,6 +38,12 @@ public class PlannerDAOImpl implements PlannerDAO {
 		return sqlSession.update("plannerMapper.updateStatus", planner);
 		
 	}
+
+	@Override
+	public Planner getThisPlanner(int pNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("plannerMapper.thisPlanner", pNo);
+	}
 	
 	
 	

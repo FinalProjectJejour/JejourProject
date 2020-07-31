@@ -22,7 +22,9 @@ public class PlannerServiceImpl implements PlannerService {
 		int pno = 0;
 
 		try {
+			System.out.println("good2-1");
 			result = plannerDAO.insertPlanner(planner);
+			System.out.println("good2-2");
 			if (result == PLANNER_SERVICE_ERROR)
 				throw new PlannerException();
 			
@@ -69,6 +71,12 @@ public class PlannerServiceImpl implements PlannerService {
 
 		return plannerDAO.setStatus(planner);
 		
+	}
+
+	@Override
+	public Planner getThisPlanner(int pNo) {
+		// TODO Auto-generated method stub
+		return plannerDAO.getThisPlanner(pNo);
 	}
 	
 	

@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.jejour.planner.model.service.PlannerService;
+import com.kh.jejour.planner.model.vo.Planner;
 import com.kh.jejour.plannerPart.model.service.PlannerPartService;
 import com.kh.jejour.plannerPart.model.vo.PlannerPart;
 
@@ -30,15 +30,42 @@ public class PlannerPartController {
 							@RequestParam("start_date") String start_date,
 							@RequestParam("return_date") String return_date) {
 		
-		System.out.println(plannerPart);
 		plannerPartService.settingPlanner(plannerPart);
 		
 		List<PlannerPart> list = plannerPartService.selectPlanList(plannerPart.getPNo());
+		Planner pl = plannerService.getThisPlanner(plannerPart.getPNo());
 		
 		System.out.println(list);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pNo", pNo);
+		model.addAttribute("start", pl.getStartDay());
+		model.addAttribute("start_date", start_date);
+		model.addAttribute("return_date", return_date);
+		//model.addAttribute("pNo", pNo);
+		
+		return "planner/planner";
+		
+	}
+	
+		
+	@RequestMapping("/plannerPart/plannerPartDelete.do")
+	public String deletePlanner(PlannerPart plannerPart, Model model, HttpSession session,
+							@RequestParam("pNo") String pNo,
+							@RequestParam("start_date") String start_date,
+							@RequestParam("return_date") String return_date) {
+		
+		System.out.println("plannerPart");
+		plannerPartService.deletePlanner(plannerPart.getPpNo());
+		
+		List<PlannerPart> list = plannerPartService.selectPlanList(plannerPart.getPNo());
+		Planner pl = plannerService.getThisPlanner(plannerPart.getPNo());
+		
+		System.out.println(list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pNo", pNo);
+		model.addAttribute("start", pl.getStartDay());
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("return_date", return_date);
 		//model.addAttribute("pNo", pNo);
