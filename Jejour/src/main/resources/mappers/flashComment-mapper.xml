@@ -12,12 +12,22 @@
 	<select id="selectComment" parameterType="_int" resultMap="resultComment">
 		SELECT * FROM FLASH_COMMENT
 		WHERE FNO = #{fNo}
-		ORDER BY FCNO ASC
+		START WITH FCLEVEL = 1
+		CONNECT BY PRIOR FCNO = REF_FCNO 
 	</select>
 	
 	<insert id="insertComment" parameterType="FlashComment">
 		INSERT INTO FLASH_COMMENT
-		VALUES(SEQ_FCNO.NEXTVAL, #{fNo}, #{userId}, #{fcWriter}, #{fcContent}, DEFAULT, #{reffcNo}, #{fcLevel})
+		VALUES(SEQ_FCNO.NEXTVAL, #{fNo}, #{userId}, #{fcWriter}, #{fcContent}, DEFAULT, 
+		<choose>
+			<when test="reffcNo > 0">
+				#{reffcNo}
+			</when>
+			<otherwise>
+				NULL
+			</otherwise>
+		</choose>
+		, #{fcLevel})
 	</insert>
 	
 	<delete id="deleteComment" parameterType="_int">
