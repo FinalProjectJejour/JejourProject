@@ -102,6 +102,7 @@
     	location.href = "${pageContext.request.contextPath}/flashBoard/flashBoardUpdateView.fl?fNo=${FlashBoard.FNo}";
     }
     
+    // 댓글 달기
     function goInsertComment() {
     	var formData = $("#insertComment").serialize();
     	
@@ -161,6 +162,7 @@
     	});
 	}
     
+    // 댓글 삭제
     function goDeleteComment(obj) {
     	
     	$.ajax({
@@ -181,12 +183,14 @@
     	
     }
     
+    // 댓글 수정
     function goUpdateComment(obj) {
     	$(obj).parent().parent().parent().next().find('textarea').removeAttr('readonly');
 		$(obj).siblings('.updateConfirm').css('display','inline');
 		$(obj).css('display', 'none');
     }
     
+    // 댓글 수정 완료
     function goUpdateConfirm(obj) {
     	
     	$.ajax({
@@ -208,22 +212,75 @@
     	});
     }
     
-    /*
+    // 답글 달기
     function reComment(obj) {
     	$(obj).siblings('.insertConfirm').css('display','inline');
     	$(obj).css('display', 'none');
     	
 		var htmlForm = 
+			/*
 			'<tr class="comment">'
 				+'<td colspan="3" style="background : transparent; text-align : center;">'
-					+ '<textarea class="reply-content" cols="105" rows="2" style="border: 1px solid gray; border-radius: 10px; width:97%; resize:none; outline: none;" placeholder="답글을 입력해보세요!"></textarea>'
+					+ '<textarea class="reply-content" cols="105" rows="4" style="border: 1px solid gray; border-radius: 10px; width:97%; resize:none; outline: none;" placeholder="답글을 입력해보세요!"></textarea>'
 				+ '<hr>'
 				+ '</td>'
 			+ '</tr>';
-		
+			*/
+			'<tr class="comment">' +
+				'<td></td>' +
+				'<td colspan="2" style="background : transparent; text-align : center;">' +
+					'<div style="border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 10px;">' +
+	            		'<div class="text-left" style="padding-left: 15px;">' +
+	            			'<div style="height : 10px"></div>' +
+	            			'<a style="font-weight: 900; color: black;">' + '${member.userName}' + '</a>' +
+	          			'</div>' +
+	          			'<div class="comment_form mx-auto" style="text-align: center;">' +
+	            			'<textArea class="reply-content" rows="1" cols="80" style="border:none; width:97%; resize:none; outline: 0;" placeholder="답글을 입력해보세요!"></textArea>' +
+	          			'</div>' +
+	          			'<div class="text-right">' +
+	            			'<button type="button" class="insertConfirm btn btn-md btn-info" id="addReply" style="border-radius: 10px;"' + 
+	            			'onclick="reConfirm(this);">답글완료</button>&nbsp;&nbsp;&nbsp;' +
+	          				'<div style="height : 10px"></div>' +
+	          			'</div>' +
+          			'</div>' +
+				'<hr>' +
+				'</td>' +
+          	'</tr>';
+          	
 		$(obj).parents('table').append(htmlForm);
     }
-    */
+    
+    // 답글 완료
+    function reConfirm(obj) {
+    	
+    	var reffcNo = $(obj).parents(".comment").prev().prev().children().eq(2).children().children().eq(2).val();
+    	//console.log($(obj).parents(".comment").prev().prev().children().eq(2).children().children().eq(2).val());
+    	var fcLevel = Number($(obj).parents(".comment").prev().prev().children().eq(2).children().children().eq(3).val()) + 1;
+    	
+    	var fcContent = $(obj).parent().prev().children().val();
+    	// console.log($(obj).parent().prev().children().val());
+    	
+    	$.ajax({
+    		url : '${pageContext.request.contextPath}/flashComment/flashCommentInsert.fl',
+    		type : 'post',
+    		data : {
+    			fNo : '${FlashBoard.FNo}',
+    			userId : '${member.userId}',
+    			fcWriter : '${member.userName}',
+    			reffcNo : reffcNo,
+    			fcLevel : fcLevel,
+    			fcContent : fcContent
+    		},
+    		success : function(data) {
+    			alert("성공!");				
+			},
+    		error : function() {
+    			alert("실패!");
+    		}
+    	});
+    	
+    }
+    
     
     
     
@@ -265,7 +322,7 @@
 						
 						if(data[i].userId=='${member.userId}') {
 	    					$('#replySelectArea').append(
-    				              	'<table id="replySelectTable" class="text-left" style="margin-left : 0px; width : 100.0%;" class="replyList1">' +
+    				              	'<table id="replySelectTable" style="margin-left : ' + ((data[i].fcLevel - 1)*70) + 'px; width : ' + (100 - ((data[i].fcLevel - 1)*9.4)) + '%;" class="replyList' + data[i].fcLevel + ' text-left">' +
 		    			                '<tr>' +
 		    			                  '<td style="width:80px;"><b>&nbsp;&nbsp;' + data[i].fcWriter + '</b></td>' +
 		    			                  '<td>' +  year + '-' + fmonth + '-' + day  + '</td>' +
@@ -297,7 +354,7 @@
 	    					);
 						} else {
 	    					$('#replySelectArea').append(
-	    							'<table id="replySelectTable" class="text-left" style="margin-left : 0px; width : 100.0%;" class="replyList1">' +
+	    							'<table id="replySelectTable" style="margin-left : 0px; width : 100.0%;" class="replyList1' + data[i].fcLevel + ' text-left">' +
 		    			                '<tr>' +
 		    			                  '<td style="width:80px;"><b>&nbsp;&nbsp;' + data[i].fcWriter + '</b></td>' +
 		    			                  '<td>' +  year + '-' + fmonth + '-' + day  + '</td>' +
@@ -305,12 +362,12 @@
 		    			                    '<div class="text-right">' +
 		    			                      '<input type="hidden" name="fcNo" value=' + '"' + data[i].fcNo +'"' + '/>' + 
 		    								  '<input type="hidden" name="userId" value=' + '"' + data[i].userId + '"' + '/>' +
-		    								  '<input type="hidden" name="reffcNo" value=' + '"' + data[i].reffcNo + '"' + '/>' +
+		    								  '<input type="hidden" name="reffcNo" value=' + '"' + data[i].fcNo + '"' + '/>' +
 		    								  '<input type="hidden" name="fcLevel" value=' + '"' + data[i].fcLevel + '"' + '/>' + '&nbsp;&nbsp;' +
-		    								  /*
-		    								  '<button type="button" class="insertBtn btn btn-md btn-info" onclick="reComment(this);" style="border-radius: 10px;">답글달기</button>' +
-		    								  '<button type="button" class="insertConfirm btn btn-md btn-info" onclick="reConfirm(this);" style="display:none; border-radius: 10px;" >답글완료</button>&nbsp;&nbsp;' +
-		    								  */
+
+		    								  '<button type="button" class="insertBtn btn btn-md btn-info" onclick="reComment(this);" style="border-radius: 10px;">답글달기</button>&nbsp;&nbsp;' +
+		    								  //'<button type="button" class="insertConfirm btn btn-md btn-info" onclick="reConfirm(this);" style="display:none; border-radius: 10px;" >답글완료</button>&nbsp;&nbsp;' +
+		    								  
 		    			                    '</div>' +
 		    			                  '</td>' +
 		    			                '</tr>' +

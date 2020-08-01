@@ -57,19 +57,19 @@
               </a>
               <div class="text p-4">
                 <div class="meta">
-                  <div><a href="#">${s.startDay}</a></div>
-                  <div><a href="#">~</a></div>
-                  <div><a href="#">${s.endDay}</a></div>
+                  <div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=${s.PNo}">${s.startDay}</a></div>
+                  <div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=${s.PNo}">~</a></div>
+                  <div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=${s.PNo}">${s.endDay}</a></div>
                 </div>
                 <div class="meta">
-                  <div><a href="#">작성자 : ${s.PWriter}</a></div>
+                  <div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=${s.PNo}">작성자 : ${s.PWriter}</a></div>
                 </div>
                 <div style="height: 120px;">
-                	<h3 class="heading"><a href="#">${s.title}</a></h3>
+                	<h3 class="heading"><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=${s.PNo}">${s.title}</a></h3>
                 </div>
                 <p class="clearfix">
-                  <a href="#" class="float-left">Read more</a>
-                  <a href="#" class="float-right meta-chat"><span class="icon-thumbs-o-up"></span>&nbsp;${s.likeCount}</a>
+                  <a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=${s.PNo}" class="float-left">Read more</a>
+                  <a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=${s.PNo}" class="float-right meta-chat"><span class="icon-thumbs-o-up"></span>&nbsp;${s.likeCount}</a>
                 </p>
               </div>
             </div>
@@ -121,26 +121,26 @@
 	    					$('#sharePlanList').append(
 	    					          '<div class="col-md-6 col-lg-3 ftco-animate">' +
 	    					            '<div class="blog-entry">' +
-	    					              '<a href="#" class="block-20" style="background-image: url(' + '\'' + '\'' + '); text-align: right;">' +
+	    					              '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="block-20" style="background-image: url(' + '\'' + '\'' + '); text-align: right;">' +
 	    					                '<div class="col-sm-4" style="text-align: center; background-color: #ff5f5f; color : white;">' +
 	    					                  	item.list[i].theme +
 	    					                '</div>' +
 	    					              '</a>' +
 	    					              '<div class="text p-4">' +
 	    					                '<div class="meta">' +
-	    					                  '<div><a href="#">' + item.list[i].startDay + '</a></div>' +
-	    					                  '<div><a href="#">~</a></div>' +
-	    					                  '<div><a href="#">' + item.list[i].endDay + '</a></div>' +
+	    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].startDay + '</a></div>' +
+	    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">~</a></div>' +
+	    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].endDay + '</a></div>' +
 	    					                '</div>' +
 	    					                '<div class="meta">' +
-	    					                  '<div><a href="#">' + '작성자 :' + item.list[i].pwriter + '</a></div>' +
+	    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + '작성자 :' + item.list[i].pwriter + '</a></div>' +
 	    					                '</div>' +
 	    					                '<div style="height: 120px;">' +
-	    					                	'<h3 class="heading"><a href="#">' + item.list[i].title + '</a></h3>' +
+	    					                	'<h3 class="heading"><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].title + '</a></h3>' +
 	    					                '</div>' +
 	    					                '<p class="clearfix">' +
-	    					                  '<a href="#" class="float-left">Read more</a>' +
-	    					                  '<a href="#" class="float-right meta-chat"><span class="icon-thumbs-o-up"></span>' + '&nbsp;' + item.list[i].likeCount + '</a>' +
+	    					                  '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="float-left">Read more</a>' +
+	    					                  '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="float-right meta-chat"><span class="icon-thumbs-o-up"></span>' + '&nbsp;' + item.list[i].likeCount + '</a>' +
 	    					                '</p>' +
 	    					              '</div>' +
 	    					            '</div>' +
