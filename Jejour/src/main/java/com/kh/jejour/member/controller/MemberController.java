@@ -77,6 +77,17 @@ public class MemberController {
 
 			return "common/msg";
 		}
+		
+		@RequestMapping("/itro/ourSite.do")
+		public String moveOutStie() {
+			
+			
+			return "member/ourSite";
+			
+		}
+		
+		
+		
 	
 		// 예약홈페이지 이동
 		@RequestMapping("/planner/goReservation.do")

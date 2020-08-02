@@ -275,7 +275,7 @@ div#email-container span.error{color:red;}
 
                         <span class="button" id="button1"
                         onclick = "createEmailCer('certifyForm.do',
-                            '이메일 인증', 700, 500);return false" >인증</span>
+                            '이메일 인증', 600, 400);return false" >인증</span>
 				   </div>
 				   <!-- 이메일의 끝  -->
                     <div class="group" style="margin-left:40px;">
