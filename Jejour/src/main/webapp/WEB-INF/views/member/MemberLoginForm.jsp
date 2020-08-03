@@ -25,7 +25,7 @@ body{
 	color:#6a6f8c;
 	background:#c8c8c8;
 	font:600 16px/18px 'Open Sans',sans-serif;
-    background-image: url('../resources/images/jejulogin.jpg');
+    background-image: url('${pageContext.request.contextPath }/resources/images/jejulogin.jpg');
     background-repeat: no-repeat;
     background-size : cover;
 }
@@ -255,7 +255,7 @@ button, .button{
                     <div class="foot-lnk">
                         <a href = '${pageContext.request.contextPath}/member/memberfindidForm.do' 
                         onclick = "createPopupWin('memberfindidForm.do',
-                            '개인정보 찾기', 700, 550);return false">아이디/비밀번호 찾기</a>
+                            '개인정보 찾기', 600, 400);return false">아이디/비밀번호 찾기</a>
                     </div>
                 </div>
              </form>
