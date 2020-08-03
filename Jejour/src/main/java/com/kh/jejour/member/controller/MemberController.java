@@ -1,7 +1,10 @@
 package com.kh.jejour.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.jejour.common.util.Utils;
 import com.kh.jejour.member.model.exception.MemberException;
 import com.kh.jejour.member.model.service.MemberService;
 import com.kh.jejour.member.model.vo.Member;
@@ -33,7 +37,6 @@ public class MemberController {
 	
 	@Autowired
 	BCryptPasswordEncoder bcryptPasswordEncoder;
-	
 	
 		// 회원 가입 기능 실행하기
 		@RequestMapping("/member/memberinsert.do")
@@ -86,8 +89,36 @@ public class MemberController {
 			
 		}
 		
+		// 나의 일정페이지 이동
+		@RequestMapping("/member/memberPlan.do")
+		public String moveMyplan(
+					@RequestParam(value="cPage", required=false, defaultValue="1")int cPage,
+					String userId,
+					Model model) {
+			
+			int numPerPage = 8;
+					
+			List<Map<String, String>> list = memberService.selectMyPlanList(userId, cPage, numPerPage);
+			
+			System.out.println("list 정보 : " + list);
+			System.out.println("userId : " + userId);
+			
+			int totalContents = memberService.selectMyPlanTotalContents(userId);
+			
+			String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "memberPlan.do");
+			
+			model.addAttribute("list", list)
+			 .addAttribute("totalContents",totalContents)
+		     .addAttribute("numPerPage", numPerPage)
+		     .addAttribute("pageBar", pageBar)
+			 .addAttribute("userId", userId);
+			
+			
 		
+			return "planner/myPlan";
+		}
 		
+	
 	
 		// 예약홈페이지 이동
 		@RequestMapping("/planner/goReservation.do")

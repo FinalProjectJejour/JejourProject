@@ -60,7 +60,13 @@
             </li>
             <!--<li class="nav-item"><a href="#" class="nav-link">Developer</a></li>-->
             <li class="nav-item"><a href="${pageContext.request.contextPath}/planner/plannerShare.do" class="nav-link">Share Plan</a></li>
-            <li class="nav-item"><a href="${pageContext.request.contextPath}/tour/tourList.do" class="nav-link">Place</a></li>
+            <li class="nav-item dropdown">
+              <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/itro/ourSite.do">Our Site</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/tour/tourList.do">JeJu</a>
+              </div>
+            </li>
             <li class="nav-item dropdown">
               <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Board</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -73,19 +79,19 @@
             <li class="nav-item"><a href="${pageContext.request.contextPath}/member/memberLoginFormView.do" class="nav-link">Login</a></li>
             </c:if>
             <c:if test="${ !empty member }">
-            <li class="nav-item"><a href="#" class="nav-link" onclick="logOutCheck();">LogOut</a></li>
-            </c:if>
-            
-            <c:if test="${ !empty member }">
             <li class="nav-item dropdown">
               <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Page</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberUpdateFormView.do">Update Info</a>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberPlan.do">My Plan</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberPlan.do?userId=${member.userId}">My Plan</a>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/admin.do">Manager</a>
               </div>
             </li>
             </c:if>
+            <c:if test="${ !empty member }">
+            <li class="nav-item"><a href="#" class="nav-link" onclick="logOutCheck();">LogOut</a></li>
+            </c:if>
+            
           </ul>
         </div>
       </div>
@@ -144,6 +150,6 @@
 
     	 }
 
-    }
+    };
     </script>
     

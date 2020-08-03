@@ -1,7 +1,10 @@
 package com.kh.jejour.member.model.dao;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -61,6 +64,21 @@ public class MemberDAOImpl implements MemberDAO {
 		sqlSession.selectOne("memberMapper.emailDupCheck", hmap);
 		
 		return (Integer)hmap.get("result");
+	}
+
+	@Override
+	public List<Map<String, String>> selectMyPlanList(String userId, int cPage, int numPerPage) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		
+		return sqlSession.selectList("myPlanMapper.selectMyPlanList", userId, rows);
+		
+	}
+
+	@Override
+	public int selectMyPlanTotalContents(String userId) {
+		
+		return sqlSession.selectOne("myPlanMapper.selectMyPlanTotalContents");
+		
 	}
 
 }

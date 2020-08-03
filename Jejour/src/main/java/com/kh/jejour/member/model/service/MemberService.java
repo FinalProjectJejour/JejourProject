@@ -1,5 +1,8 @@
 package com.kh.jejour.member.model.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.kh.jejour.member.model.vo.Member;
 
 public interface MemberService {
@@ -17,5 +20,9 @@ public interface MemberService {
 	int selectCheck(String userId);
 
 	int checkEmailDup(String email);
+	
+	List<Map<String, String>> selectMyPlanList(String userId, int cPage, int numPerPage);
+	
+	public int selectMyPlanTotalContents(String userId);
 	
 }

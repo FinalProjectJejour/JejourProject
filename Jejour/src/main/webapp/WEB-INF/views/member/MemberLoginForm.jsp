@@ -3,11 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<% 
-   request.setCharacterEncoding("UTF-8");  //한글깨지면 주석제거
-   //request.setCharacterEncoding("EUC-KR");  //해당시스템의 인코딩타입이 EUC-KR일경우에
-   String email = request.getParameter("email"); 
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
