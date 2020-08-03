@@ -105,15 +105,22 @@
 
 	<section class="ftco-section contact-section">
 		<div class="container">
-			<h2 class="h4 mb-4">Is This Right?</h2>
-			<div class="row mt-5">
-				<div class="col-md-12" id="map"></div>
-			</div>
-
-			<div id='calendar'></div>
 			<form
 				action="${pageContext.request.contextPath}/planner/planConfirm.do"
 				id="Plan" method="post">
+			<h2 class="h4 mb-4">Is This Right?</h2>
+			<div class="row mt-5">
+				<div class="col-md-8 map_wrap mx-auto" id="map" ></div>
+				<div class="col-md-4">
+			 		<textarea class="form-group" cols="30" rows="14" name="describe" id="describe" placeholder="일정에 관해 적고싶은말"></textarea>
+			 	</div>
+			</div>
+			 
+			 
+
+			<div id='calendar'></div>
+			&nbsp;
+			
 				<div class="form-group" style="float: right" id="confirmed">
 					<input type="radio" name="status" value="Y" checked>공개
 					&nbsp;&nbsp;&nbsp; <input type="radio" name="status" value="N">비공개

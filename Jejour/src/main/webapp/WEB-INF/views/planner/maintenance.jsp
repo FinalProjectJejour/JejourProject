@@ -12,67 +12,30 @@
     
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/animate.css">
     
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/aos.css">
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/ionicons.min.css">
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
-
-    
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery.timepicker.css">
 
     
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/flaticon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/icomoon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css">
+
+    
+    <c:import url="../common/header.jsp" />
 
   </head>
   <body>
-    
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-      <div class="container">
-        <a class="navbar-brand" href="index.html">Voyage</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="oi oi-menu"></span> Menu
-        </button>
-
-        <div class="collapse navbar-collapse" id="ftco-nav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="services.html" class="nav-link">Tours</a></li>
-            <li class="nav-item active"><a href="hotels.html" class="nav-link">Hotels</a></li>
-            <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-            <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-            <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- END nav -->
-    
-    <section class="home-slider owl-carousel">
-      <div class="slider-item" style="background-image: url('images/bg_3.jpg');" data-stellar-background-ratio="0.5">
-        <div class="overlay"></div>
-        <div class="container">
-          <div class="row slider-text align-items-center">
-            <div class="col-md-7 col-sm-12 ftco-animate">
-              <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Hotels</span></p>
-              <h1 class="mb-3">Hotels</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- END slider -->
 
     <section class="ftco-section">
       <div class="container">
@@ -87,54 +50,73 @@
                             <div class="section-title history-title">
                                 <h5>Our History</h5>
                                 <h2>How I Plan</h2>
+                                <form name="instanceMakePlan" action="${pageContext.request.contextPath}/planner/instanceMakePlan.do" method="post">
+                                	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+                                	<input type="hidden" name="startDay" id="startDay" value="${startDay}">
+                                	<input type="hidden" name="endDay" id="endDay" value="${endDay}">
+                                	<input type="submit" class="search-submit btn btn-primary" value="+일정">
+                                </form>
                             </div>
                         </div>
                     </div>
                     <div class="history__content">
                         <div class="row">
                             <div class="col-lg-5 col-md-5">
-                                <div class="history__item left__item">
-                                    <div class="history__date"></div>
-                                    <span>11 Dec 1990</span>
-                                    <h4>Start Up Building Hotel</h4>
-                                    <img src="img/history/history-1.jpg" alt="">
-                                    <p>The young woman who turned a style setback into an envious outfit has officially inspired
-                                        a major clothing retailer with her impromptu ingenuity</p>
-                                </div>
-                                <div class="history__item left__item mb-0">
-                                    <div class="history__date"></div>
-                                    <span>29 Jan 1990</span>
-                                    <h4>Building Pool In The Beach</h4>
-                                    <img src="img/history/history-3.jpg" alt="">
-                                    <p>The young woman who turned a style setback into an envious outfit has officially inspired
-                                        a major clothing retailer with her impromptu ingenuity</p>
-                                </div>
+                            	
+                            	<c:forEach items="${list}" var="pl" varStatus="status" begin="0" step="2">
+                            		<div class="history__item left__item">
+                            			<div class="history__date"></div>
+                            			<span>'${pl.startTime}'</span>
+                            			<h4><c:out value="${pl.mapTitle}"/></h4>
+                            			<img src="img/history/history-1.jpg" alt="">
+                            			<p><c:out value="${pl.money}"/>원</p>
+                            			<p><c:out value="${pl.reason}"/></p>
+                            			
+                            			<form name="instanceUpdatePlan" action="${pageContext.request.contextPath}/planner/instanceUpdatePlan.do" method="post">
+                            				<input type="hidden" name="ppNo" id="ppNo" value="${pl.ppNo}">
+                                        	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+                                        	<input type="submit" class="search-submit btn btn-primary" value="수정" style="background-color: green;">
+                                        </form>
+                                        <form name="instanceDeletePlan" action="${pageContext.request.contextPath}/plannerPart/instanceDeletePlan.do" method="post">
+                                        	<input type="hidden" name="ppNo" id="ppNo" value="${pl.ppNo}">
+                                        	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+                                        	<input type="submit" class="search-submit btn btn-primary" value="삭제" style="background-color: red;">
+										</form>
+                            		</div>
+                            	</c:forEach>
+                            	
                             </div>
                             <div class="col-lg-5 offset-lg-2 col-md-5 offset-md-2">
-                                <div class="history__item right__first__item">
-                                    <div class="history__date"></div>
-                                    <span>08 March 1990</span>
-                                    <h4>Best Hotel Award Of The Year</h4>
-                                    <img src="img/history/history-2.jpg" alt="">
-                                    <p>The young woman who turned a style setback into an envious outfit has officially inspired
-                                        a major clothing retailer with her impromptu ingenuity</p>
-                                </div>
-                                <div class="history__item mb-0">
-                                    <div class="history__date"></div>
-                                    <span>06 July 1990</span>
-                                    <h4>Open New Hotel In New York</h4>
-                                    <img src="img/history/history-4.jpg" alt="">
-                                    <p>The young woman who turned a style setback into an envious outfit has officially inspired
-                                        a major clothing retailer with her impromptu ingenuity</p>
-                                </div>
-                            </div>
                             
-                            
-
-
-
-
-
+                            	<c:forEach items="${list}" var="pl" varStatus="status" begin="1" step="2">
+                            		<c:if test="${list[0] ne null }">
+                            			<div class="history__item right__first__item">
+                            		</c:if>
+                            		<c:if test="${status.index ne 0 }">
+                            			<div class="history__item mb-0">
+                            		</c:if>
+                            			<div class="history__date"></div>
+                            			<span>'${pl.startTime}'</span>
+                            			<h4><c:out value="${pl.mapTitle}"/></h4>
+                            			<img src="img/history/history-1.jpg" alt="">
+                            			<p><c:out value="${pl.money}"/>원</p>
+                            			<p><c:out value="${pl.reason}"/></p>
+                            			
+                                       <form name="instanceUpdatePlan" action="${pageContext.request.contextPath}/planner/instanceUpdatePlan.do" method="post">
+                            				<input type="hidden" name="ppNo" id="ppNo" value="${pl.ppNo}">
+                                        	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+                                        	<input type="submit" class="search-submit btn btn-primary" value="수정" style="background-color: green;">
+                                        </form>
+                                       <form name="instanceDeletePlan" action="${pageContext.request.contextPath}/plannerPart/instanceDeletePlan.do" method="post">
+                                        	<input type="hidden" name="ppNo" id="ppNo" value="${pl.ppNo}">
+                                        	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+                                        	<input type="submit" class="search-submit btn btn-primary" value="삭제" style="background-color: red;">
+										</form>
+                            			</div>
+                            			
+                            	
+                            	</c:forEach>
+                                
 
 
                         </div>
@@ -148,6 +130,7 @@
           <!-- END -->
           <!---->
           <div class="col-lg-4 sidebar">
+          <!-- 
             <div class="sidebar-box ftco-animate">
               <div class="search-tours bg-light p-4">
                 <h3>Cost</h3>
@@ -178,7 +161,18 @@
                 </form>
               </div>
             </div>
-
+			 -->
+			<div class="sidebar-box ftco-animate">
+              <h3>Tag Cloud</h3>
+              <div class="tagcloud">
+                <a href="#" class="tag-cloud-link">나혼자</a>
+                <a href="#" class="tag-cloud-link">연인</a>
+                <a href="#" class="tag-cloud-link">친구</a>
+                <a href="#" class="tag-cloud-link">부모님</a>
+                <a href="#" class="tag-cloud-link">가족</a>
+              </div>
+            </div>
+            
             <div class="sidebar-box ftco-animate">
               <div class="categories">
                 <h3>Categories</h3>
@@ -190,20 +184,11 @@
               </div>
             </div>
             
-            <div class="sidebar-box ftco-animate">
-              <h3>Tag Cloud</h3>
-              <div class="tagcloud">
-                <a href="#" class="tag-cloud-link">나혼자</a>
-                <a href="#" class="tag-cloud-link">연인</a>
-                <a href="#" class="tag-cloud-link">친구</a>
-                <a href="#" class="tag-cloud-link">부모님</a>
-                <a href="#" class="tag-cloud-link">가족</a>
-              </div>
-            </div>
+            
 
             <div class="sidebar-box ftco-animate">
-              <h3>Paragraph</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+              <h3>일정 제작자의 말</h3>
+              <p><c:out value="${describe}"/></p>
             </div>
             <div class="sidebar-box ftco-animate" style="text-align: center;">
               <img class ="img" src="images/like.jpg" alt="" onclick="" style="width:100px">
@@ -219,6 +204,7 @@
           </div>
 
           </div>
+      </div>
       </div>
     </section>
 
@@ -298,22 +284,20 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/bootstrap-datepicker.js"></script>
-  <script src="js/jquery.timepicker.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="js/google-map.js"></script>
-  <script src="js/main.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/popper.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.easing.1.3.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.waypoints.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.stellar.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/owl.carousel.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.magnific-popup.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/aos.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.animateNumber.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/bootstrap-datepicker.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/jquery.timepicker.min.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
     
   </body>
 </html>

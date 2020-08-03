@@ -39,7 +39,20 @@ public class PlannerController {
 	}
 	
 	@RequestMapping("/planner/maintenanceGo.do")
-	public String maintenanceGo() {
+	public String maintenanceGo(Planner planner, Model model, HttpSession session) {
+		
+		Planner pl = plannerService.getThisPlanner(planner.getPNo());
+		System.out.println(pl);
+		
+		List<PlannerPart> list = plannerPartService.selectPlanList(planner.getPNo());
+		System.out.println(list);
+		
+		model.addAttribute("planner", pl);
+		model.addAttribute("pNo",pl.getPNo());
+		model.addAttribute("startDay",pl.getStartDay());
+		model.addAttribute("endDay",pl.getEndDay());
+		model.addAttribute("describe",pl.getDescribe());
+		model.addAttribute("list", list);
 		
 		return "planner/maintenance";
 	}
@@ -193,6 +206,54 @@ public class PlannerController {
 		
 		return "common/msg";
 	}
+	
+	
+	@RequestMapping("/planner/instanceMakePlan.do")
+	public String instanceMakePlan(Planner planner, Model model, HttpSession session) {
+		
+		Planner pl = plannerService.getThisPlanner(planner.getPNo());
+		
+		String start=pl.getStartDay()+"T00:00";
+		String end=pl.getEndDay()+"T23:00";
+		
+		model.addAttribute("planner", pl);
+		model.addAttribute("pNo",pl.getPNo());
+		model.addAttribute("startDay",start);
+		model.addAttribute("endDay",end);
+		
+		return "planner/instanceMakePlan";
+	}
+	
+	@RequestMapping("/planner/instanceUpdatePlan.do")
+	public String instanceUpdatePlan(Planner planner, Model model, HttpSession session,
+			@RequestParam("ppNo") int ppNo,
+			@RequestParam("pNo") String pNo) {
+		
+		Planner pl = plannerService.getThisPlanner(planner.getPNo());
+		System.out.println(pl);
+		System.out.println(pl.getStartDay());
+		System.out.println(pl.getEndDay());
+		
+		PlannerPart plpart = plannerPartService.getThisPlannerPart(ppNo);
+		
+		System.out.println(plpart);
+		
+		String start=pl.getStartDay()+"T00:00";
+		String end=pl.getEndDay()+"T23:00";
+		
+		model.addAttribute("planner", pl);
+		model.addAttribute("plannerPart", plpart);
+		model.addAttribute("pNo",pl.getPNo());
+		model.addAttribute("ppNo",ppNo);
+		model.addAttribute("startDay",start);
+		model.addAttribute("endDay",end);
+
+		model.addAttribute("start_date",pl.getStartDay());
+		model.addAttribute("return_date",pl.getEndDay());
+		
+		return "planner/instanceUpdatePlan";
+	}
+	
 	
 	/*
 	@RequestMapping("/planner/LatestPno.do")

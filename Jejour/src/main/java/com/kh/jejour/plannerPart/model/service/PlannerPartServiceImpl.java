@@ -78,6 +78,19 @@ public class PlannerPartServiceImpl implements PlannerPartService {
 		return plannerPartDAO.deletePlan(ppNo);
 	}
 
+	@Override
+	public PlannerPart getThisPlannerPart(int ppNo) {
+		// TODO Auto-generated method stub
+		System.out.println(ppNo);
+		return plannerPartDAO.getOnePlannerPart(ppNo);
+	}
+
+	@Override
+	public int updatePlanner(PlannerPart plannerPart) {
+		// TODO Auto-generated method stub
+		return plannerPartDAO.updateOnePlannerPart(plannerPart);
+	}
+
 	
 
 	

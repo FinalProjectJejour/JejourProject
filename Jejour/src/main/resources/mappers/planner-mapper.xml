@@ -57,9 +57,15 @@
 		ORDER BY STARTTIME ASC
 	</select>
 	
+	<select id="selectPlannerPart" parameterType="_int" resultType="PlannerPart">
+		SELECT * FROM PLANNER_PART
+		WHERE PPNO = #{ppNo}
+	</select>
+	
 	<update id="updateStatus" parameterType="Planner">
       UPDATE PLANNER
       <set>
+      	DESCRIBE=#{describe},
       	STATUS=#{status}
       </set>
       WHERE PNO = #{pNo}
@@ -74,6 +80,21 @@
       DELETE FROM PLANNER_PART
       WHERE PPNO = #{ppNo}
    </delete>
+   
+   <update id="updatePlannerPart" parameterType="plannerPart">
+      UPDATE PLANNER_PART
+      <set>
+      	STARTTIME=#{startTime},
+      	ENDTIME=#{endTime},
+      	MAPTITLE=#{mapTitle},
+      	CATEGORY=#{category},
+      	MAPX=#{mapX},
+      	MAPY=#{mapY},
+      	MONEY=#{money},
+      	REASON=#{reason}
+      </set>
+      WHERE PPNO = #{ppNo}
+   </update>
 	
 </mapper>
 

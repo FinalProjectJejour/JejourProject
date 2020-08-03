@@ -21,5 +21,9 @@ public interface PlannerPartService {
 		List<PlannerPart> selectPlanList(int pNo);
 
 		int deletePlanner(int ppNo);
+
+		PlannerPart getThisPlannerPart(int ppNo);
+
+		int updatePlanner(PlannerPart plannerPart);
 	
 }

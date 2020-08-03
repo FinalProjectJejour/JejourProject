@@ -14,5 +14,9 @@ public interface PlannerPartDAO {
 
 	int deletePlan(int ppNo);
 
+	PlannerPart getOnePlannerPart(int ppNo);
+
+	int updateOnePlannerPart(PlannerPart plannerPart);
+
 	// Planner selectOnePlanner(int pNo);
 }
