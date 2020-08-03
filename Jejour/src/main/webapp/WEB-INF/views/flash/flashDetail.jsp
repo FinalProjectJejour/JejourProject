@@ -128,7 +128,7 @@
 				}
 				
 				$('#replySelectArea').append(
-						'<table id="replySelectTable" class="text-left" style="margin-left : 0px; width : 100.0%;" class="replyList1">' +
+						'<table id="replySelectTable" style="margin-left : ' + ((data.fcLevel - 1)*80) + 'px; width : ' + (100 - ((data.fcLevel - 1)*10.9)) + '%;" class="replyList' + data.fcLevel + ' text-left">' +
 			                '<tr>' +
 			                  '<td style="width:80px;"><b>&nbsp;&nbsp;' + data.fcWriter + '</b></td>' +
 			                  '<td>' +  year + '-' + fmonth + '-' + day  + '</td>' +
@@ -264,6 +264,7 @@
     		url : '${pageContext.request.contextPath}/flashComment/flashCommentInsert.fl',
     		type : 'post',
     		data : {
+    			async : false,
     			fNo : '${FlashBoard.FNo}',
     			userId : '${member.userId}',
     			fcWriter : '${member.userName}',
@@ -272,7 +273,11 @@
     			fcContent : fcContent
     		},
     		success : function(data) {
-    			alert("성공!");				
+    			console.log("대댓글 성공!");
+    			
+    			$('#replySelectArea').children().remove();
+    			
+    			ReadAllComment();
 			},
     		error : function() {
     			alert("실패!");
@@ -322,7 +327,7 @@
 						
 						if(data[i].userId=='${member.userId}') {
 	    					$('#replySelectArea').append(
-    				              	'<table id="replySelectTable" style="margin-left : ' + ((data[i].fcLevel - 1)*70) + 'px; width : ' + (100 - ((data[i].fcLevel - 1)*9.4)) + '%;" class="replyList' + data[i].fcLevel + ' text-left">' +
+    				              	'<table id="replySelectTable" style="margin-left : ' + ((data[i].fcLevel - 1)*80) + 'px; width : ' + (100 - ((data[i].fcLevel - 1)*10.9)) + '%;" class="replyList' + data[i].fcLevel + ' text-left">' +
 		    			                '<tr>' +
 		    			                  '<td style="width:80px;"><b>&nbsp;&nbsp;' + data[i].fcWriter + '</b></td>' +
 		    			                  '<td>' +  year + '-' + fmonth + '-' + day  + '</td>' +
@@ -354,7 +359,7 @@
 	    					);
 						} else {
 	    					$('#replySelectArea').append(
-	    							'<table id="replySelectTable" style="margin-left : 0px; width : 100.0%;" class="replyList1' + data[i].fcLevel + ' text-left">' +
+	    							'<table id="replySelectTable" style="margin-left : ' + ((data[i].fcLevel - 1)*80) + 'px; width : ' + (100 - ((data[i].fcLevel - 1)*10.9)) + '%;" class="replyList' + data[i].fcLevel + ' text-left">' +
 		    			                '<tr>' +
 		    			                  '<td style="width:80px;"><b>&nbsp;&nbsp;' + data[i].fcWriter + '</b></td>' +
 		    			                  '<td>' +  year + '-' + fmonth + '-' + day  + '</td>' +

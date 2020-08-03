@@ -15,5 +15,7 @@ public interface SharePlanService {
 	List<Planner> searchShare(HashMap<String, String> hmap, int cPage, int numPerPage);
 	
 	int selectSearchShareContents(HashMap<String, String> hmap);
+	
+	List<Planner> plannerBest();
 
 }
