@@ -36,4 +36,9 @@ public class SharePlanServiceImpl implements SharePlanService {
 		return sharePlanDAO.selectSearchShareContents(hmap);
 	}
 
+	@Override
+	public List<Planner> plannerBest() {
+		return sharePlanDAO.plannerBest();
+	}
+
 }

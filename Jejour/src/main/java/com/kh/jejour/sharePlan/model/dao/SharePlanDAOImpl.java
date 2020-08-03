@@ -40,4 +40,9 @@ public class SharePlanDAOImpl implements SharePlanDAO {
 		return sqlSession.selectOne("sharePlanMapper.selectSearchShareContents", hmap);
 	}
 
+	@Override
+	public List<Planner> plannerBest() {
+		return sqlSession.selectList("sharePlanMapper.plannerBest");
+	}
+
 }

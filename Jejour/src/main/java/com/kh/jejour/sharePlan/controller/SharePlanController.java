@@ -73,5 +73,14 @@ public class SharePlanController {
 		return map;
 	}
 	
-	
+	@RequestMapping("/planner/plannerBest.do")
+	@ResponseBody
+	public List<Planner> plannerBest(){
+		List<Planner> list = new ArrayList<Planner>();
+		
+		list = sharePlanService.plannerBest();
+		System.out.println("TOP5 : " + list);
+		
+		return list;
+	}
 }

@@ -16,4 +16,6 @@ public interface SharePlanDAO {
 	
 	int selectSearchShareContents(HashMap<String, String> hmap);
 	
+	List<Planner> plannerBest();
+	
 }
