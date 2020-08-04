@@ -15,7 +15,7 @@
       <div id="sidebar" class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
-          <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
+          <p class="centered"><a href="#"><img src="../resources/images/admin.png" class="img-circle" width="80"></a></p>
           <h5 class="centered">관리자</h5>
 
           <li class="mt">
@@ -90,7 +90,7 @@
                   <tr>
                     <td></td>
                     <td>${frang.userId}</td>
-                    <th></th>
+                    <th>${frang.FWriter}</th>
                     <td>${frang.FCount}</td>
                   </tr>
                   </c:forEach>
@@ -113,24 +113,14 @@
                   </tr>
                 </thead>
                 <tbody>
+                   <c:forEach items="${fcrang}" var="fcrang">
                   <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>43</td>
+                    <td></td>
+                    <td>${fcrang.userId}</td>
+                    <th>${fcrang.fcWriter}</th>
+                    <td>${fcrang.fcCount}</td>
                   </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>31</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Simon</td>
-                    <td>Mosa</td>
-                    <td>25</td>
-                  </tr>
+                  </c:forEach>
                 </tbody>
               </table>
             </div>
@@ -212,6 +202,7 @@
         		  success:function(data){
         			  console.log(data[0].fno);
         			  console.log(data[0].fstatus);
+        			  alert("변경 완료!");
         			  
         			  $('span[name='+data[0].fno+']').text(data[0].fstatus);
         			  

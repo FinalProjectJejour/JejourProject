@@ -10,6 +10,10 @@
 	</resultMap>
 	<resultMap type="FlashBoard" id="flashMap">
 	</resultMap>
+	<resultMap type="FlashComment" id="flashCommentMap">
+	</resultMap>
+	<resultMap type="HotspotComment" id="hotspotCommentMap">
+	</resultMap>
 
 
 	<select id="selectMemberList" resultMap="memberMap">
@@ -59,12 +63,12 @@
 		SELECT *
 		FROM
 		(
-		SELECT USERID, COUNT(*) FCOUNT
+		SELECT USERID,FWRITER, COUNT(*) FCOUNT
 		FROM FLASH_BOARD
-		GROUP BY USERID
+		GROUP BY USERID,FWRITER
 		ORDER BY FCOUNT DESC
 		)
-		WHERE ROWNUM <=3]]>
+		WHERE ROWNUM <=3 AND USERID !='admin']]>
 	</select>
 	
 	<select id="hBoardRanking" resultMap="hotspotMap">
@@ -72,17 +76,40 @@
 		SELECT *
 		FROM
 		(
-		SELECT USERID, COUNT(*) HCOUNT
+		SELECT USERID,HWRITER, COUNT(*) HCOUNT
 		FROM HOTSPOT_BOARD
-		GROUP BY USERID
+		GROUP BY USERID,HWRITER
 		ORDER BY HCOUNT DESC
 		)
-		WHERE ROWNUM <=3]]>
+		WHERE ROWNUM <=3 AND USERID !='admin']]>
 	</select>
 	
 	<!-- ===============댓글 랭킹 ================-->
+	<select id="fCommentRanking" resultMap="flashCommentMap">
+	<![CDATA[
+		SELECT *
+		FROM
+		(
+		SELECT USERID,FCWRITER, COUNT(*) FCCOUNT
+		FROM FLASH_COMMENT
+		GROUP BY USERID,FCWRITER
+		ORDER BY FCCOUNT DESC
+		)
+		WHERE ROWNUM <=3 AND USERID !='admin']]>
+	</select>
 	
-	
+	<select id="hCommentRanking" resultMap="hotspotCommentMap">
+	<![CDATA[
+		SELECT *
+		FROM
+		(
+		SELECT USERID,HCWRITER, COUNT(*) HCCOUNT
+		FROM HOTSPOT_COMMENT
+		GROUP BY USERID,HCWRITER
+		ORDER BY HCCOUNT DESC
+		)
+		WHERE ROWNUM <=3 AND USERID !='admin']]>
+	</select>
 	
 	
 	<!-- ===============스테이터스전환 ==============-->

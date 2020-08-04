@@ -92,7 +92,9 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberUpdateFormView.do">Update Info</a>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberPlan.do?userId=${member.userId}">My Plan</a>
+                <c:if test="${member.userId eq 'admin'}">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/admin.do">Manager</a>
+                </c:if>
               </div>
             </li>
             </c:if>
