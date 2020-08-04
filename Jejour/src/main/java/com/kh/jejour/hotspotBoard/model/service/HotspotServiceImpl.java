@@ -1,6 +1,7 @@
 package com.kh.jejour.hotspotBoard.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +51,18 @@ public class HotspotServiceImpl implements HotspotService {
 	public HotspotBoard hotspotSelectOne(int hNo) {
 		
 		return hotspotDAO.hotspotSelectOne(hNo);
+	}
+
+	@Override
+	public List<HotspotBoard> search(HashMap<String, String> hmap, int cPage, int numPerPage) {
+		
+		return hotspotDAO.search(hmap, cPage, numPerPage);
+	}
+
+	@Override
+	public int selectHotspotBoardSearchContents(HashMap<String, String> hmap) {
+		
+		return hotspotDAO.selectHotspotBoardSearchContents(hmap);
 	}
 	
 	

@@ -14,6 +14,7 @@ public class HotspotComment {
 	private int hcNo;
 	private int hNo;
 	private String userId;
+	private	String hcWriter;
 	private String hcContent;
 	private Date hcDate;
 	private int refhcNo;

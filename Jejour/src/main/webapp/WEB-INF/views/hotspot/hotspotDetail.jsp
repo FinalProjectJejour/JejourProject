@@ -18,6 +18,12 @@
 	      h2 {
 	        color: #4CAF50;
 	      }
+	      
+	      .buttonclass button:hover{ 
+	      	color:white; background-color: skyblue; 
+	      }
+
+
 	    </style>
 	  </head>
 
@@ -73,17 +79,75 @@
                 <div style="height:5px;"></div>
                 <table id="replySelectTable" class="text-left"
                 style="margin-left : 0px; width : 100.0%;" class="replyList1">
+                
+                <!-- 리스트로 뽑아보자 -->
+                <c:forEach items="${clist}" var="hc"> 
+                
+                <!-- 대장 댓글 -->
+                <c:if test="${hc.hcNo eq hc.refhcNo}">
                   <tr>
-                    <td style="width:80px;"><b>&nbsp;&nbsp;유병호</b></td>
-                    <td>2020-07-17</td>
+                    <td style="width:80px;"><b>&nbsp;&nbsp;${hc.hcWriter}</b></td>
+                    <td>${hc.hcDate}</td>
                     <td align="center">
                       <div class="text-right">
-                        <input type="hidden" name="cno" value="11"/>
-                         <c:if test="${member.userId eq hotspotBoard.userId}">
-                        <button type="button" class="updateBtn btn btn-md btn-info" 
-                          onclick="goUpdate();" style="border-radius: 10px;">수정하기</button>
+                         <c:if test="${member.userId eq hc.userId}">
+                         <input type="hidden" name="hcNo" value="hc.hcNo"/>
                         <button type="button" class="deleteBtn btn btn-md btn-info"
-                          onclick="goDelete();" style="border-radius: 10px;">삭제하기</button> &nbsp;
+                          onclick="goRepleDelete${hc.hcNo}();" style="border-radius: 5px;" id="${hc.hcNo}">삭제하기</button> &nbsp;
+                          </c:if>
+                      </div>
+                    </td>
+                  </tr>	
+                  <!-- 대장댓글 답글 onclick  -->
+                  <tr class="comment replyList1">
+                    <td colspan="3" style="background : transparent;">
+	                    <textarea class="reply-content" cols="105" rows="2" style="border:none; width:100%; resize:none; outline: none;"
+	                    readonly="readonly">&nbsp;&nbsp;${hc.hcContent}
+	                    </textarea>
+	                    
+	                    <button type="button" onclick="open${hc.hcNo}();" 
+	                  			style="border : 0px solid blue; background-color: rgba(0,0,0,0); border-radius: 10px; 
+	                  			color : blue;" class="buttonclass">답글달기</button><br><br>
+	                  	 	
+	                  	<form action="${pageContext.request.contextPath}/hotspotBoard/insertCComment.ho" method="post" style="display:none" id="reple${hc.hcNo}">
+	                  	<div class="replyWriteArea" style="border: 1px solid gray; border-radius: 10px;">	
+	                  	  <input type="hidden" name="userId" value="${member.userId }"/>
+			              <input type="hidden" name="hNo" value="${hotspotBoard.HNo}" />
+			              <input type="hidden" name="no" value="${hotspotBoard.HNo}" />
+			              <input type="hidden" name="hcWriter" value="${member.userName}" />
+			              <input type="hidden" name="refhcNo" value="${hc.refhcNo}" />
+		                  <div class="text-left" style="padding-left: 15px;">
+		                  <div style="height : 10px"></div>
+		                  <a style="font-weight: 900; color: black;">${member.userName}</a>
+		                  </div>
+		                  <div class="comment_form mx-auto" style="text-align: center;">
+		                  <textArea rows="3" cols="80" id="replyContent" name="hcContent" style="border:none; width:97%; resize:none; outline: 0;" placeholder="답글을 입력해보세요!" ></textArea>
+		                  </div>
+		                  <div class="text-right">
+		                  <button type="submit" class="btn btn-md btn-info" id="addReply" style="border-radius: 10px;">답글 등록</button>&nbsp;&nbsp;&nbsp;
+		                  <div style="height : 10px"></div>
+		                  </div>
+		                  </div>
+             			</form>
+
+	                  	
+                    </td>
+                  </tr>
+
+                  </c:if> 
+                  <!--  대장 댓글 끝 -->
+                  
+                  <!-- 대댓글 -->            
+                  <c:if test="${hc.hcNo ne hc.refhcNo}">
+                  <tr>
+                    <td style="width:80px;"><b>&nbsp;&nbsp;└&nbsp;${hc.hcWriter}</b></td>
+                    <td>${hc.hcDate}</td>
+                    <td align="center">
+                      <div class="text-right">
+                         <input type="hidden" name="hcNo" value="hc.hcNo"/>
+                         <c:if test="${member.userId eq hc.userId}">
+                        <button type="button" class="deleteBtn btn btn-md btn-info"
+                          onclick="goRepleDelete${hc.hcNo}();" style="border-radius: 5px;"  id="${hc.hcNo}">삭제하기</button> &nbsp;
                           </c:if>
                       </div>
                     </td>
@@ -91,10 +155,16 @@
                   <tr class="comment replyList1">
                     <td colspan="3" style="background : transparent;">
                     <textarea class="reply-content" cols="105" rows="2" style="border:none; width:100%; resize:none; outline: none;"
-                    readonly="readonly">&nbsp;&nbsp;민혁이형은 내맘을 몰라
+                    readonly="readonly">&nbsp;&nbsp;${hc.hcContent}
                     </textarea>
                     </td>
                   </tr>
+                </c:if>
+                <!-- 대댓글 끝 -->
+                
+                </c:forEach>
+                <!-- 반복 종료 -->
+                
                 </table>
               </div>
             </div>   
@@ -106,18 +176,17 @@
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <div class="replyWriteArea" style="border: 1px solid gray; border-radius: 10px;">
-              <form action="/codingPanda/insertComment.bo" method="post">
+              <form action="${pageContext.request.contextPath}/hotspotBoard/insertComment.ho" method="get">
+              <input type="hidden" name="userId" value="${member.userId }"/>
+              <input type="hidden" name="hNo" value="${hotspotBoard.HNo}" />
+              <input type="hidden" name="no" value="${hotspotBoard.HNo}" />
+              <input type="hidden" name="hcWriter" value="${member.userName}" />
                 <div class="text-left" style="padding-left: 15px;">
                   <div style="height : 10px"></div>
-                  <a style="font-weight: 900; color: black;">박민혁</a>
+                  <a style="font-weight: 900; color: black;" >${member.userName}</a>
                 </div>
                 <div class="comment_form mx-auto" style="text-align: center;">
-                  <input type="hidden" name="writer" value="${ param.userName }"/>
-                  <input type="hidden" name="bno" value="${ param.Bno }" />
-                  <input type="hidden" name="refcno" value="0" />
-                  <input type="hidden" name="clevel" value="1" />
-           
-                  <textArea rows="3" cols="80" id="replyContent" name="replyContent" style="border:none; width:97%; resize:none; outline: 0;" placeholder="댓글을 입력해보세요!"></textArea>
+                  <textArea rows="3" cols="80" id="replyContent" name="hcContent" style="border:none; width:97%; resize:none; outline: 0;" placeholder="댓글을 입력해보세요!"></textArea>
                 </div>
                 <div class="text-right">
                   <button type="submit" class="btn btn-md btn-info" id="addReply" style="border-radius: 10px;">댓글 등록</button>&nbsp;&nbsp;&nbsp;
@@ -127,7 +196,6 @@
             </div>
           </div>
         </div>
-        
       </div>
     </section> <!-- .section -->
 
@@ -143,6 +211,8 @@
 		function goUpdate(){
 			location.href="${pageContext.request.contextPath}/hotspotBoard/hotspotUpdateView.ho?no=${hotspotBoard.HNo}"
 		};
+		
+		
 		
 		// 좋아요 AJAX
 		function like(){	
@@ -267,11 +337,27 @@
 				}
 			});
 		};
-	
+		
+		
+		
+
+        <c:forEach items="${clist}" var="hc"> 
+
+		// 대장 댓글 insert
+		function open${hc.hcNo}(){
+			document.getElementById("reple${hc.hcNo}").style.display = 'block';
+		};
+		
+		function goRepleDelete${hc.hcNo}(){
+
+			location.href="${pageContext.request.contextPath}/hotspotBoard/deleteComment.ho?hcNo=${hc.hcNo}&no=${hotspotBoard.HNo}"
+		};
+		
+		</c:forEach>
+
 		
     </script>
-
-    <!------------------------------------------------------------------------------------------------------->
+    
 	
 	<c:import url="../common/footer.jsp"/>
 	

@@ -52,8 +52,8 @@ public class HotspotUtils {
 		
 		//[다음] section
 		if(pageNo > totalPage){
-			pageBar += "<li disabled'>";
-			pageBar += "<a href='#'>></a>";
+			pageBar += "<li class='disabled'>";
+			pageBar += "<a>></a>";
 			pageBar += "</li>";
 			
 		} else {

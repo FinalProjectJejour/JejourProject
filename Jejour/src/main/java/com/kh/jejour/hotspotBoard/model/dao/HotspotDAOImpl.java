@@ -1,6 +1,7 @@
 package com.kh.jejour.hotspotBoard.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +52,19 @@ public class HotspotDAOImpl implements HotspotDAO {
 	public HotspotBoard hotspotSelectOne(int hNo) {
 		
 		return sqlSession.selectOne("hotspotMapper.hotspotSelectOne", hNo);
+	}
+
+	@Override
+	public List<HotspotBoard> search(HashMap<String, String> hmap, int cPage, int numPerPage) {
+		
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("hotspotMapper.search", hmap, rows);
+	}
+
+	@Override
+	public int selectHotspotBoardSearchContents(HashMap<String, String> hmap) {
+
+		return sqlSession.selectOne("hotspotMapper.selectHotspotBoardSearchContents", hmap);
 	}
 
 
