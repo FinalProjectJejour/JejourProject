@@ -228,12 +228,14 @@ button, .button{
                         <br><br>
                         
                         <label for="user" class="label" style="font-size: 20px;">아이디</label><br><br>
-                        <input id="userId" name="userId" type="text" class="input" style="width: 90%;" required/>
+                        <input id="userId" name="userId" type="text" class="input" style="width: 90%;"
+                        	   required oninvalid="this.setCustomValidity('아이디를 입력해주세요!!')"/>
                     </div>
                     <div class="group" style="margin-left:25px; margin-top:50px;">
                         <br><br>
                         <label for="pass" class="label" style="font-size: 20px;">비밀번호</label><br><br>
-                        <input id="userPwd" name="userPwd" type="password" class="input" data-type="password" style="width: 90%;" required oninvalid="this.setCustomValidity('비밀번호를 입력해주세요')">
+                        <input id="userPwd" name="userPwd" type="password" class="input" data-type="password" style="width: 90%;"
+                        	   required oninvalid="this.setCustomValidity('비밀번호를 입력해주세요!!')">
                     </div>
                     <div class="group" style="text-align:center;">
                         <br><br>
@@ -263,7 +265,8 @@ button, .button{
                     <div class="group" id="userId-container" style="margin-left:40px;">
                         <br>
                     	<label for="user" class="label" style="font-size: 18px;">아이디</label><br>
-                        <input id="userIdcheck" name="userId" type="text" class="input" style="width: 90%;" required />
+                        <input id="userIdcheck" name="userId" type="text" class="input" style="width: 90%;"
+                        	   required oninvalid="this.setCustomValidity('회원 가입은 아이디 입력필수!')"/>
                         <br>
                         <!-- 중복체크 -->
                         <span class="guide ok">사용 가능</span>
@@ -274,14 +277,14 @@ button, .button{
                     </div>
                     <div class="group" style="margin-left:40px;">
                         <label for="user" class="label" style="font-size: 18px;">성명</label><br>
-                        <input id="userName" name="userName" type="text" class="input" style="width: 90%;" required oninvalid="this.setCustomValidity('이름을 입력해주세요')"
-                        placeholder="한글만 2-4글자 입력"/>
+                        <input id="userName" name="userName" type="text" class="input" style="width: 90%;" required
+                        oninvalid="this.setCustomValidity('이름을 입력해주세요')" placeholder="한글 2-4글자 입력"/>
                     	<br>
                         <label class="nameCheck" id="nameCheck" for="nameCheck"></label>
                     </div>
                     <div class="group" style="margin-left:40px;">
                         <label for="user" class="label" style="font-size: 18px;">성별</label><br>
-                        <select name="gender" id="gender" class=input id="gender" style="width: 90%;" required>
+                        <select name="gender" id="gender" class=input id="gender" style="width: 90%;">
                             <option value="M">남자</option>
                             <option value="F">여자</option>
                         </select>
@@ -304,8 +307,8 @@ button, .button{
                     <div class="group" id="email-container" style="margin-left:40px;">
                         <label for="pass" class="label" style="font-size: 18px;">이메일</label><br><br>
                         <input id="email" type="email" class="input" name="email" style="width: 70%;" required
-                        	   oninvalid="this.setCustomValidity('이메일을 인증해주세요')"
-                        	   placeholder="이메일 인증해주세요!" readonly>
+                        	   oninvalid="this.setCustomValidity('이메일을 인증 필수입니다!!')"
+                        	   placeholder="이메일 인증가즈아!!" readonly>
                         
 						<span class="guide ok">사용 가능</span>
 						<span class="guide error">사용불가</span>
@@ -525,7 +528,7 @@ button, .button{
 	
 	$(function(){
 		
-		/* 이메일 유효성 체크 */
+		/* 이메일 유효성 체크 
 		$("#email").on("keyup",function() {
 	            
 			var re2 = /^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.([a-z\.]{2,9})$/g;
@@ -565,7 +568,7 @@ button, .button{
 	                    });
 	            }
 
-	        });
+	        }); */
 		
 		/* 아이디 중복검사 이벤트 추가 */
 		$("#userIdcheck").on("keyup", function(){
