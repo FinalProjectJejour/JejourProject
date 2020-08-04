@@ -57,10 +57,10 @@
           -->
          
          <!-- 게시글 전용 URL 등록하기  -->
-         <mapping path="/flash/**/*.fl"/>
-         <mapping path="/hotspot/**/*.ho"/>
-         <exclude-mapping path="/flash/flashList.fl"/>
-         <exclude-mapping path="/hotspot/hotspotList.ho"/>
+         <mapping path="/flashBoard/**/*.fl"/>
+         <mapping path="/hotspotBoard/**/*.ho"/>
+         <exclude-mapping path="/flashBoard/flashList.fl"/>
+         <exclude-mapping path="/hotspotBoard/hotspotList.ho"/>
          <!-- 인터셉터 등록 -->
          <beans:bean id="loginCheckInterceptor" class="com.kh.jejour.common.interceptor.LoginCheckInterceptor" />
       </interceptor>

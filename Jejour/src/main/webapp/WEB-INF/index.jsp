@@ -9,7 +9,9 @@
 	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 	</head>
 	
-	<c:import url="views/common/header.jsp"/>
+	<c:import url="views/common/header.jsp">
+		<c:param name="data" value="main"/>
+	</c:import>
 	
     <section class="ftco-section">
       <div class="container-fluid">

@@ -24,7 +24,9 @@
 		</style>
 	</head>
 
-	<c:import url="../common/header.jsp"/>
+	<c:import url="../common/header.jsp">
+		<c:param name="data" value="flash"/>
+	</c:import>
 	
 	<!-- <c:set var="m" value="${ sessionScope.member }" /> -->
 

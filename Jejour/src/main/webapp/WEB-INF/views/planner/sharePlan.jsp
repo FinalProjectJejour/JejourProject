@@ -5,7 +5,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 
-<c:import url="../common/header.jsp"/>
+	<c:import url="../common/header.jsp">
+		<c:param name="data" value="sharePlan"/>
+	</c:import>
 
 	<head>
 		<style>

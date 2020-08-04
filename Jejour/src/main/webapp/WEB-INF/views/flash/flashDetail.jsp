@@ -13,7 +13,10 @@
 			}
 		</style>
 	</head>
-	<c:import url="../common/header.jsp"/>
+	
+	<c:import url="../common/header.jsp">
+		<c:param name="data" value="flash"/>
+	</c:import>
 
     <section class="ftco-section">
       <div class="container">
