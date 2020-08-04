@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.jejour.hotspotBoard.model.exception.HotspotBoardException;
 import com.kh.jejour.hotspotBoard.model.service.HotspotService;
 import com.kh.jejour.hotspotBoard.model.vo.HotspotBoard;
+import com.kh.jejour.hotspotComment.model.service.HotspotCService;
+import com.kh.jejour.hotspotComment.model.vo.HotspotComment;
 import com.kh.jejour.hotspotLike.model.service.HotspotLikeService;
 import com.kh.jejour.common.util.HotspotUtils;
+import com.kh.jejour.common.util.Utils;
+import com.kh.jejour.flashBoard.model.vo.FlashBoard;
 
 
 @Controller
@@ -34,6 +39,9 @@ public class HotspotController {
 	@Autowired
 	HotspotLikeService hotspotLikeService;
 	
+	@Autowired
+	HotspotCService hotspotCService;
+	
 	@RequestMapping("/hotspotBoard/hotspotInsert.ho")
 	public String goHotspotInsertBoard() {
 		return "hotspot/hotspotInsert";
@@ -44,11 +52,15 @@ public class HotspotController {
 		System.out.println("no : "+  no);
 		HotspotBoard h = hotspotService.hotspotSelectOne(no);
 		System.out.println("h : " + h);
-
+		
+		List<HotspotComment> clist = new ArrayList<HotspotComment>();
+		clist = hotspotCService.hotspotCSelectDetail(no);
+		System.out.println("c : " + clist);
 		
 		model.addAttribute("hotspotBoard", h);
 		model.addAttribute("like" , hotspotLikeService.hotspotLikeCountSelect(no));
 		model.addAttribute("unlike", hotspotLikeService.hotspotUnLikeCountSelect(no));
+		model.addAttribute("clist", clist);
 		
 		return "hotspot/hotspotDetail";
 	}
@@ -264,6 +276,40 @@ public class HotspotController {
 		return "common/hotmsg";
 	}
 	
+	@RequestMapping("/hotspotBoard/search.ho")
+	@ResponseBody
+	public HashMap<String,Object> search(@RequestParam String searchCondition, @RequestParam String keyword, @RequestParam int cPage){
+		
+		// 한 페이지 당 게시글 수
+		int numPerPage = 8; // Limit 역할
+				
+		List<HotspotBoard> list = new ArrayList<HotspotBoard>();
+		System.out.println("1   :" + searchCondition);
+		System.out.println("2   :" +keyword);
+		
+		HashMap<String, String> hmap = new HashMap<String, String>();
+		hmap.put("searchCondition", searchCondition);
+		hmap.put("keyword", keyword);
+		
+		list = hotspotService.search(hmap, cPage, numPerPage);
+		
+		System.out.println("list : " + list);
+		
+		// 2. 페이지 계산을 위한 총 페이지 갯수
+		int totalContents = hotspotService.selectHotspotBoardSearchContents(hmap);
+		System.out.println("총페이지 갯수 : " + totalContents);
+		
+		// 3. 페이지 HTML 생성
+		String pageBar = HotspotUtils.getPageBar(totalContents, cPage, numPerPage, "hotspotList.ho");
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		
+		map.put("list", list);
+		map.put("pageBar", pageBar);
+		
+		return map;
+	}
+
 	
 }
 

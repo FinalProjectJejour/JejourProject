@@ -49,6 +49,53 @@
 		WHERE HNO = #{hNo}
 	</update>
 	
+	<select id="search" parameterType="hashmap" resultType="HotspotBoard">
+		SELECT * 
+		FROM HOTSPOT_BOARD
+	
+		<bind name="myPattern" value="'%' + keyword + '%'" />
+		
+		<where>
+			<if test="searchCondition == 'all'">
+				(HWRITER LIKE #{myPattern} OR
+				HTITLE LIKE #{myPattern}) AND
+				HSTATUS = 'Y'
+			</if>
+	 		<if test="searchCondition == 'hWriter'">
+	 			HWRITER LIKE #{myPattern} AND
+				HSTATUS = 'Y'
+	 		</if>
+	 		<if test="searchCondition == 'hTitle'">
+	 			HTITLE LIKE #{myPattern} AND
+				HSTATUS = 'Y'
+	 		</if>
+		</where>
+		ORDER BY HDATE DESC, HNO DESC
+	</select>
+	
+	<select id="selectHotspotBoardSearchContents" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*)
+		FROM HOTSPOT_BOARD
+		
+		<bind name="myPattern" value="'%' + keyword + '%'" />
+		
+		<where>
+			<if test="searchCondition == 'all'">
+				(HWRITER LIKE #{myPattern} OR
+				HTITLE LIKE #{myPattern}) AND
+				HSTATUS = 'Y'
+			</if>
+	 		<if test="searchCondition == 'hWriter'">
+	 			HWRITER LIKE #{myPattern} AND
+				HSTATUS = 'Y'
+	 		</if>
+	 		<if test="searchCondition == 'hTitle'">
+	 			HTITLE LIKE #{myPattern} AND
+				HSTATUS = 'Y'
+	 		</if>
+		</where>
+	</select>
+	
 </mapper> 
 
 

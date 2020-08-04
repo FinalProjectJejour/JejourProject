@@ -1,6 +1,7 @@
 package com.kh.jejour.hotspotBoard.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,10 @@ public interface HotspotDAO {
 	int selectBoardTotalContents();
 
 	HotspotBoard hotspotSelectOne(int hNo);
+	
+	List<HotspotBoard> search(HashMap<String, String> hmap, int cPage, int numPerPage);
+	
+	int selectHotspotBoardSearchContents(HashMap<String, String> hmap);
 	
 
 }

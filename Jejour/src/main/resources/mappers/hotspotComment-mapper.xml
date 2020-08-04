@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotspotCommentMapper">
+	
+	<resultMap type="HotspotComment" id="resultComment1">
+		<id property="hcNo" column="HCNO"/>
+		<id property="refhcNo" column="REF_HCNO"/>
+	</resultMap>
+	
+ 	<select id="hotspotCSelect" parameterType="_int" resultMap="resultComment1">
+ 		SELECT *
+		FROM HOTSPOT_COMMENT
+		WHERE HNO = #{hNo} AND HCLEVEL = '1'
+		ORDER BY REF_HCNO, HCNO
+ 	</select>
+ 	
+ 	<insert id="hotspotCInsert" parameterType="HotspotComment">
+ 		INSERT INTO HOTSPOT_COMMENT
+		VALUES (SEQ_HCNO.NEXTVAL,#{hNo},#{userId},#{hcWriter},#{hcContent},DEFAULT,SEQ_HCNO.NEXTVAL,'1')
+ 	</insert>
+ 	
+ 	<insert id="hotspotCCInsert" parameterType="HotspotComment">
+ 		INSERT INTO HOTSPOT_COMMENT
+		VALUES (SEQ_HCNO.NEXTVAL,#{hNo},#{userId},#{hcWriter},#{hcContent},DEFAULT,#{refhcNo},'1')
+ 	</insert>
+ 	
+ 	<update id="updateCommnet" parameterType="HotspotComment">
+		UPDATE HOTSPOT_COMMENT SET
+		HCLEVEL = '2'
+		WHERE HCNO = #{hcNo}
+	</update>
+	
+</mapper> 
+
+
+
+
+
+
+
+
+
+
