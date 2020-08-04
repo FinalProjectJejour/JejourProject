@@ -3,14 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%  
-	request.setCharacterEncoding("UTF-8");
-	String no = request.getParameter("no");
-	String title = request.getParameter("title");
-	String theme = request.getParameter("theme");
-	String start_date = request.getParameter("start_date");
-	String return_date = request.getParameter("return_date");
-%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -55,12 +47,8 @@
         font-size: 14px;
       }
     
-      #calendar {
-        max-width: 2100px;
-        margin: 50px auto;
-      }
       
-      div#board-container label.custom-file-label{text-align:left;}
+    
     
     	
     		.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
@@ -107,176 +95,7 @@
   </head>
   
   <body>
-    
-    <!-- END nav -->
-    
-    
-    <!-- END slider -->
-    <c:set var="no" value="<%=no %>"/>
-    <c:set var="title" value="<%=title %>"/>
-    <c:set var="theme" value="<%=theme %>"/>
-    <c:set var="start_date" value="<%=start_date %>"/>
-    <c:set var="return_date" value="<%=return_date %>"/>
-    <c:set var="reservationPage" value="window.open('${pageContext.request.contextPath}/planner/reservationGo.do', 'reservationPage', 'width=1350,height=950');"/>
-    
-    <!-- 
-    <div style="position: fixed; right: 20px; bottom: 50px;">
-    	<form action="${pageContext.request.contextPath}/planner/goReservation.do" id="goreservation">
-			<button type="button" class="btn btn-primary py-3 px-4" onclick="goreservation()">예매페이지</button>  
-		</form> 
-  	</div>
-  	 -->
-  	 
   	
-  	
-   
-    <c:if test="${no eq null and pNo eq null }">
-    <div class="ftco-section-search">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 tabulation-search">
-            <div class="element-animate">
-              <div class="nav nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" >
-                <a class="nav-link p-3 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><span>01</span>혼자</a>
-                <a class="nav-link p-3" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span>02</span> 연인/커플</a>
-                <a class="nav-link p-3" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"><span>03</span> 친구/지인</a>
-                <a class="nav-link p-3" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span>04</span> 부모님</a>
-                <a class="nav-link p-3" id="v-pills-family-tab" data-toggle="pill" href="#v-pills-family" role="tab" aria-controls="v-pills-family" aria-selected="false"><span>05</span> 가족</a>
-              </div>
-            </div>
-              
-            <div class="tab-content py-5" id="v-pills-tabContent">
-              <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead1" onsubmit="return validate1();" enctype="multipart/form-data">
-                    <div class="fields d-block d-lg-flex">
-                    
-                      <!-- <div class="fileArea" style="background-image: url('${pageContext.request.contextPath}/resources/images/insert-picture-icon.jpg'); background-repeat: no-repeat;"> -->
-                      <div class="fileArea1" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile1">
-                      </div>
-                      
-                      <div class="check-in one-third"><input type="text" name="title" id="title1" class="form-control" placeholder="일정 제목"></div>
-
-                      <div class="check-in one-third"><input type="date" id="start_date1" class="form-control" name="start_date" placeholder="Start date"></div>
-
-                      <div class="check-out one-third"><input type="date" id="return_date1" class="form-control" name="return_date" placeholder="Return date"></div>
-                      
-                    </div>
-                    <input type="hidden" name="userId" id="userId1" value="${member.userId}">
-                    <input type="hidden" name="pWriter" id="pWriter" value="${member.userName}">
-                    <input type="hidden" name="theme" id="theme" value="혼자">  
-                    <input type="hidden" name="status" id="status" value="Y"> 
-                    <!-- <input type="submit" class="search-submit btn btn-primary" value="나홀로 GO"> -->  
-                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner1();">나홀로 GO</button>
-                  </form>
-                </div>
-              </div>
-              <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead2" onsubmit="return validate2();" enctype="multipart/form-data">
-                    <div class="fields d-block d-lg-flex">
-                    
-                      
-
-                      <div class="fileArea2" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile2">
-                      </div>
-                      
-                      <div class="check-in one-third"><input type="text" name="title" id="title2" class="form-control" placeholder="일정 제목"></div>
-
-                      <div class="check-in one-third"><input type="date" id="start_date2" class="form-control" name="start_date" placeholder="Start date"></div>
-
-                      <div class="check-out one-third"><input type="date" id="return_date2" class="form-control" name="return_date" placeholder="Return date"></div>
-                      
-                    </div>
-                    <input type="hidden" name="userId" id="userId2" value="${member.userId}">
-                    <input type="hidden" name="pWriter" id="pWriter" value="${member.userName}">
-                    <input type="hidden" name="theme" id="theme" value="연인">
-                    <input type="hidden" name="status" id="status" value="Y"> 
-                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner2();">연인과 함께</button>
-                  </form>
-                </div>
-              </div>
-              <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead3" onsubmit="return validate3();" enctype="multipart/form-data">
-                    <div class="fields d-block d-lg-flex">
-
-                      <div class="fileArea3" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile3">
-                      </div>
-                      
-					  <div class="check-in one-third"><input type="text" name="title" id="title3" class="form-control" placeholder="일정 제목"></div>
-
-                      <div class="check-in one-third"><input type="date" id="start_date3" class="form-control" name="start_date" placeholder="Start date"></div>
-
-                      <div class="check-out one-third"><input type="date" id="return_date3" class="form-control" name="return_date" placeholder="Return date"></div>
-                      
-                    </div>
-                    <input type="hidden" name="userId" id="userId3" value="${member.userId}">
-                    <input type="hidden" name="pWriter" id="pWriter" value="${member.userName}">
-                    <input type="hidden" name="theme" id="theme" value="친구">  
-                    <input type="hidden" name="status" id="status" value="Y">   
-                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner3();">친구랑~</button>
-                  </form>
-                </div>
-              </div>
-              <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead4" onsubmit="return validate4();" enctype="multipart/form-data">
-                    <div class="fields d-block d-lg-flex">
-                      
-                      <div class="fileArea4" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile4">
-                      </div>
-                      
-					  <div class="check-in one-third"><input type="text" name="title" id="title4" class="form-control" placeholder="일정 제목"></div>
-
-                      <div class="check-in one-third"><input type="date" id="start_date4" class="form-control" name="start_date" placeholder="Start date"></div>
-
-                      <div class="check-out one-third"><input type="date" id="return_date4" class="form-control" name="return_date" placeholder="Return date"></div>
-
-                      
-                    </div>
-                    <input type="hidden" name="userId" id="userId4" value="${member.userId}">
-                    <input type="hidden" name="pWriter" id="pWriter" value="${member.userName}">
-                    <input type="hidden" name="theme" id="theme" value="부모님">   
-                    <input type="hidden" name="status" id="status" value="Y"> 
-                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner4();">부모님^^</button>
-                  </form>
-                </div>
-              </div>
-              <div class="tab-pane fade" id="v-pills-family" role="tabpanel" aria-labelledby="v-pills-family-tab">
-                <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead5" onsubmit="return validate5();" enctype="multipart/form-data">
-                    <div class="fields d-block d-lg-flex">
-
-                      <div class="fileArea5" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile5">
-                      </div>
-
-				 	  <div class="check-in one-third"><input type="text" name="title" id="title5" class="form-control" placeholder="일정 제목"></div>
-
-                      <div class="check-in one-third"><input type="date" id="start_date5" class="form-control" name="start_date" placeholder="Start date"></div>
-
-                      <div class="check-out one-third"><input type="date" id="return_date5" class="form-control" name="return_date" placeholder="Return date"></div>
-                      
-                    </div>
-                    <input type="hidden" name="userId" id="userId5" value="${member.userId}">
-                    <input type="hidden" name="pWriter" id="pWriter" value="${member.userName}">
-                    <input type="hidden" name="theme" id="theme" value="가족">   
-                    <input type="hidden" name="status" id="status" value="Y"> 
-                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner5();">가족과 함께</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </c:if>
 
     <section class="ftco-section contact-section">
       <div class="container">
@@ -308,31 +127,28 @@
 			    </div>
           
           
-          
-          
-          
           </div>
           <div class="col-md-4">
-            <form action="${pageContext.request.contextPath}/plannerPart/plannerPartMake.do" id="makingPlan" method="post" onsubmit="return pass();">
+            <form action="${pageContext.request.contextPath}/plannerPart/instanceUpdatePlan.do" id="updatePlan" method="post" onsubmit="return pass();">
               <div class="form-group">
                 <input type="text" id="fMapTitle"  class=" form-control" name="mapTitle">
               </div>
               <div class="form-group">
-                <input type="datetime-local" min="${start_date}" max="${return_date}" class=" form-control" name="startTime" id="startTime_ck">
+                <input type="datetime-local" min="${startDay}" max="${endDay}" class=" form-control" name="startTime" id="startTime_ck">
               </div>
               <div class="form-group">
-                <input type="datetime-local" min="${start_date}" max="${return_date}" class=" form-control" name="endTime" id="endTime_ck">
+                <input type="datetime-local" min="${startDay}" max="${endDay}" class=" form-control" name="endTime" id="endTime_ck">
               </div>
               <div class="form-group">
-                <input type="number" class="form-control" name="money" placeholder="ACCOUNT">
+                <input type="number" class="form-control" name="money" id="money" placeholder="ACCOUNT">
               </div>
               <div class="form-group">
                 <textarea cols="30" rows="7" class="form-control" name="reason" id="describe" placeholder="DESCRIBE"></textarea>
               </div>
               
               <input type="hidden" name="calendar_set" id="calendar_set" value="${calendar_set}">
-              <c:if test="${no ne null }"><input type="hidden" name="pNo" id="pNo" value="${no}"></c:if>
-              <c:if test="${pNo ne null }"><input type="hidden" name="pNo" id="pNo" value="${pNo}"></c:if>
+              <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+              <input type="hidden" name="ppNo" id="ppNo" value="${ppNo}">
               <input type="hidden" name="start_date" id="start_date" value="${start_date}">
               <input type="hidden" name="return_date" id="return_date" value="${return_date}">
               
@@ -340,43 +156,17 @@
               <input type="hidden" id="fMapX" name="mapX">
               <input type="hidden" id="fMapY" name="mapY">
               
-              <c:if test="${no ne null or pNo ne null }">
-	              <div class="form-group" style="float:right">
-	                <button type="button" class="btn btn-primary py-3 px-4" onclick="save();">Save</button>
-	              </div>
-              </c:if>
+	          <div class="form-group" style="float:right">
+	            <button type="button" class="btn btn-primary py-3 px-4" onclick="save();">Update</button>
+	          </div>
             </form>
           </div>
         </div>
         
-        <form action="${pageContext.request.contextPath}/plannerPart/plannerPartDelete.do" id="deletePlan" method="post">
-        	<input type="hidden" name="calendar_set" id="calendar_set" value="${calendar_set}">
-              <c:if test="${no ne null }"><input type="hidden" name="pNo" id="pNo" value="${no}"></c:if>
-              <c:if test="${pNo ne null }"><input type="hidden" name="pNo" id="pNo" value="${pNo}"></c:if>
-              <input type="hidden" name="start_date" id="start_date" value="${start_date}">
-              <input type="hidden" name="return_date" id="return_date" value="${return_date}">
-              <input type="hidden" id="ppnoNumber"  class=" form-control" name="ppNo">
-        </form>
         
         
-        <div style="position: fixed; right: 20px; bottom: 50px;">
-			<input type="submit" class="btn btn-primary py-3 px-4" onclick="${reservationPage}" value="예매페이지" />
-  		</div>
-        
-        <c:if test="${pNo ne null }">
-        	<div id='calendar'></div>
-        	<form action="${pageContext.request.contextPath}/planner/plannerSeeConfirm.do?pNo=${pNo}" id="confirming">
-        		<input type="hidden" name="pNo" id="pNo" value="${pNo}">
-        		
-		        <div class="form-group" style="float:right">
-		        	<button type="button" class="btn btn-primary py-3 px-4" onclick="goConfirming();">확인하러 가기</button>
-		        </div>
-		        
-	        </form>
-        </c:if>
       </div>
         
-      
     </section>
 
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -474,207 +264,15 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f8c0b6988029a8eedd98928d0fab7698&libraries=services"></script>
   <script>
-  	
-  /* textarea에도 required속성을 적용가능하지만, 공백이 입력된 경우 대비 유효성검사를 실시함. */
-	function validate1(){
-		var user = $("#userId1").val();
-		var content = $("#title1").val();
-		var start = $("#start_date1").val();
-		var end = $("#return_date1").val();
-		
-		if(user.trim().length==0){
-			alert("로그인을 해야 진행이 가능해요~~");
-			return false;
-		}
-		if(content.trim().length==0){
-			alert("제목을 입력하세요");
-			return false;
-		}
-		if(start.trim().length==0){
-			alert("출발 날짜를 입력하시오 ");
-			return false;
-		}
-		if(end.trim().length==0){
-			alert("마지막 날짜를 입력하시오");
-			return false;
-		}
-		if(start > end){
-			alert("플래너 이렇게 짤거야?");
-			return false;
-		}
-		return true;
-	}
-	function validate2(){
-		var user = $("#userId2").val();
-		var content = $("#title2").val();
-		var start = $("#start_date2").val();
-		var end = $("#return_date2").val();
-		
-		if(user.trim().length==0){
-			alert("로그인을 해야 진행이 가능해요~~");
-			return false;
-		}
-		if(content.trim().length==0){
-			alert("제목을 입력하세요");
-			return false;
-		}
-		if(start.trim().length==0){
-			alert("출발 날짜를 입력하시오 ");
-			return false;
-		}
-		if(end.trim().length==0){
-			alert("마지막 날짜를 입력하시오");
-			return false;
-		}
-		if(start > end){
-			alert("플래너 이렇게 짤거야?");
-			return false;
-		}
-		return true;
-	}
-	function validate3(){
-		var user = $("#userId3").val();
-		var content = $("#title3").val();
-		var start = $("#start_date3").val();
-		var end = $("#return_date3").val();
-		
-		if(user.trim().length==0){
-			alert("로그인을 해야 진행이 가능해요~~");
-			return false;
-		}
-		if(content.trim().length==0){
-			alert("제목을 입력하세요");
-			return false;
-		}
-		if(start.trim().length==0){
-			alert("출발 날짜를 입력하시오 ");
-			return false;
-		}
-		if(end.trim().length==0){
-			alert("마지막 날짜를 입력하시오");
-			return false;
-		}
-		if(start > end){
-			alert("플래너 이렇게 짤거야?");
-			return false;
-		}
-		return true;
-	}
-	function validate4(){
-		var user = $("#userId4").val();
-		var content = $("#title4").val();
-		var start = $("#start_date4").val();
-		var end = $("#return_date4").val();
-		
-		if(user.trim().length==0){
-			alert("로그인을 해야 진행이 가능해요~~");
-			return false;
-		}
-		if(content.trim().length==0){
-			alert("제목을 입력하세요");
-			return false;
-		}
-		if(start.trim().length==0){
-			alert("출발 날짜를 입력하시오 ");
-			return false;
-		}
-		if(end.trim().length==0){
-			alert("마지막 날짜를 입력하시오");
-			return false;
-		}
-		if(start > end){
-			alert("플래너 이렇게 짤거야?");
-			return false;
-		}
-		return true;
-	}
-	function validate5(){
-		var user = $("#userId5").val();
-		var content = $("#title5").val();
-		var start = $("#start_date5").val();
-		var end = $("#return_date5").val();
-		
-		if(user.trim().length==0){
-			alert("로그인을 해야 진행이 가능해요~~");
-			return false;
-		}
-		if(content.trim().length==0){
-			alert("제목을 입력하세요");
-			return false;
-		}
-		if(start.trim().length==0){
-			alert("출발 날짜를 입력하시오 ");
-			return false;
-		}
-		if(end.trim().length==0){
-			alert("마지막 날짜를 입력하시오");
-			return false;
-		}
-		if(start > end){
-			alert("플래너 이렇게 짤거야?");
-			return false;
-		}
-		return true;
-	}
-  
-	function setPlanner1(){
-		$('#upFile1').click();
-		if($("#upFile1").val().trim()==0){
-			alert("사진을 넣어주세요~~");
-			return false;
-		}
-		$("#goAhead1").submit();
-		
-	}
-	function setPlanner2(){
-		$('#upFile2').click();
-		if($("#upFile2").val().trim()==0){
-			alert("사진을 넣어주세요~~");
-			return false;
-		}
-		$("#goAhead2").submit();
-		
-	}
-	function setPlanner3(){
-		$('#upFile3').click();
-		if($("#upFile3").val().trim()==0){
-			alert("사진을 넣어주세요~~");
-			return false;
-		}
-		$("#goAhead3").submit();
-		
-	}
-	function setPlanner4(){
-		$('#upFile4').click();
-		if($("#upFile4").val().trim()==0){
-			alert("사진을 넣어주세요~~");
-			return false;
-		}
-		$("#goAhead4").submit();
-		
-	}
-	function setPlanner5(){
-		$('#upFile5').click();
-		if($("#upFile5").val().trim()==0){
-			alert("사진을 넣어주세요~~");
-			return false;
-		}
-		$("#goAhead5").submit();
-		
-	}
-	
-	/*부트스트랩 : file 변경시 파일명 보이기 */
-	$(function(){
-		$('[name=title]').on('change',function(){
-		    //var fileName = $(this).val();//C:\fakepath\파일명
-		    var titleName = this.title[0].name;//파일명(javascript)
-		    //var fileName = $(this)[0].files[0].name;//파일명(jquery)
-		    //var fileName = $(this).prop('files')[0].name;//파일명(jquery)
-			//console.log($(this).prop('files'));//FileList {0: File(54955), length: 1}
-		    console.log($(this).val());
-		    $(this).next('.fileArea').html(titleName);
-		})
-	});
+
+  document.getElementById("fMapTitle").defaultValue = "${plannerPart.mapTitle}";
+  document.getElementById("startTime_ck").defaultValue = "${plannerPart.startTime}";
+  document.getElementById("endTime_ck").defaultValue = "${plannerPart.endTime}";
+  document.getElementById("money").defaultValue = "${plannerPart.money}";
+  document.getElementById("describe").defaultValue = "${plannerPart.reason}";
+  document.getElementById("categoryName").defaultValue = "${plannerPart.category}";
+  document.getElementById("fMapX").defaultValue = "${plannerPart.mapX}";
+  document.getElementById("fMapY").defaultValue = "${plannerPart.mapY}";
 
 	function pass(){
 		var content = $("#fMapTitle").val();
@@ -704,85 +302,12 @@
 	
 	function save(){
 		
-		$("#makingPlan").submit();
+		$("#updatePlan").submit();
 		
 	}
 	
-	function goConfirming(){
-		
-		$("#confirming").submit();
-		
-	}
 	
-	/*
-	function goreservation(){
-		${"goreservation"}.submit();
-	}
-  	*/
-
-    
-  	document.addEventListener('DOMContentLoaded', function() {
-  	    var calendarEl = document.getElementById('calendar');
-
-  	    var calendar = new FullCalendar.Calendar(calendarEl, {
-  	      now: '${start}',
-  	      editable: true,
-  	      aspectRatio: 1.8,
-  	      scrollTime: '00:00',
-  	      headerToolbar: {
-  	        left: 'today prev,next',
-  	        center: 'title',
-  	        right: 'resourceTimelineDay,timeGridWeek,dayGridMonth'
-  	      },
-  	      customButtons: {
-  	        promptResource: {
-  	          text: '+ room',
-  	          click: function() {
-  	            var title = prompt('Room name');
-  	            if (title) {
-  	              calendar.addResource({ title: title });
-  	            }
-  	          }
-  	        }
-  	      },
-  	      initialView: 'resourceTimelineDay',
-  	      views: {
-  	        resourceTimelineThreeDays: {
-  	          type: 'resourceTimeline',
-  	          duration: { days: 3 },
-  	          buttonText: '3 days'
-  	        }
-  	      },
-  	      resourceAreaHeaderContent: 'Plan',
-  	      resourceLabelDidMount: function(arg) {
-  	        var resource = arg.resource;
-
-  	        arg.el.addEventListener('click', function() {
-  	          if (confirm('Are you sure you want to delete ' + resource.title + '?')) {
-  	        	$('#ppnoNumber').val(resource.id);
-  	        	$("#deletePlan").submit();
-  	            resource.remove();
-  	          }
-  	        });
-  	      },
-  	      resources: [
-  	    	<c:forEach items="${list}" var="p" varStatus="loop">
-	    	  	{ id: '${p.ppNo}', title: '${p.mapTitle}', eventColor: 'green' }
-	    	  	<c:if test="${!loop.last}">,</c:if>
-    	  	</c:forEach>
-  	      ],
-  	      events: [
-  	    	<c:forEach items="${list}" var="pl" varStatus="status">
-	  			{ id: '${pl.ppNo}', resourceId: '${pl.ppNo}', start: '${pl.startTime}', end: '${pl.endTime}',  title: '${pl.mapTitle}' }
-	  			<c:if test="${!status.last}">,</c:if>
-	 		</c:forEach>
-  	      ]
-  	    });
-
-  	    calendar.render();
-  	  });
-
-      
+	
   	
   	
 	var markers = [];
