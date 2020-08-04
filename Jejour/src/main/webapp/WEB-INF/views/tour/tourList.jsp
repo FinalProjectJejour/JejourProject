@@ -73,7 +73,9 @@
 	</style>
 </head>
 
-<c:import url="../common/header.jsp"/>
+<c:import url="../common/header.jsp">
+	<c:param name="data" value="jejuPlace"/>
+</c:import>
 
 	    <div class="container" style="padding-top: 50px;">
 	        <div class="row">

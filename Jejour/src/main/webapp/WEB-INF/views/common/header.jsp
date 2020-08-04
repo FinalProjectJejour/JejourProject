@@ -9,6 +9,7 @@
   <head>
     <title>Jejour</title>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/LogoMini.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700" rel="stylesheet">
@@ -31,6 +32,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/flaticon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/icomoon.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    
+    <style>
+ 		@FONT-FACE {
+			font-family: 'bm';
+			src:url("${pageContext.request.contextPath}/resources/fonts/JejuHallasan.ttf");
+		}
+    </style>
   </head>
   <body>
     
@@ -43,7 +51,7 @@
     
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
       <div class="container">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}">Jejour</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}" style="font-family: bm; font-size: 30px;">Jejour</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="oi oi-menu"></span> Menu
         </button>
@@ -64,7 +72,7 @@
               <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/itro/ourSite.do">Our Site</a>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/tour/tourList.do">JeJu</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/tour/tourList.do">Jeju Place</a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -98,13 +106,44 @@
     </nav>
     <!-- END nav -->
     
+    <c:if test="${ param.data ne 'main' }">
+	    <section class="home-slider owl-carousel">
+	      <div class="slider-item" style="background-image: url('${pageContext.request.contextPath}/resources/images/beach.jpg');">
+	        <div class="overlay"></div>
+	        <div class="container">
+	          <div class="row slider-text align-items-center">
+	            <div class="col-md-7 col-sm-12 ftco-animate">
+	            	<c:if test="${ param.data eq 'flash' }">
+		              <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">Meet</a></span></p>
+		              <h1 class="mb-3">Meeting</h1>
+	              	</c:if>
+         		    <c:if test="${ param.data eq 'sharePlan' }">
+		              <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">Plan</a></span></p>
+		              <h1 class="mb-3">SharePlan</h1>
+	              	</c:if>
+	                <c:if test="${ param.data eq 'ourSite' }">
+		              <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">About</a></span></p>
+		              <h1 class="mb-3">Our Site</h1>
+	              	</c:if>
+	              	<c:if test="${ param.data eq 'jejuPlace' }">
+		              <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">About</a></span></p>
+		              <h1 class="mb-3">Jeju Place</h1>
+	              	</c:if>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+    </c:if>
+    
+    <c:if test="${ param.data eq 'main' }">
     <section class="home-slider owl-carousel">
       <div class="slider-item" style="background-image: url('${pageContext.request.contextPath}/resources/images/beach.jpg');">
         <div class="overlay"></div>
         <div class="container">
           <div class="row slider-text align-items-center">
             <div class="col-md-7 col-sm-12 ftco-animate">
-              <h1 class="mb-3">Experience the best trip ever</h1>
+              <h1 class="mb-3" style="font-family: bm;">Jejour로 <br>혼저옵서예</h1>
             </div>
           </div>
         </div>
@@ -115,7 +154,7 @@
         <div class="container">
           <div class="row slider-text align-items-center">
             <div class="col-md-7 col-sm-12 ftco-animate">
-              <h1 class="mb-3">Making the most out of your holiday</h1>
+              <h1 class="mb-3" style="font-family: bm;">제주 여행의 모든 것 <br>Jejour</h1>
             </div>
           </div>
         </div>
@@ -126,12 +165,13 @@
         <div class="container">
           <div class="row slider-text align-items-center">
             <div class="col-md-7 col-sm-12 ftco-animate">
-              <h1 class="mb-3">Travel Operator Just For You</h1>
+              <h1 class="mb-3" style="font-family: bm;">어디론가 <br>떠나고 싶을때 </h1>
             </div>
           </div>
         </div>
       </div>
     </section>
+    </c:if>
     
     <script>
     function goReservation() {

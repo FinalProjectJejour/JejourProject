@@ -167,9 +167,11 @@ body {
 		}
 
 </style>
+	<c:import url="../common/header.jsp">
+		<c:param name="data" value="ourSite"/>
+	</c:import>
 <body>
 	
-	<c:import url="../common/header.jsp"/>
 	<div class="skw-pages">
     <div class="skw-page skw-page-1 active">
       <div class="skw-page__half skw-page__half--left">
