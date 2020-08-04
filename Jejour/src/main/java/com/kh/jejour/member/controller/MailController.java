@@ -58,19 +58,22 @@ public class MailController {
         
         System.getProperty("line.separator")+
                 
-        "안녕하세요 회원님 저희 홈페이지를 찾아주셔서 감사합니다"
+        "<span style='font-size:18px; font-weight:bold;'>안녕하세요 회원님 저희 Jejour 홈페이지를 찾아주셔서 감사합니다! <br><br>"
         
         +System.getProperty("line.separator")+
         
         System.getProperty("line.separator")+
 
-        " 인증번호는 " +dice+ " 입니다. "
+        "<span style='font-size:18px; font-weight:bold;'>회원님의 인증번호는</span> "
+        + "<span style='color:red; font-size:22px; font-weight:bold;'>" +dice+ "</span>"
+        + "<span style='font-size:18px; font-weight:bold;'>입니다. 정확하게 입력해주세요!</span> <br><br>"
         
         +System.getProperty("line.separator")+
         
         System.getProperty("line.separator")+
         
-        "받으신 인증번호를 홈페이지에 입력해 주시면 다음으로 넘어갑니다."; // 내용
+        "<span style='color:green; font-size:18px; font-weight:bold;'>받으신 인증번호를 홈페이지에 입력해 주셔야 "
+        + "<span style='color:red; font-size:22px; font-weight:bold;'>다음단계</span>로 넘어갑니다.</span>"; // 내용
         
         
         try {
@@ -81,8 +84,13 @@ public class MailController {
             messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
             messageHelper.setTo(tomail); // 받는사람 이메일
             messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-            messageHelper.setText(content); // 메일 내용
             
+            String contents = content + "<img src=\"http://localhost:8088/jejour/resources/images/jejulogo.png\">";
+           
+            messageHelper.setText(contents, true); // 메일 내용
+            
+            
+
             mailSender.send(message);
         } catch (Exception e) {
             System.out.println(e);

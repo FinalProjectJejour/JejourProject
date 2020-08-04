@@ -183,7 +183,8 @@ header img {
 
 
 			  <label class="email">
-			    <input type="text" id="email" name="email_injeung" placeholder="&nbsp;">
+			    <input type="text" id="email" name="email_injeung" placeholder="&nbsp;"
+			    	   required oninvalid="this.setCustomValidity('인증번호를 입력해주세요')">
 			    <span class="label">인증번호 입력</span>
 				    <svg width="120px" height="26px" viewBox="0 0 120 26">
 				      <path d="M0,25 C21,25 46,25 74,25 C102,25 118,25 120,25"></path>

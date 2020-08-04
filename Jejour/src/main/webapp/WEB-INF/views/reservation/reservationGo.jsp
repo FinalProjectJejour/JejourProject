@@ -358,27 +358,27 @@ body{
                 <li>
                     <div class="img-hero-background"></div> 
                     <div class="dark-over-hero"></div>  
-                    <div class="hero-number-back">01</div> 
-                    <div class="hero-number">01</div> 
+                    <div class="hero-number-back"></div> 
+                    <div class="hero-number"></div> 
                     <div class="hero-number-fixed">04</div> 
                     <div class="case-study-title">항공 예약</div> 
                 </li>
                 <li>
                     <div class="img-hero-background"></div> 
-                    <div class="hero-number-back">02</div> 
-                    <div class="hero-number">02</div>  
+                    <div class="hero-number-back"></div> 
+                    <div class="hero-number"></div>  
                     <div class="case-study-title">렌트카 예약</div> 
                 </li>
                 <li>
                     <div class="img-hero-background"></div>
-                    <div class="hero-number-back">03</div>  
-                    <div class="hero-number">03</div> 
+                    <div class="hero-number-back"></div>  
+                    <div class="hero-number"></div> 
                     <div class="case-study-title">숙박 예약</div> 
                 </li>
                 <li>
                     <div class="img-hero-background"></div> 
-                    <div class="hero-number-back">04</div> 
-                    <div class="hero-number">04</div> 
+                    <div class="hero-number-back"></div> 
+                    <div class="hero-number"></div> 
                     <div class="case-study-title">크루저 예약</div> 
                 </li>
             </ul>   
