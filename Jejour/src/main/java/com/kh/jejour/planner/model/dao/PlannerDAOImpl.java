@@ -44,6 +44,12 @@ public class PlannerDAOImpl implements PlannerDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("plannerMapper.thisPlanner", pNo);
 	}
+
+	@Override
+	public int changePlannerTheme(Planner planner) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("plannerMapper.updateTheme", planner);
+	}
 	
 	
 	

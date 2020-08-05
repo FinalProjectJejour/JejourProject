@@ -33,6 +33,22 @@
 
     
     <c:import url="../common/header.jsp" />
+    
+    <style>
+    	.history__content::after {
+			position: absolute;
+			left: 50%;
+			top: -40px;
+			width: 2px;
+			height: ${listLength*240}px;
+			background: rgba(29, 28, 28, 0.3);
+			-webkit-transform: translateX(-1px);
+			-ms-transform: translateX(-1px);
+			transform: translateX(-1px);
+			content: "";
+		}
+    	
+    </style>
 
   </head>
   <body>
@@ -50,12 +66,14 @@
                             <div class="section-title history-title">
                                 <h5>Our History</h5>
                                 <h2>How I Plan</h2>
-                                <form name="instanceMakePlan" action="${pageContext.request.contextPath}/planner/instanceMakePlan.do" method="post">
-                                	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
-                                	<input type="hidden" name="startDay" id="startDay" value="${startDay}">
-                                	<input type="hidden" name="endDay" id="endDay" value="${endDay}">
-                                	<input type="submit" class="search-submit btn btn-primary" value="+일정">
-                                </form>
+                                <c:if test="${member.userId eq planner.userId}">
+	                                <form name="instanceMakePlan" action="${pageContext.request.contextPath}/planner/instanceMakePlan.do" method="post">
+	                                	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+	                                	<input type="hidden" name="startDay" id="startDay" value="${startDay}">
+	                                	<input type="hidden" name="endDay" id="endDay" value="${endDay}">
+	                                	<input type="submit" class="search-submit btn btn-primary" value="+일정">
+	                                </form>
+                                </c:if>
                             </div>
                         </div>
                     </div>
@@ -71,17 +89,18 @@
                             			<img src="img/history/history-1.jpg" alt="">
                             			<p><c:out value="${pl.money}"/>원</p>
                             			<p><c:out value="${pl.reason}"/></p>
-                            			
-                            			<form name="instanceUpdatePlan" action="${pageContext.request.contextPath}/planner/instanceUpdatePlan.do" method="post">
-                            				<input type="hidden" name="ppNo" id="ppNo" value="${pl.ppNo}">
-                                        	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
-                                        	<input type="submit" class="search-submit btn btn-primary" value="수정" style="background-color: green;">
-                                        </form>
-                                        <form name="instanceDeletePlan" action="${pageContext.request.contextPath}/plannerPart/instanceDeletePlan.do" method="post">
-                                        	<input type="hidden" name="ppNo" id="ppNo" value="${pl.ppNo}">
-                                        	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
-                                        	<input type="submit" class="search-submit btn btn-primary" value="삭제" style="background-color: red;">
-										</form>
+                            			<c:if test="${member.userId eq planner.userId}">
+	                            			<form name="instanceUpdatePlan" action="${pageContext.request.contextPath}/planner/instanceUpdatePlan.do" method="post" style="float:left; margin-right:10px;">
+	                            				<input type="hidden" name="ppNo" id="ppNo" value="${pl.ppNo}">
+	                                        	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+	                                        	<input type="submit" class="search-submit btn btn-primary" value="수정" style="background-color: green;">
+	                                        </form>
+	                                        <form name="instanceDeletePlan" action="${pageContext.request.contextPath}/plannerPart/instanceDeletePlan.do" method="post" style="float:left;">
+	                                        	<input type="hidden" name="ppNo" id="ppNo" value="${pl.ppNo}">
+	                                        	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+	                                        	<input type="submit" class="search-submit btn btn-primary" value="삭제" style="background-color: red;">
+											</form>
+										</c:if>
                             		</div>
                             	</c:forEach>
                             	
@@ -101,17 +120,18 @@
                             			<img src="img/history/history-1.jpg" alt="">
                             			<p><c:out value="${pl.money}"/>원</p>
                             			<p><c:out value="${pl.reason}"/></p>
-                            			
-                                       <form name="instanceUpdatePlan" action="${pageContext.request.contextPath}/planner/instanceUpdatePlan.do" method="post">
-                            				<input type="hidden" name="ppNo" id="ppNo" value="${pl.ppNo}">
-                                        	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
-                                        	<input type="submit" class="search-submit btn btn-primary" value="수정" style="background-color: green;">
-                                        </form>
-                                       <form name="instanceDeletePlan" action="${pageContext.request.contextPath}/plannerPart/instanceDeletePlan.do" method="post">
-                                        	<input type="hidden" name="ppNo" id="ppNo" value="${pl.ppNo}">
-                                        	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
-                                        	<input type="submit" class="search-submit btn btn-primary" value="삭제" style="background-color: red;">
-										</form>
+                            			<c:if test="${member.userId eq planner.userId}">
+	                                       <form name="instanceUpdatePlan" action="${pageContext.request.contextPath}/planner/instanceUpdatePlan.do" method="post" style="float:left; margin-right:10px;">
+	                            				<input type="hidden" name="ppNo" id="ppNo" value="${pl.ppNo}">
+	                                        	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+	                                        	<input type="submit" class="search-submit btn btn-primary" value="수정" style="background-color: green;">
+	                                        </form>
+	                                       <form name="instanceDeletePlan" action="${pageContext.request.contextPath}/plannerPart/instanceDeletePlan.do" method="post" style="float:left;">
+	                                        	<input type="hidden" name="ppNo" id="ppNo" value="${pl.ppNo}">
+	                                        	<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+	                                        	<input type="submit" class="search-submit btn btn-primary" value="삭제" style="background-color: red;">
+											</form>
+										</c:if>
                             			</div>
                             			
                             	
@@ -128,59 +148,153 @@
             </div>  
           </div>
           <!-- END -->
-          <!---->
           <div class="col-lg-4 sidebar">
-          <!-- 
-            <div class="sidebar-box ftco-animate">
-              <div class="search-tours bg-light p-4">
-                <h3>Cost</h3>
-                <form action="" method="post">
-                  <div class="fields">
-                    <div class="row flex-column">
-
-                      <div class="textfield-search col-sm-12 group mb-3"><input type="text" class="form-control" placeholder="Search Location"></div>
-
-                      <div class="check-in col-sm-12 group mb-3"><input type="text" id="checkin_date" class="form-control" placeholder="Check-in date"></div>
-
-                      <div class="check-out col-sm-12 group mb-3"><input type="text" id="checkout_date" class="form-control" placeholder="Check-out date"></div>
-                      <div class="select-wrap col-sm-12 group mb-3">
-                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                        <select name="" id="" class="form-control">
-                          <option value="">Guest</option>
-                          <option value="">1</option>
-                          <option value="">2</option>
-                          <option value="">3</option>
-                          <option value="">4+</option>
-                        </select>
-                      </div>
-                      <div class="col-sm-12 group mb-3">
-                        <input type="submit" class="search-submit btn btn-primary" value="Confirm">
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-			 -->
+          
 			<div class="sidebar-box ftco-animate">
-              <h3>Tag Cloud</h3>
+              <h3>Theme</h3>
               <div class="tagcloud">
-                <a href="#" class="tag-cloud-link">나혼자</a>
-                <a href="#" class="tag-cloud-link">연인</a>
-                <a href="#" class="tag-cloud-link">친구</a>
-                <a href="#" class="tag-cloud-link">부모님</a>
-                <a href="#" class="tag-cloud-link">가족</a>
+	              <c:if test="${member.userId ne planner.userId}">
+	                <c:choose>
+		                <c:when test="${planner.theme eq '혼자'}"><a href="#" class="tag-cloud-link" style="background-color:#007bff">혼자</a><a href="#" class="tag-cloud-link">연인</a><a href="#" class="tag-cloud-link">친구</a><a href="#" class="tag-cloud-link">부모님</a><a href="#" class="tag-cloud-link">가족</a></c:when>
+						<c:when test="${planner.theme eq '연인'}"><a href="#" class="tag-cloud-link">혼자</a><a href="#" class="tag-cloud-link" style="background-color:#007bff">연인</a><a href="#" class="tag-cloud-link">친구</a><a href="#" class="tag-cloud-link">부모님</a><a href="#" class="tag-cloud-link">가족</a></c:when>
+						<c:when test="${planner.theme eq '친구'}"><a href="#" class="tag-cloud-link">혼자</a><a href="#" class="tag-cloud-link">연인</a><a href="#" class="tag-cloud-link" style="background-color:#007bff">친구</a><a href="#" class="tag-cloud-link">부모님</a><a href="#" class="tag-cloud-link">가족</a></c:when>
+						<c:when test="${planner.theme eq '부모님'}"><a href="#" class="tag-cloud-link">혼자</a><a href="#" class="tag-cloud-link">연인</a><a href="#" class="tag-cloud-link">친구</a><a href="#" class="tag-cloud-link" style="background-color:#007bff">부모님</a><a href="#" class="tag-cloud-link">가족</a></c:when>
+						<c:when test="${planner.theme eq '가족'}"><a href="#" class="tag-cloud-link">혼자</a><a href="#" class="tag-cloud-link">연인</a><a href="#" class="tag-cloud-link">친구</a><a href="#" class="tag-cloud-link">부모님</a><a href="#" class="tag-cloud-link" style="background-color:#007bff">가족</a></c:when>
+	                </c:choose>
+	              </c:if>
+	              <c:if test="${member.userId eq planner.userId}">
+	                <c:choose>
+		                <c:when test="${planner.theme eq '혼자'}">
+		                	<a class="tag-cloud-link" style="background-color:#007bff">혼자</a>
+		                	<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct12">
+		                		<input type="hidden" name="theme" id="theme" value="연인">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct12()">연인</a>
+		                	</form>
+		                	<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct13">
+		                		<input type="hidden" name="theme" id="theme" value="친구">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct13()">친구</a>
+		                	</form>
+		                	<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct14">
+		                		<input type="hidden" name="theme" id="theme" value="부모님">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct14()">부모님</a>
+		                	</form>
+		                	<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct15">
+		                		<input type="hidden" name="theme" id="theme" value="가족">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct15()">가족</a>
+		                	</form>
+		                </c:when>
+						<c:when test="${planner.theme eq '연인'}">
+							<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct21">
+		                		<input type="hidden" name="theme" id="theme" value="혼자">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct21()">혼자</a>
+		                	</form>
+							<a href="#" class="tag-cloud-link" style="background-color:#007bff">연인</a>
+							<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct23">
+		                		<input type="hidden" name="theme" id="theme" value="친구">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct23()">친구</a>
+		                	</form>
+		                	<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct24">
+		                		<input type="hidden" name="theme" id="theme" value="부모님">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct24()">부모님</a>
+		                	</form>
+		                	<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct25">
+		                		<input type="hidden" name="theme" id="theme" value="가족">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct25()">가족</a>
+		                	</form>
+						</c:when>
+						<c:when test="${planner.theme eq '친구'}">
+							<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct31">
+		                		<input type="hidden" name="theme" id="theme" value="혼자">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct31()">혼자</a>
+		                	</form>
+							<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct32">
+		                		<input type="hidden" name="theme" id="theme" value="연인">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct32()">연인</a>
+		                	</form>
+							<a href="#" class="tag-cloud-link" style="background-color:#007bff">친구</a>
+							<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct34">
+		                		<input type="hidden" name="theme" id="theme" value="부모님">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct34()">부모님</a>
+		                	</form>
+		                	<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct35">
+		                		<input type="hidden" name="theme" id="theme" value="가족">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct35()">가족</a>
+		                	</form>
+						</c:when>
+						<c:when test="${planner.theme eq '부모님'}">
+							<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct41">
+		                		<input type="hidden" name="theme" id="theme" value="혼자">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct41()">혼자</a>
+		                	</form>
+							<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct42">
+		                		<input type="hidden" name="theme" id="theme" value="연인">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct42()">연인</a>
+		                	</form>
+							<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct43">
+		                		<input type="hidden" name="theme" id="theme" value="친구">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct43()">친구</a>
+		                	</form>
+							<a href="#" class="tag-cloud-link" style="background-color:#007bff">부모님</a>
+							<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct45">
+		                		<input type="hidden" name="theme" id="theme" value="가족">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct45()">가족</a>
+		                	</form>
+						</c:when>
+						<c:when test="${planner.theme eq '가족'}">
+							<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct51">
+		                		<input type="hidden" name="theme" id="theme" value="혼자">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct51()">혼자</a>
+		                	</form>
+							<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct52">
+		                		<input type="hidden" name="theme" id="theme" value="연인">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct52()">연인</a>
+		                	</form>
+							<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct53">
+		                		<input type="hidden" name="theme" id="theme" value="친구">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct53()">친구</a>
+		                	</form>
+							<form action="${pageContext.request.contextPath}/planner/changeTheme.do" id="fct54">
+		                		<input type="hidden" name="theme" id="theme" value="부모님">
+	                            <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+		                		<a class="tag-cloud-link" onclick="ct54()">부모님</a>
+		                	</form>
+							<a href="#" class="tag-cloud-link" style="background-color:#007bff">가족</a>
+						</c:when>
+	                </c:choose>
+	              </c:if>
               </div>
             </div>
             
             <div class="sidebar-box ftco-animate">
               <div class="categories">
                 <h3>Categories</h3>
-                <li><a href="#">Tours <span>(12)</span></a></li>
-                <li><a href="#">Hotels <span>(22)</span></a></li>
-                <li><a href="#">Cruises <span>(37)</span></a></li>
-                <li><a href="#">Restaurant <span>(42)</span></a></li>
-                <li><a href="#">Destination <span>(14)</span></a></li>
+                <c:forEach items="${cclist}" var="cc" varStatus="catecount">
+                	<c:if test="${cc.category eq null }">
+                		<li><a>기타<span>${cc.count}개</span></a></li>
+                	</c:if>
+                	<c:if test="${cc.category ne null }">
+                		<li><a>${cc.category}<span>${cc.count}개</span></a></li>
+                	</c:if>
+                </c:forEach>
               </div>
             </div>
             
@@ -190,18 +304,29 @@
               <h3>일정 제작자의 말</h3>
               <p><c:out value="${describe}"/></p>
             </div>
-            <div class="sidebar-box ftco-animate" style="text-align: center;">
-              <img class ="img" src="images/like.jpg" alt="" onclick="" style="width:100px">
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              <img class ="img" src="images/unlike.jpg" alt="" onclick=""style="width:100px">
-            <br>
-            <!-- 좋아요 갯수 -->
-            <h2 style="color:green; display:inline-block;">0</h2>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <h2 style="color:red; display:inline-block;">0</h2>
-            
-          
-          </div>
+            <c:if test="${member.userId ne null}">
+	            <div class="sidebar-box ftco-animate" style="text-align: center;">
+	            	<form action="${pageContext.request.contextPath}/plannerLike/recommend.do" id="good1" style="float:left;">
+	            		<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+	            		<input type="hidden" name="userId" id="userId" value="${member.userId}">
+	            		<input type="hidden" name="good" id="good" value="Y">
+	            		<input type="image" src="${pageContext.request.contextPath }/resources/images/like.jpg" alt="" onclick="go1()" style="width:100px"/>
+	            	</form>
+	                <form action="${pageContext.request.contextPath}/plannerLike/recommend.do" id="good2">
+	            		<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+	            		<input type="hidden" name="userId" id="userId" value="${member.userId}">
+	            		<input type="hidden" name="good" id="good" value="N">
+	            		<input type="image" src="${pageContext.request.contextPath }/resources/images/unlike.jpg" alt="" onclick="go2()"style="width:100px" />
+	            	</form>
+	                
+		            <br>
+		            <!-- 좋아요 갯수 -->
+		            <a style="color:green;">${like}</a>
+		            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            <a style="color:red;">${unlike}</a>
+		            
+	          	</div>
+          	</c:if>
 
           </div>
       </div>
@@ -298,6 +423,76 @@
   <script src="${pageContext.request.contextPath }/resources/js/bootstrap-datepicker.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/jquery.timepicker.min.js"></script>
   <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
+  
+  <script>
+  function ct12(){
+		$("#fct12").submit();
+	}
+  function ct13(){
+		$("#fct13").submit();
+	}
+  function ct14(){
+		$("#fct14").submit();
+	}
+  function ct15(){
+		$("#fct15").submit();
+	}
+  function ct21(){
+		$("#fct21").submit();
+	}
+  function ct23(){
+		$("#fct23").submit();
+	}
+  function ct24(){
+		$("#fct24").submit();
+	}
+  function ct25(){
+		$("#fct25").submit();
+	}
+  function ct31(){
+		$("#fct31").submit();
+	}
+  function ct32(){
+		$("#fct32").submit();
+	}
+  function ct34(){
+		$("#fct34").submit();
+	}
+  function ct35(){
+		$("#fct35").submit();
+	}
+  function ct41(){
+		$("#fct41").submit();
+	}
+  function ct42(){
+		$("#fct42").submit();
+	}
+  function ct43(){
+		$("#fct43").submit();
+	}
+  function ct45(){
+		$("#fct45").submit();
+	}
+  function ct51(){
+		$("#fct51").submit();
+	}
+  function ct52(){
+		$("#fct52").submit();
+	}
+  function ct53(){
+		$("#fct53").submit();
+	}
+  function ct54(){
+		$("#fct54").submit();
+	}
+  
+  function go1(){
+		$("#good1").submit();
+	}
+  function go2(){
+		$("#good2").submit();
+	}
+  </script>
     
   </body>
 </html>

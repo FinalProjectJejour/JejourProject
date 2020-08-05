@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.jejour.planner.model.vo.Attachment;
 import com.kh.jejour.planner.model.vo.Planner;
+import com.kh.jejour.plannerPart.model.vo.CategoryCount;
 import com.kh.jejour.plannerPart.model.vo.PlannerPart;
 
 
@@ -25,5 +26,7 @@ public interface PlannerPartService {
 		PlannerPart getThisPlannerPart(int ppNo);
 
 		int updatePlanner(PlannerPart plannerPart);
+
+		List<CategoryCount> countCategory(int pNo);
 	
 }

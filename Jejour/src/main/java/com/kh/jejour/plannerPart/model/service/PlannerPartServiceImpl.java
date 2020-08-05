@@ -9,6 +9,7 @@ import com.kh.jejour.planner.model.exception.PlannerException;
 import com.kh.jejour.planner.model.vo.Attachment;
 import com.kh.jejour.planner.model.vo.Planner;
 import com.kh.jejour.plannerPart.model.dao.PlannerPartDAO;
+import com.kh.jejour.plannerPart.model.vo.CategoryCount;
 import com.kh.jejour.plannerPart.model.vo.PlannerPart;
 
 @Service("plannerPartService")
@@ -89,6 +90,12 @@ public class PlannerPartServiceImpl implements PlannerPartService {
 	public int updatePlanner(PlannerPart plannerPart) {
 		// TODO Auto-generated method stub
 		return plannerPartDAO.updateOnePlannerPart(plannerPart);
+	}
+
+	@Override
+	public List<CategoryCount> countCategory(int pNo) {
+		// TODO Auto-generated method stub
+		return plannerPartDAO.getCategoryCount(pNo);
 	}
 
 	

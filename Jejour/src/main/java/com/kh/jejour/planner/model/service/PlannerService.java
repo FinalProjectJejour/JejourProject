@@ -25,6 +25,9 @@ public interface PlannerService {
 
 		Planner getThisPlanner(int pNo);
 
+		int changePlannerTheme(Planner planner);
+
+
 		// Planner selectOnePlanner(int pNo);
 	
 }

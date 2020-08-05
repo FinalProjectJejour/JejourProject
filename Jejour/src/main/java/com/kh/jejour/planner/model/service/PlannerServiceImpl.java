@@ -78,6 +78,12 @@ public class PlannerServiceImpl implements PlannerService {
 		// TODO Auto-generated method stub
 		return plannerDAO.getThisPlanner(pNo);
 	}
+
+	@Override
+	public int changePlannerTheme(Planner planner) {
+		// TODO Auto-generated method stub
+		return plannerDAO.changePlannerTheme(planner);
+	}
 	
 	
 

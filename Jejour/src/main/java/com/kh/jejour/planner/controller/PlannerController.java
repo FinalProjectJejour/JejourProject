@@ -20,7 +20,9 @@ import com.kh.jejour.planner.model.exception.PlannerException;
 import com.kh.jejour.planner.model.service.PlannerService;
 import com.kh.jejour.planner.model.vo.Attachment;
 import com.kh.jejour.planner.model.vo.Planner;
+import com.kh.jejour.plannerLike.model.service.PlannerLikeService;
 import com.kh.jejour.plannerPart.model.service.PlannerPartService;
+import com.kh.jejour.plannerPart.model.vo.CategoryCount;
 import com.kh.jejour.plannerPart.model.vo.PlannerPart;
 
 @Controller
@@ -31,6 +33,9 @@ public class PlannerController {
 	
 	@Autowired
 	PlannerPartService plannerPartService;
+	
+	@Autowired
+	PlannerLikeService plannerLikeService;
 	
 	@RequestMapping("/planner/reservationGo.do")
 	public String goReservation() {
@@ -45,7 +50,14 @@ public class PlannerController {
 		System.out.println(pl);
 		
 		List<PlannerPart> list = plannerPartService.selectPlanList(planner.getPNo());
+		List<CategoryCount> cclist = plannerPartService.countCategory(planner.getPNo());
 		System.out.println(list);
+		System.out.println(list.size());
+		System.out.println(cclist);
+		
+		int like = plannerLikeService.countLike(planner.getPNo());
+		int unlike = plannerLikeService.countUnLike(planner.getPNo());
+
 		
 		model.addAttribute("planner", pl);
 		model.addAttribute("pNo",pl.getPNo());
@@ -53,6 +65,40 @@ public class PlannerController {
 		model.addAttribute("endDay",pl.getEndDay());
 		model.addAttribute("describe",pl.getDescribe());
 		model.addAttribute("list", list);
+		model.addAttribute("cclist", cclist);
+		model.addAttribute("listLength", list.size());
+		model.addAttribute("like", like);
+		model.addAttribute("unlike", unlike);
+		
+		return "planner/maintenance";
+	}
+	
+	@RequestMapping("/planner/changeTheme.do")
+	public String changeTheme(Planner planner, Model model, HttpSession session) {
+		
+		plannerService.changePlannerTheme(planner);
+		
+		Planner pl = plannerService.getThisPlanner(planner.getPNo());
+		System.out.println(pl);
+		
+		List<PlannerPart> list = plannerPartService.selectPlanList(planner.getPNo());
+		List<CategoryCount> cclist = plannerPartService.countCategory(planner.getPNo());
+		System.out.println(list);
+		
+		int like = plannerLikeService.countLike(planner.getPNo());
+		int unlike = plannerLikeService.countUnLike(planner.getPNo());
+
+		
+		model.addAttribute("planner", pl);
+		model.addAttribute("pNo",pl.getPNo());
+		model.addAttribute("startDay",pl.getStartDay());
+		model.addAttribute("endDay",pl.getEndDay());
+		model.addAttribute("describe",pl.getDescribe());
+		model.addAttribute("list", list);
+		model.addAttribute("cclist", cclist);
+		model.addAttribute("listLength", list.size());
+		model.addAttribute("like", like);
+		model.addAttribute("unlike", unlike);
 		
 		return "planner/maintenance";
 	}
