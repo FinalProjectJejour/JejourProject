@@ -27,6 +27,7 @@
 		<typeAlias type="com.kh.jejour.plannerPart.model.vo.PlannerPart" alias="PlannerPart"/>
 		<typeAlias type="com.kh.jejour.plannerLike.model.vo.PlannerLike" alias="PlannerLike"/>
 		<typeAlias type="com.kh.jejour.visitCount.model.vo.VisitCount" alias="VisitCount"/>
+		<typeAlias type="com.kh.jejour.topN.model.vo.TopN" alias="TopN"/>
 	</typeAliases>
 	
 	<typeHandlers>
