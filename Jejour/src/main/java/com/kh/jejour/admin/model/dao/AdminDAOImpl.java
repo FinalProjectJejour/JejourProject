@@ -56,8 +56,9 @@ public class AdminDAOImpl implements AdminDAO {
 	
 	@Override
 	public List<HotspotComment> hCommentRanking() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		
+		return sqlSession.selectList("adminMapper.hCommentRanking");
 	}
 	
 	@Override
@@ -89,7 +90,7 @@ public class AdminDAOImpl implements AdminDAO {
 		return sqlSession.delete("adminMapper.deleteFlashBoard", fNo);
 	}
 	
-	//=================스테이터스변환
+	//=================스테이터스변환================
 
 	@Override
 	public List<FlashBoard> flashBoardStatusChange(FlashBoard flashBoard) {
@@ -115,7 +116,15 @@ public class AdminDAOImpl implements AdminDAO {
 		return sqlSession.selectList("adminMapper.hStatusSelect",hotspotBoard);
 	}
 
-	//스테이터스변환
+	//================총 회원수====================
+	
+	@Override
+	public List<Member> memberCount() {
+		
+		return sqlSession.selectList("adminMapper.memberCount");
+	}
+
+	
 
 	
 

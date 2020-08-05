@@ -56,8 +56,8 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public List<HotspotComment> hCommentRanking() {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return adminDAO.hCommentRanking();
 	}
 	
 	
@@ -104,6 +104,12 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.hotspotBoardStatusChange(hotspotBoard);
 		
 		return adminDAO.hStatusSelect(hotspotBoard);
+	}
+
+	@Override
+	public List<Member> memberCount() {
+		
+		return adminDAO.memberCount();
 	}
 
 	

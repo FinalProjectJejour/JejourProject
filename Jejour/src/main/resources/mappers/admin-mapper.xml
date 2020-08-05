@@ -103,10 +103,10 @@
 		SELECT *
 		FROM
 		(
-		SELECT USERID,HCWRITER, COUNT(*) HCCOUNT
+		SELECT USERID,HCWRITER, COUNT(*) HCCOMMENT
 		FROM HOTSPOT_COMMENT
 		GROUP BY USERID,HCWRITER
-		ORDER BY HCCOUNT DESC
+		ORDER BY HCCOMMENT DESC
 		)
 		WHERE ROWNUM <=3 AND USERID !='admin']]>
 	</select>
@@ -138,7 +138,12 @@
 		WHERE HNO = #{hNo}
 	</select>
 	
-	<!-- ========================================= -->
+	<!-- ================총 회원 수========================= -->
+	
+	<select id="memberCount" resultMap="memberMap">
+		SELECT COUNT(*) MCOUNT
+		FROM MEMBER
+	</select>
 
 </mapper>
 

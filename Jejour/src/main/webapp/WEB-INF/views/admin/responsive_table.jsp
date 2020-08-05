@@ -202,7 +202,11 @@
         		  success:function(data){
         			  console.log(data[0].fno);
         			  console.log(data[0].fstatus);
-        			  alert("변경 완료!");
+
+        			  if(data[0].hstatus=='Y'){
+            			  alert("게시글 활성화!");
+            			  }
+            			  else{alert("게시글 비활성화!");}
         			  
         			  $('span[name='+data[0].fno+']').text(data[0].fstatus);
         			  
