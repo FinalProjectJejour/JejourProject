@@ -82,7 +82,7 @@
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/flashBoard/flashList.fl">Meet</a>
               </div>
             </li>
-            <li class="nav-item"><a href="${pageContext.request.contextPath}/topN/topN.do" class="nav-link">Top N</a></li>
+            <li class="nav-item"><a href="${pageContext.request.contextPath}/topN/topN.do?category=숙박" class="nav-link">Top N</a></li>
             <c:if test="${ empty member }">
             <li class="nav-item"><a href="${pageContext.request.contextPath}/member/memberLoginFormView.do" class="nav-link">Login</a></li>
             </c:if>
