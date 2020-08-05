@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="topNMapper">
+	
+	<resultMap id="top" type="topN">
+		<id property="count" column="COUNT(*)" />
+	</resultMap>
+	
+ 	<select id="topNSelect" parameterType="String" resultMap="top">
+		SELECT *
+		FROM(
+		    SELECT MAPTITLE, COUNT(*)
+		    FROM PLANNER_PART 
+		    WHERE CATEGORY = #{category}
+		    GROUP BY MAPTITLE
+		    ORDER BY COUNT(*)DESC
+		    )
+		<![CDATA[WHERE ROWNUM <= 10]]>
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
