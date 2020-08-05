@@ -62,8 +62,10 @@ public class AdminDAOImpl implements AdminDAO {
 	
 	@Override
 	public List<FlashComment> fCommentRanking() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("DAO");
+		System.out.println(sqlSession.selectList("adminMapper.fCommentRanking"));
+		
+		return sqlSession.selectList("adminMapper.fCommentRanking");
 	}
 	
 	//==============강퇴=================

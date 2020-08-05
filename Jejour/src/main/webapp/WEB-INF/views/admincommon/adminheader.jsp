@@ -51,15 +51,25 @@
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
       </div>
       <!--좌상단로고-->
-      <a href="${pageContext.request.contextPath}/admin/admin.do" class="logo"><b>JEJO<span>UR</span></b></a>
+      <a href="${pageContext.request.contextPath}" class="logo"><b>JEJO<span>UR</span></b></a>
       <!--로고끝-->
       <div class="nav notify-row" id="top_menu">
         
       </div>
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
-          <li><a class="logout" href="login.html">Logout</a></li>
+          <li><a class="logout" href="#" onclick="logOutCheck();">Logout</a></li>
         </ul>
       </div>
+      <script>
+    function logOutCheck() {
+
+    	 if (confirm("정말 로그아웃하실껀가요? ㅠ,.ㅠ") == true){    
+    	    location.href="${pageContext.request.contextPath}/member/memberLogout.do"; 
+    	 }else{   //취소
+    	     return false;
+    	 }
+    }
+    </script>
     </header>
     <!--헤더끝-->

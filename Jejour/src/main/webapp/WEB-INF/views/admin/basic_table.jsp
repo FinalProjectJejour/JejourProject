@@ -15,7 +15,7 @@
       <div id="sidebar" class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
-          <p class="centered"><a href="profile.html"><img src="img/ui-sam.jpg" class="img-circle" width="80"></a></p>
+          <p class="centered"><a href="#"><img src="../resources/images/admin.png" class="img-circle" width="80"></a></p>
           <h5 class="centered">관리자</h5>
 
           <li class="mt">
@@ -91,7 +91,7 @@
                   <tr>
                     <td></td>
                     <td>${hrang.userId}</td>
-                    <th></th>
+                    <th>${hrang.HWriter}</th>
                     <td>${hrang.HCount}</td>
                   </tr>
                   </c:forEach>
@@ -213,6 +213,7 @@
         		  success:function(data){
         			  console.log(data[0].hno);
         			  console.log(data[0].hstatus);
+        			  alert("변경 완료!");
         			  
         			  $('span[name='+data[0].hno+']').text(data[0].hstatus);
         			  

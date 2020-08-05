@@ -19,5 +19,6 @@ public class HotspotComment {
 	private Date hcDate;
 	private int refhcNo;
 	private int hcLevel;
+	private int hcComment;//랭킹 담을 변수
 
 }

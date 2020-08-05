@@ -6,21 +6,90 @@
 	<resultMap type="VisitCount" id="visitMap">
 	</resultMap>
 
-
+	<!-- 방문자 카운트UP -->
 	<insert id="visitCount" parameterType="VisitCount">
 		INSERT
-            INTO VISIT_COUNT
-            (
-                VISITNUM,
-                VISIT_TIME
-            )
-            VALUES
-            (
-                SEQ_VISITNUM.NEXTVAL,
-                DEFAULT
-            )
+		INTO VISIT_COUNT
+
+		VALUES(SEQ_VISITNUM.NEXTVAL,#{visitId},DEFAULT)
 	</insert>
-	
-	
-	
+
+	<!-- 총 방문자수 + 오늘방문자 -->
+	<select id="selectAllVisitCount" resultMap="visitMap">
+		SELECT
+		TO_CHAR(VDATE,'YYYY-MM-DD'),COUNT(*) TODAYVISIT,MAX(VISITNUM)
+		TOTALVISIT
+		FROM VISIT_COUNT
+		WHERE TO_CHAR(VDATE,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD')
+		GROUP BY TO_CHAR(VDATE,'YYYY-MM-DD')
+	</select>
+
+	<!-- 오늘 방문자 -->
+	<!-- <select id="selectTodayVisitCount" resultMap="visitMap"> SELECT TO_CHAR(VDATE,'YYYY-MM-DD'),COUNT(*) 
+		TODAYVISIT FROM VISIT_COUNT WHERE TO_CHAR(VDATE,'YYYY-MM-DD') = TO_CHAR(SYSDATE,'YYYY-MM-DD') 
+		GROUP BY TO_CHAR(VDATE,'YYYY-MM-DD') </select> -->
+
+	<!-- 이달 방문자 -->
+	<select id="selectMonth" resultMap="visitMap">
+		SELECT
+		TO_CHAR(VDATE,'YYYY-MM') MONTH,COUNT(*) MONTHVISIT
+		FROM VISIT_COUNT
+		WHERE TO_CHAR(VDATE,'YYYY-MM') = TO_CHAR(SYSDATE,'YYYY-MM')
+		GROUP BY
+		TO_CHAR(VDATE,'YYYY-MM')
+	</select>
+
+	<!--=============이전달 방문자============= -->
+	<select id="selectBMonth" resultMap="visitMap">
+		SELECT
+		TO_CHAR(VDATE,'YYYY-MM') MONTH,COUNT(*) MONTHVISIT
+		FROM VISIT_COUNT
+		WHERE TO_CHAR(VDATE,'YYYY-MM') =
+		TO_CHAR(ADD_MONTHS(SYSDATE,-1),'YYYY-MM')
+		GROUP BY
+		TO_CHAR(VDATE,'YYYY-MM')
+	</select>
+
+	<select id="selectBBMonth" resultMap="visitMap">
+		SELECT
+		TO_CHAR(VDATE,'YYYY-MM') MONTH,COUNT(*) MONTHVISIT
+		FROM VISIT_COUNT
+		WHERE TO_CHAR(VDATE,'YYYY-MM') =
+		TO_CHAR(ADD_MONTHS(SYSDATE,-2),'YYYY-MM')
+		GROUP BY
+		TO_CHAR(VDATE,'YYYY-MM')
+	</select>
+
+	<select id="selectBBBMonth" resultMap="visitMap">
+		SELECT
+		TO_CHAR(VDATE,'YYYY-MM') MONTH,COUNT(*) MONTHVISIT
+		FROM VISIT_COUNT
+		WHERE TO_CHAR(VDATE,'YYYY-MM') =
+		TO_CHAR(ADD_MONTHS(SYSDATE,-3),'YYYY-MM')
+		GROUP BY
+		TO_CHAR(VDATE,'YYYY-MM')
+	</select>
+
+	<select id="selectBBBBMonth" resultMap="visitMap">
+		SELECT
+		TO_CHAR(VDATE,'YYYY-MM') MONTH,COUNT(*) MONTHVISIT
+		FROM VISIT_COUNT
+		WHERE TO_CHAR(VDATE,'YYYY-MM') =
+		TO_CHAR(ADD_MONTHS(SYSDATE,-4),'YYYY-MM')
+		GROUP BY
+		TO_CHAR(VDATE,'YYYY-MM')
+	</select>
+
+	<select id="selectBBBBBMonth" resultMap="visitMap">
+		SELECT
+		TO_CHAR(VDATE,'YYYY-MM') MONTH,COUNT(*) MONTHVISIT
+		FROM VISIT_COUNT
+		WHERE TO_CHAR(VDATE,'YYYY-MM') =
+		TO_CHAR(ADD_MONTHS(SYSDATE,-5),'YYYY-MM')
+		GROUP BY
+		TO_CHAR(VDATE,'YYYY-MM')
+	</select>
+
+
+
 </mapper>

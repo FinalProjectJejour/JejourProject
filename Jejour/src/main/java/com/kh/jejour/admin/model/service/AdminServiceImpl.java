@@ -64,8 +64,8 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<FlashComment> fCommentRanking() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return adminDAO.fCommentRanking();
 	}
 	
 	//================강퇴==================

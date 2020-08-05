@@ -19,5 +19,6 @@ public class FlashComment {
 	private Date fcDate;
 	private int reffcNo;
 	private int fcLevel;
+	private int fcCount;//랭킹담을변수
 
 }

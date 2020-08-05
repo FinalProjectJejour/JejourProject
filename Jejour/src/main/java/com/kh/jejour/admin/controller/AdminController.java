@@ -16,8 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.jejour.admin.model.exception.adminException;
 import com.kh.jejour.admin.model.service.AdminService;
 import com.kh.jejour.flashBoard.model.vo.FlashBoard;
+import com.kh.jejour.flashComment.model.vo.FlashComment;
 import com.kh.jejour.hotspotBoard.model.vo.HotspotBoard;
 import com.kh.jejour.member.model.vo.Member;
+import com.kh.jejour.visitCount.model.dao.VisitCountDAO;
+import com.kh.jejour.visitCount.model.vo.VisitCount;
 
 @SessionAttributes(value = { "member" })
 @Controller
@@ -25,10 +28,39 @@ public class AdminController {
 	
 	@Autowired
 	AdminService adminService;
+	@Autowired
+	VisitCountDAO visitDAO;
 	
 	@RequestMapping("/admin/admin.do")
-	public String adminindex() {
+	public String adminindex(Model model) {
 		// 관리자페이지 호출/방문자수 뷰
+		
+		//방문자
+		List<VisitCount> total = visitDAO.selectAllVisitCount();
+		List<VisitCount> month = visitDAO.selectMonth();
+		List<VisitCount> bmonth = visitDAO.selectBMonth();
+		List<VisitCount> bbmonth = visitDAO.selectBBMonth();
+		List<VisitCount> bbbmonth = visitDAO.selectBBBMonth();
+		List<VisitCount> bbbbmonth = visitDAO.selectBBBBMonth();
+		List<VisitCount> bbbbbmonth = visitDAO.selectBBBBBMonth();
+		
+		System.out.println("방문자위젯");
+		System.out.println(total);
+		System.out.println("달별방문자");
+		System.out.println(month);
+		System.out.println(bmonth);
+		System.out.println(bbmonth);
+		System.out.println(bbbmonth);
+		System.out.println(bbbbmonth);
+		System.out.println(bbbbbmonth);
+		System.out.println("============");
+		
+		
+		model.addAttribute("total",total)
+			.addAttribute("month",month).addAttribute("bmonth",bmonth)
+			.addAttribute("bbmonth",bbmonth).addAttribute("bbbmonth",bbbmonth)
+			.addAttribute("bbbbmonth",bbbbmonth).addAttribute("bbbbbmonth",bbbbbmonth);
+		
 		
 		return "admin/adminindex";   // --> /WEB-INF/views/admin/adminindex.jsp
 	}
@@ -73,9 +105,15 @@ public class AdminController {
 		
 		//게시글 랭킹
 				List<FlashBoard> frang = adminService.fBoardRanking(); 
-		
+		//댓글랭킹
+				List<FlashComment> fcrang = adminService.fCommentRanking(); 
+				
+				System.out.println("댓글랭킹");
+				System.out.println(fcrang);
+				
 		model.addAttribute("list", list)
-			.addAttribute("frang",frang);
+			.addAttribute("frang",frang)
+			.addAttribute("fcrang",fcrang);
 			
 		
 		return "admin/responsive_table";   
@@ -106,7 +144,7 @@ public class AdminController {
 		return "admin/font_awesome";   
 	}
 	
-	//==========강퇴===================================
+	//============강퇴===================================
 	
 	@RequestMapping("/admin/banMember.do")
 	public String banMember(@RequestParam String userId) {

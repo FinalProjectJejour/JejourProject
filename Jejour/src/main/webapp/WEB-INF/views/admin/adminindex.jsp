@@ -14,8 +14,7 @@
 		<!-- sidebar menu start-->
 		<ul class="sidebar-menu" id="nav-accordion">
 			<p class="centered">
-				<a href="profile.html"><img src="img/ui-sam.jpg"
-					class="img-circle" width="80"></a>
+				<a href="#"><img src="../resources/images/admin.png" class="img-circle" width="80"></a>
 			</p>
 			<h5 class="centered">관리자</h5>
 
@@ -77,17 +76,17 @@
 				</div>
 				<div class="custom-bar-chart">
 					<ul class="y-axis">
-						<li><span>10.000</span></li>
-						<li><span>8.000</span></li>
-						<li><span>6.000</span></li>
-						<li><span>4.000</span></li>
-						<li><span>2.000</span></li>
+						<li><span>100</span></li>
+						<li><span>80</span></li>
+						<li><span>60</span></li>
+						<li><span>40</span></li>
+						<li><span>20</span></li>
 						<li><span>0</span></li>
 					</ul>
 					<div class="bar">
 						<div class="title">JAN</div>
-						<div class="value tooltips" data-original-title="8.500"
-							data-toggle="tooltip" data-placement="top">85%</div>
+						<div class="value tooltips" data-original-title="90"
+							data-toggle="tooltip" data-placement="top">300</div>
 					</div>
 					<div class="bar ">
 						<div class="title">FEB</div>
@@ -126,25 +125,31 @@
 
 
 				<!-- /row -->
+				<!-- 방문자 위젯 -->
+				
+				
 				<div class="row">
+				<c:forEach items="${total}" var="total">
 					<div class="col-lg-4 col-md-4 col-sm-4 mb">
 						<div class="darkblue-panel pn">
+						
 							<div class="darkblue-header">
-								<h5>SITE STATICS</h5>
+								<h5>방문자 수</h5>
 							</div>
 							<h1 class="mt">
 								<i class="fa fa-user fa-3x"></i>
 							</h1>
-							<p>+ 1,789 NEW VISITS</p>
+							<p>오늘 +${total.todayVisit }</p>
 							<footer>
 								<div class="centered">
 									<h5>
-										<i class="fa fa-trophy"></i> 17,988
+										<i class="fa fa-trophy"></i> TOTAL : ${total.totalVisit }
 									</h5>
 								</div>
 							</footer>
 						</div>
 					</div>
+					</c:forEach>
 					<!-- /col-md-4 -->
 					<!--  PROFILE 02 PANEL -->
 					<div class="col-lg-4 col-md-4 col-sm-4 mb">
