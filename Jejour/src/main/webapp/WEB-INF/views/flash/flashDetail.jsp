@@ -29,7 +29,10 @@
             </div>
             <hr>
             <br>
-            <p>성별 : 남자</p>
+            <p>성별 : 
+              <c:if test="${FlashBoard.FGender eq 'M'.charAt(0)}">남자</c:if>
+              <c:if test="${FlashBoard.FGender eq 'F'.charAt(0)}">여자</c:if>
+            </p>
             <p>인원 : ${FlashBoard.FPeople}명</p>
             <p>만나는 날 : ${FlashBoard.FMeetDate} ${FlashBoard.FMeetTime}</p>
             <p>장소 : ${FlashBoard.FMapTitle}</p>

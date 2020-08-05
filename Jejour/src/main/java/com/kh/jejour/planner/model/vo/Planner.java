@@ -20,5 +20,6 @@ public class Planner {
 	private String theme;
 	private String status;
 	private int likeCount;
+	private String renamedFileName;
 
 }

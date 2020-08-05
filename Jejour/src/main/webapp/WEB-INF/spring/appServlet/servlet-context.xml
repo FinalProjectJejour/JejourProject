@@ -60,9 +60,25 @@
          <mapping path="/flashBoard/**/*.fl"/>
          <mapping path="/hotspotBoard/**/*.ho"/>
          <exclude-mapping path="/flashBoard/flashList.fl"/>
+         <exclude-mapping path="/flashBoard/search.fl"/>
          <exclude-mapping path="/hotspotBoard/hotspotList.ho"/>
          <!-- 인터셉터 등록 -->
          <beans:bean id="loginCheckInterceptor" class="com.kh.jejour.common.interceptor.LoginCheckInterceptor" />
+      </interceptor>
+      
+      <!-- 관리자 페이지 인터셉터 -->
+      <interceptor>
+         <mapping path="/admin/**/*.do" />
+
+         <beans:bean id="AdminCheckerInterceptor"
+            class="com.kh.jejour.common.interceptor.AdminCheckerInterceptor" />
+      </interceptor>
+      <!-- 방문자 카운트 인터셉터 -->
+      <interceptor>
+         <mapping path="/member/memberLogin.do" />
+
+         <beans:bean id="VisitCountInterceptor"
+            class="com.kh.jejour.common.interceptor.VisitCountInterceptor" />
       </interceptor>
    </interceptors>
    

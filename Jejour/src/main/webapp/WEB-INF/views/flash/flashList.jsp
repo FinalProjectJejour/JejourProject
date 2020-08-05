@@ -129,8 +129,6 @@
     				        	list.pageBar +
 	    			           	'</div>'
     					);
-	    					
-						//function fn_paging(cPage,numPerPage){location.href='flashList.fl?cPage='+cPage;}
     					
     					for(var i in list.list){
     						console.log(list.list);
@@ -156,15 +154,23 @@
 		    				              '</div>' +
 		    				              '<div class="text p-4">' +
 		    				                '<div class="meta">' +
-		    				                  '<div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=' + list.list[i].fno + '"' + '>' + year + '-' + fmonth + '-' + day + '  ' + list.list[i].fmeetTime + '</a></div>' +
-		    				                  '<div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=' + list.list[i].fno + '"' + '>' + list.list[i].fwriter + '</a></div>' +
+		    				                  '<div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=' 
+		    				                		  + list.list[i].fno + '"' + '>' + year + '-' + fmonth + '-' + day + '  '
+		    				                		  + list.list[i].fmeetTime + '</a></div>' +
+		    				                  '<div><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=' 
+		    				                		  + list.list[i].fno + '"' + '>' 
+		    				                		  + list.list[i].fwriter + '</a></div>' +
 		    				                '</div>' +
 		    				                '<div style="height: 120px;">' +
-		    				                '<h3 class="heading"><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=' + list.list[i].fno + '"' + '>' + list.list[i].ftitle + '</a></h3>' +
+		    				                '<h3 class="heading"><a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=' 
+		    				                		+ list.list[i].fno + '"' + '>' 
+		    				                		+ list.list[i].ftitle + '</a></h3>' +
 		    				                '</div>' +
 		    				                '<p class="clearfix">' +
-		    				                  '<a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=' + list.list[i].fno + '"' + 'class="float-left">Read more</a>' +
-		    				                  '<a href="#" class="float-right meta-chat"><span class="icon-chat"></span>' + '&nbsp;' + list.list[i].commentCount + '</a>' +
+		    				                  '<a href="${pageContext.request.contextPath}/flashBoard/flashBoardDetail.fl?fNo=' 
+		    				                		  + list.list[i].fno + '"' + 'class="float-left">Read more</a>' +
+		    				                  '<a href="#" class="float-right meta-chat"><span class="icon-chat"></span>' + '&nbsp;' 
+		    				                  		  + list.list[i].commentCount + '</a>' +
 		    				                '</p>' +
 		    				              '</div>' +
 		    				            '</div>' +

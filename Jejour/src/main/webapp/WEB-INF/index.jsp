@@ -138,7 +138,7 @@
     					$('.carousel1').append(
     					          '<div class="item">' +
     					            '<div class="blog-entry">' +
-    					              '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + list[i].pno + '" class="block-20" style="background-image: url(' + '\'' + '\'' + '); text-align: right;">' +
+    					              '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + list[i].pno + '" class="block-20" style="background-image: url(' + '\'' + '${pageContext.request.contextPath}/resources/upload/planner/' + list[i].renamedFileName + '\'' + '); text-align: right;">' +
     					                '<div class="col-sm-4" style="text-align: center; background-color: #ff5f5f; color : white;">' +
     					                  	list[i].theme +
     					                '</div>' +

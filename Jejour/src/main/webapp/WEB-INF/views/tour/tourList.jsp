@@ -132,7 +132,8 @@
 							if(list[i].firstimage != null ) {
 								$('#tourList').append(
 										'<div class="col-lg-3 promo ftco-animate fadeInUp ftco-animated">' +
-							            '<a href="https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=' + list[i].title + '" target="_blank" class="promo-img mb-4" style="background-image: url(' + list[i].firstimage + ');"></a>' +
+							            '<a href="https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=' + list[i].title + 
+						            	'" target="_blank" class="promo-img mb-4" style="background-image: url(' + list[i].firstimage + ');"></a>' +
 							            '<div class="text text-center">' +
 							              '<h2 style="font-family: bm">' + list[i].title +'</h2>' +
 							              //'<a href="#" class="read">Read more</a>' +
@@ -145,7 +146,8 @@
 							} else {
 								$('#tourList').append(
 										'<div class="col-lg-3 promo ftco-animate fadeInUp ftco-animated">' +
-							            '<a href="https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=' + list[i].title + '" target="_blank" class="promo-img mb-4" style="background-image: url(${pageContext.request.contextPath}/resources/images/LogoMini.png);"></a>' +
+							            '<a href="https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=' + list[i].title + 
+							            '" target="_blank" class="promo-img mb-4" style="background-image: url(${pageContext.request.contextPath}/resources/images/LogoMini.png);"></a>' +
 							            '<div class="text text-center">' +
 							              '<h2 style="font-family: bm">' + list[i].title +'</h2>' +
 							              //'<a href="#" class="read">Read more</a>' +

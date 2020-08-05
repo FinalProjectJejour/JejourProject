@@ -44,9 +44,7 @@
           </div>
         </div>
       </div>
-      	
-      
-      	<br><br>     
+ 
     <section class="ftco-section bg-light" style="padding-top: 4em;">
       <div class="container">
     	
@@ -55,7 +53,7 @@
         <c:forEach items="${list}" var="s">        
           <div class="col-md-6 col-lg-3 ftco-animate">
             <div class="blog-entry">
-              <a href="#" class="block-20" style="background-image: url('images/image_1.jpg'); text-align: right;">
+              <a href="#" class="block-20" style="background-image: url('${pageContext.request.contextPath}/resources/upload/planner/${s.renamedFileName}'); text-align: right;">
                 <div class="col-sm-4" style="text-align: center; background-color: #ff5f5f; color : white;">
                   	${s.theme}
                 </div>
@@ -94,145 +92,5 @@
         </div>
     </section>
 
-<br><br>
-
-<script>
-		
-  $(function(){	
-	var cPage = 1;
-		
-		function searchShare(){
-			cPage = 1;
-			
-			$.ajax({
-				url : '${pageContext.request.contextPath}/planner/searchShare.do',
-				type : 'get',
-				data : {
-					async : false,
-					searchCondition : $('#searchCondition').val(),
-    				keyword : $('#keyword').val(),
-    				cPage : cPage
-				},
-				success : function(item){
-					console.log(item);
-					
-					if(item.list == null || item.list.length == 0) {
-    					alert("검색 결과가 없습니다!")
-    				} else {
-    					$(".ftco-animate").remove();
-    					$("#pageBar").remove();
-    					
-    					$('#pageBarDiv').append(
-    				        	'<div class="col text-center" id="pageBar">' +
-    				        	item.pageBar +
-	    			           	'</div>'
-    					);
-
-    					for(var i in item.list){
-    						
-	    					$('#sharePlanList').append(
-	    					          '<div class="col-md-6 col-lg-3 ftco-animate">' +
-	    					            '<div class="blog-entry">' +
-	    					              '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="block-20" style="background-image: url(' + '\'' + '\'' + '); text-align: right;">' +
-	    					                '<div class="col-sm-4" style="text-align: center; background-color: #ff5f5f; color : white;">' +
-	    					                  	item.list[i].theme +
-	    					                '</div>' +
-	    					              '</a>' +
-	    					              '<div class="text p-4">' +
-	    					                '<div class="meta">' +
-	    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].startDay + '</a></div>' +
-	    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">~</a></div>' +
-	    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].endDay + '</a></div>' +
-	    					                '</div>' +
-	    					                '<div class="meta">' +
-	    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + '작성자 :' + item.list[i].pwriter + '</a></div>' +
-	    					                '</div>' +
-	    					                '<div style="height: 120px;">' +
-	    					                	'<h3 class="heading"><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].title + '</a></h3>' +
-	    					                '</div>' +
-	    					                '<p class="clearfix">' +
-	    					                  '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="float-left">Read more</a>' +
-	    					                  '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="float-right meta-chat"><span class="icon-thumbs-o-up"></span>' + '&nbsp;' + item.list[i].likeCount + '</a>' +
-	    					                '</p>' +
-	    					              '</div>' +
-	    					            '</div>' +
-	    					          '</div>'
-	    					);
-    					}
-    					
-    				}
-					// $(".ftco-animate").remove(); 하여 다시 js의 이펙트 효과 추가해줘야 append 됐을 때 나타남! 
-					var counter = function() {
-						
-						$('#section-counter').waypoint( function( direction ) {
-
-							if( direction === 'down' && !$(this.element).hasClass('ftco-animated') ) {
-
-								var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
-								$('.number').each(function(){
-									var $this = $(this),
-										num = $this.data('number');
-										console.log(num);
-									$this.animateNumber(
-									  {
-									    number: num,
-									    numberStep: comma_separator_number_step
-									  }, 7000
-									);
-								});
-								
-							}
-
-						} , { offset: '95%' } );
-
-					}
-					counter();
-
-					var contentWayPoint = function() {
-						var i = 0;
-						$('.ftco-animate').waypoint( function( direction ) {
-
-							if( direction === 'down' && !$(this.element).hasClass('ftco-animated') ) {
-								
-								i++;
-
-								$(this.element).addClass('item-animate');
-								setTimeout(function(){
-
-									$('body .ftco-animate.item-animate').each(function(k){
-										var el = $(this);
-										setTimeout( function () {
-											var effect = el.data('animate-effect');
-											if ( effect === 'fadeIn') {
-												el.addClass('fadeIn ftco-animated');
-											} else if ( effect === 'fadeInLeft') {
-												el.addClass('fadeInLeft ftco-animated');
-											} else if ( effect === 'fadeInRight') {
-												el.addClass('fadeInRight ftco-animated');
-											} else {
-												el.addClass('fadeInUp ftco-animated');
-											}
-											el.removeClass('item-animate');
-										},  k * 50, 'easeInOutExpo' );
-									});
-									
-								}, 100);
-								
-							}
-
-						} , { offset: '95%' } );
-					};
-					contentWayPoint();
-				
-				},
-				error : function() {
-					alert("서치 실패!");
-				}
-			});
-		}
-			
-	});
-	
-	</script>
 
 <c:import url="../common/footer.jsp"/>

@@ -14,6 +14,7 @@ public class FlashBoard {
 	private int fNo;
 	private String userId;
 	private String fTitle;
+	private char fGender;
 	private int fPeople;
 	private Date fMeetDate;
 	private String fMeetTime;

@@ -52,7 +52,7 @@
         <c:forEach items="${list}" var="s"> 
           <div class="col-md-6 col-lg-3 ftco-animate">
             <div class="blog-entry">
-              <a href="#" class="block-20" style="background-image: url('images/image_1.jpg'); text-align: right;">
+              <a href="#" class="block-20" style="background-image: url('${pageContext.request.contextPath}/resources/upload/planner/${s.renamedFileName}'); text-align: right;">
                 <div class="col-sm-4" style="text-align: center; background-color: #ff5f5f; color : white;">
                   	${s.theme}
                 </div>
@@ -123,7 +123,7 @@
 	    					$('#sharePlanList').append(
 	    					          '<div class="col-md-6 col-lg-3 ftco-animate">' +
 	    					            '<div class="blog-entry">' +
-	    					              '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="block-20" style="background-image: url(' + '\'' + '\'' + '); text-align: right;">' +
+	    					              '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="block-20" style="background-image: url(' + '\'' + '${pageContext.request.contextPath}/resources/upload/planner/' + item.list[i].renamedFileName + '\'' + '); text-align: right;">' +
 	    					                '<div class="col-sm-4" style="text-align: center; background-color: #ff5f5f; color : white;">' +
 	    					                  	item.list[i].theme +
 	    					                '</div>' +

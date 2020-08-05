@@ -24,7 +24,9 @@
 	</insert>
 	
 	<select id="selectOneFlashBoard" parameterType="_int" resultType="FlashBoard">
-		SELECT * FROM FLASH_BOARD
+		SELECT FNO, USERID, FTITLE, FPEOPLE, FMEETTIME, FCONTENT, FCOUNT, FWRITER, FDATE, FMAPTITLE, FMAPX, FMAPY, FSTATUS, GENDER "FGENDER"
+		FROM FLASH_BOARD
+		JOIN MEMBER USING(USERID)
 		WHERE FNO = #{fNo}
 	</select>
 	
