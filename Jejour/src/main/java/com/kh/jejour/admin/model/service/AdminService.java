@@ -32,4 +32,6 @@ public interface AdminService {
 	List<FlashBoard> flashBoardStatusChange(FlashBoard fb);
 	
 	List<HotspotBoard> hotspotBoardStatusChange(HotspotBoard hb);
+
+	List<Member> memberCount();
 }

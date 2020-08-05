@@ -114,24 +114,14 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <c:forEach items="${hcrang}" var="hcrang">
                   <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>43</td>
+                    <td></td>
+                    <td>${hcrang.userId}</td>
+                    <th>${hcrang.hcWriter}</th>
+                    <td>${hcrang.hcComment}</td>
                   </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>31</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Simon</td>
-                    <td>Mosa</td>
-                    <td>25</td>
-                  </tr>
+                  </c:forEach>
                 </tbody>
               </table>
             </div>
@@ -213,7 +203,11 @@
         		  success:function(data){
         			  console.log(data[0].hno);
         			  console.log(data[0].hstatus);
-        			  alert("변경 완료!");
+        			  
+        			  if(data[0].hstatus=='Y'){
+        			  alert("게시글 활성화!");
+        			  }
+        			  else{alert("게시글 비활성화!");}
         			  
         			  $('span[name='+data[0].hno+']').text(data[0].hstatus);
         			  

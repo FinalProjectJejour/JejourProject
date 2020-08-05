@@ -36,4 +36,6 @@ public interface AdminDAO {
 	List<FlashBoard> fStatusSelect(FlashBoard flashBoard);
 
 	List<HotspotBoard> hStatusSelect(HotspotBoard hotspotBoard);
+
+	List<Member> memberCount();
 }

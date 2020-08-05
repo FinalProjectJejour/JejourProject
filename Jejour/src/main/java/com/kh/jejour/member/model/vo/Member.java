@@ -16,6 +16,7 @@ public class Member {
 	private String phone;
 	private String email;
 	private String address;
+	private int mCount; //총회원수 담을 변수
 
 
 	// 아이디 찾기

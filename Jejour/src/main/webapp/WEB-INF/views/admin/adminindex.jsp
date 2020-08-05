@@ -72,52 +72,64 @@
 			<div class="col-lg-9 main-chart">
 				<!--CUSTOM CHART START -->
 				<div class="border-head">
-					<h3>USER VISITS</h3>
+					<h3>월별 이용자수</h3>
 				</div>
 				<div class="custom-bar-chart">
 					<ul class="y-axis">
-						<li><span>100</span></li>
-						<li><span>80</span></li>
+						<li><span>300</span></li>
+						<li><span>240</span></li>
+						<li><span>180</span></li>
+						<li><span>120</span></li>
 						<li><span>60</span></li>
-						<li><span>40</span></li>
-						<li><span>20</span></li>
 						<li><span>0</span></li>
 					</ul>
-					<div class="bar">
-						<div class="title">JAN</div>
-						<div class="value tooltips" data-original-title="90"
-							data-toggle="tooltip" data-placement="top">300</div>
+					<c:forEach items="${bbbbbmonth}" var="month">
+					<div class="bar " style="margin: 0px 5%;">
+						<div class="title">${month.month}</div>
+						<div class="value tooltips" data-original-title="${month.monthVisit }"
+							data-toggle="tooltip" data-placement="top">${month.monthVisit }</div>
 					</div>
-					<div class="bar ">
-						<div class="title">FEB</div>
-						<div class="value tooltips" data-original-title="5.000"
-							data-toggle="tooltip" data-placement="top">50%</div>
+					</c:forEach>
+					
+					<c:forEach items="${bbbbmonth}" var="month">
+					<div class="bar " style="margin: 0px 5%;">
+						<div class="title">${month.month}</div>
+						<div class="value tooltips" data-original-title="${month.monthVisit }"
+							data-toggle="tooltip" data-placement="top">${month.monthVisit }</div>
 					</div>
-					<div class="bar ">
-						<div class="title">MAR</div>
-						<div class="value tooltips" data-original-title="6.000"
-							data-toggle="tooltip" data-placement="top">60%</div>
+					</c:forEach>
+					
+					<c:forEach items="${bbbmonth}" var="month">
+					<div class="bar " style="margin: 0px 5%;">
+						<div class="title">${month.month}</div>
+						<div class="value tooltips" data-original-title="${month.monthVisit }"
+							data-toggle="tooltip" data-placement="top">${month.monthVisit }</div>
 					</div>
-					<div class="bar ">
-						<div class="title">APR</div>
-						<div class="value tooltips" data-original-title="4.500"
-							data-toggle="tooltip" data-placement="top">45%</div>
+					</c:forEach>
+					
+					<c:forEach items="${bbmonth}" var="month">
+					<div class="bar " style="margin: 0px 5%;">
+						<div class="title">${month.month}</div>
+						<div class="value tooltips" data-original-title="${month.monthVisit }"
+							data-toggle="tooltip" data-placement="top">${month.monthVisit }</div>
 					</div>
-					<div class="bar">
-						<div class="title">MAY</div>
-						<div class="value tooltips" data-original-title="3.200"
-							data-toggle="tooltip" data-placement="top">32%</div>
+					</c:forEach>
+					
+					<c:forEach items="${bmonth}" var="month">
+					<div class="bar " style="margin: 0px 5%;">
+						<div class="title">${month.month}</div>
+						<div class="value tooltips" data-original-title="${month.monthVisit }"
+							data-toggle="tooltip" data-placement="top">${month.monthVisit }</div>
 					</div>
-					<div class="bar ">
-						<div class="title">JUN</div>
-						<div class="value tooltips" data-original-title="6.200"
-							data-toggle="tooltip" data-placement="top">62%</div>
+					</c:forEach>
+					
+					<c:forEach items="${month}" var="month">
+					<div class="bar " style="margin: 0px 5%;">
+						<div class="title">${month.month}</div>
+						<div class="value tooltips" data-original-title="${month.monthVisit }"
+							data-toggle="tooltip" data-placement="top">${month.monthVisit }</div>
 					</div>
-					<div class="bar">
-						<div class="title">JUL</div>
-						<div class="value tooltips" data-original-title="7.500"
-							data-toggle="tooltip" data-placement="top">75%</div>
-					</div>
+					</c:forEach>
 				</div>
 				<!--custom chart end-->
 
@@ -152,45 +164,30 @@
 					</c:forEach>
 					<!-- /col-md-4 -->
 					<!--  PROFILE 02 PANEL -->
+					<c:forEach items="${mcount}" var="mcount">
 					<div class="col-lg-4 col-md-4 col-sm-4 mb">
-						<div class="content-panel pn">
-							<div id="profile-02">
-								<div class="user">
-									<img src="img/friends/fr-06.jpg" class="img-circle" width="80">
-									<h4>DJ SHERMAN</h4>
+						<div class="darkblue-panel pn" style="background-color:darkslategrey;">
+						
+							<div class="darkblue-header">
+								<h5> 총회원 수</h5>
+							</div>
+							<h1 class="mt">
+								<i class="fa fa-group fa-3x"></i>
+							</h1>
+							
+							<footer>
+								<div class="centered">
+									<h5  style="font-size:17px">
+										<i class="fa fa-hand-o-right" style="font-size:16px; margin-top:13px;"></i> ${mcount.MCount} 명
+									</h5>
 								</div>
-							</div>
-							<div class="pr2-social centered">
-								<a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i
-									class="fa fa-facebook"></i></a> <a href="#"><i
-									class="fa fa-dribbble"></i></a>
-							</div>
+							</footer>
 						</div>
-						<!-- /panel -->
 					</div>
+					</c:forEach>
 					<!--/ col-md-4 -->
-					<div class="col-md-4 col-sm-4 mb">
-						<div class="green-panel pn">
-							<div class="green-header">
-								<h5>DISK SPACE</h5>
-							</div>
-							<canvas id="serverstatus03" height="120" width="120"></canvas>
-							<script>
-								var doughnutData = [ {
-									value : 60,
-									color : "#2b2b2b"
-								}, {
-									value : 40,
-									color : "#fffffd"
-								} ];
-								var myDoughnut = new Chart(document
-										.getElementById("serverstatus03")
-										.getContext("2d"))
-										.Doughnut(doughnutData);
-							</script>
-							<h3>60% USED</h3>
-						</div>
-					</div>
+					
+					
 					<!-- /col-md-4 -->
 				</div>
 				<!-- /row -->

@@ -18,6 +18,7 @@ import com.kh.jejour.admin.model.service.AdminService;
 import com.kh.jejour.flashBoard.model.vo.FlashBoard;
 import com.kh.jejour.flashComment.model.vo.FlashComment;
 import com.kh.jejour.hotspotBoard.model.vo.HotspotBoard;
+import com.kh.jejour.hotspotComment.model.vo.HotspotComment;
 import com.kh.jejour.member.model.vo.Member;
 import com.kh.jejour.visitCount.model.dao.VisitCountDAO;
 import com.kh.jejour.visitCount.model.vo.VisitCount;
@@ -43,6 +44,7 @@ public class AdminController {
 		List<VisitCount> bbbmonth = visitDAO.selectBBBMonth();
 		List<VisitCount> bbbbmonth = visitDAO.selectBBBBMonth();
 		List<VisitCount> bbbbbmonth = visitDAO.selectBBBBBMonth();
+		List<Member> mcount = adminService.memberCount();
 		
 		System.out.println("방문자위젯");
 		System.out.println(total);
@@ -59,7 +61,8 @@ public class AdminController {
 		model.addAttribute("total",total)
 			.addAttribute("month",month).addAttribute("bmonth",bmonth)
 			.addAttribute("bbmonth",bbmonth).addAttribute("bbbmonth",bbbmonth)
-			.addAttribute("bbbbmonth",bbbbmonth).addAttribute("bbbbbmonth",bbbbbmonth);
+			.addAttribute("bbbbmonth",bbbbmonth).addAttribute("bbbbbmonth",bbbbbmonth)
+			.addAttribute("mcount",mcount);
 		
 		
 		return "admin/adminindex";   // --> /WEB-INF/views/admin/adminindex.jsp
@@ -89,9 +92,12 @@ public class AdminController {
 		
 		//게시글 랭킹
 		List<HotspotBoard> hrang = adminService.hBoardRanking();
+		//댓글 랭킹
+		List<HotspotComment> hcrang = adminService.hCommentRanking();
 		
 		model.addAttribute("list", list)
-			.addAttribute("hrang",hrang);
+			.addAttribute("hrang",hrang)
+			.addAttribute("hcrang",hcrang);
 		
 		return "admin/basic_table";   
 	}
@@ -168,9 +174,9 @@ public class AdminController {
 	
 	@RequestMapping("/admin/deleteHotspotBoard.do")
 	public String deleteHotspotBoard(@RequestParam int hNo) {
-		/* 보류
-		 * 
+		//핫스팟보드삭제
 		System.out.println("핫스팟보드삭제실행");
+		System.out.println("보드넘버: "+hNo);
 		try {
 			
 		adminService.deleteHotspotBoard(hNo);
@@ -180,7 +186,7 @@ public class AdminController {
 			throw new adminException("게시글 삭제중 오류발생");
 			
 		}
-		*/
+		
 		
 		return "redirect:/admin/hotspotManager.do"; 
 	}
