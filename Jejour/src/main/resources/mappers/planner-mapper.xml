@@ -51,6 +51,11 @@
 		VALUES (SEQ_PPNO.NEXTVAL, #{pNo}, #{startTime}, #{endTime}, #{mapTitle}, #{category}, #{mapX}, #{mapY}, #{money}, #{reason})
 	</insert>
 	
+	<insert id="setPlanLike" parameterType="PlannerLike">
+		INSERT INTO PLANNER_LIKE(PNO, USERID, GOOD) 
+		VALUES (#{pNo}, #{userId}, #{good})
+	</insert>
+	
 	<select id="selectPlanList" parameterType="_int" resultType="PlannerPart">
 		SELECT * FROM PLANNER_PART
 		WHERE PNO = #{pNo}
@@ -62,11 +67,24 @@
 		WHERE PPNO = #{ppNo}
 	</select>
 	
+	<select id="selectPlannerLike" parameterType="PlannerLike" resultType="PlannerLike">
+		SELECT * FROM PLANNER_LIKE
+		WHERE (PNO = #{pNo}) AND (USERID = #{userId})
+	</select>
+	
 	<update id="updateStatus" parameterType="Planner">
       UPDATE PLANNER
       <set>
       	DESCRIBE=#{describe},
       	STATUS=#{status}
+      </set>
+      WHERE PNO = #{pNo}
+   </update>
+   
+   <update id="updateTheme" parameterType="Planner">
+      UPDATE PLANNER
+      <set>
+      	THEME=#{theme}
       </set>
       WHERE PNO = #{pNo}
    </update>
@@ -96,6 +114,30 @@
       WHERE PPNO = #{ppNo}
    </update>
 	
+	<update id="updateGood" parameterType="PlannerLike">
+      UPDATE PLANNER_LIKE
+      <set>
+      	GOOD=#{good}
+      </set>
+      WHERE (PNO = #{pNo}) AND (USERID = #{userId})
+   </update>
+   
+   <select id="countLike" parameterType="PlannerLike" resultType="_int">
+		SELECT COUNT(*) FROM PLANNER_LIKE
+		WHERE (PNO = #{pNo}) AND (GOOD = 'Y')
+	</select>
+   
+   <select id="countUnLike" parameterType="PlannerLike" resultType="_int">
+		SELECT COUNT(*) FROM PLANNER_LIKE
+		WHERE (PNO = #{pNo}) AND (GOOD = 'N')
+	</select>
+   
+   <select id="getCategoryCount" parameterType="_int" resultType="CategoryCount">
+		SELECT CATEGORY, COUNT(*) COUNT FROM PLANNER_PART
+		WHERE PNO = #{pNo}
+		GROUP BY CATEGORY
+	</select>
+   
 </mapper>
 
 

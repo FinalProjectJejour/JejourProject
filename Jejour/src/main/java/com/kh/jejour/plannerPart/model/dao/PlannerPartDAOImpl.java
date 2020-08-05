@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.jejour.planner.model.vo.Attachment;
 import com.kh.jejour.planner.model.vo.Planner;
+import com.kh.jejour.plannerPart.model.vo.CategoryCount;
 import com.kh.jejour.plannerPart.model.vo.PlannerPart;
 
 @Repository("plannerPartDAO")
@@ -46,6 +47,12 @@ public class PlannerPartDAOImpl implements PlannerPartDAO {
 	public int updateOnePlannerPart(PlannerPart plannerPart) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("plannerMapper.updatePlannerPart",plannerPart);
+	}
+
+	@Override
+	public List<CategoryCount> getCategoryCount(int pNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("plannerMapper.getCategoryCount", pNo);
 	}
 	
 	

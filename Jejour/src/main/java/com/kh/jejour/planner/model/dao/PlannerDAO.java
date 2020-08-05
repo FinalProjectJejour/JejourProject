@@ -17,5 +17,7 @@ public interface PlannerDAO {
 
 	Planner getThisPlanner(int pNo);
 
+	int changePlannerTheme(Planner planner);
+
 	// Planner selectOnePlanner(int pNo);
 }
