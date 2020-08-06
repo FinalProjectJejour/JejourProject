@@ -24,5 +24,9 @@ public interface HotspotService {
 	
 	int selectHotspotBoardSearchContents(HashMap<String, String> hmap);
 
+	List<Map<String, String>> hotspotMyPageList(int cPage, int numPerPage, String userId);
+
+	int selectBoardMyTotalContents(String userId);
+
 	
 }

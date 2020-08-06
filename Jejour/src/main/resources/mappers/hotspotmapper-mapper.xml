@@ -98,6 +98,22 @@
 		</where>
 	</select>
 	
+	 <select id="myList" parameterType="string" resultType="HotspotBoard">
+		SELECT HNO, H.USERID, H.HTITLE, H.HCONTENT, H.HWRITER, H.HCOUNT, H.HDATE, H.HSTATUS, H.HPREVIEW, NVL(SUM(DECODE(HL.GOOD, 'Y', 1,'N', 0)),0) "LIKECOUNT"
+		FROM HOTSPOT_BOARD H
+		FULL JOIN HOTSPOT_LIKE HL USING(HNO)
+		WHERE H.HSTATUS = 'Y' AND H.USERID = #{userId}
+		GROUP BY HNO, H.USERID, H.HTITLE, H.HCONTENT, H.HWRITER, H.HCOUNT, H.HDATE, H.HSTATUS, H.HPREVIEW
+		ORDER BY HNO DESC
+	</select>
+	
+	<!-- 페이징 처리 ROWNUM ROWBOUNDS -->
+ 	<select id="myListTotalContents" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM HOTSPOT_BOARD
+		WHERE USERID = #{userId}
+	</select>
+	
 </mapper> 
 
 

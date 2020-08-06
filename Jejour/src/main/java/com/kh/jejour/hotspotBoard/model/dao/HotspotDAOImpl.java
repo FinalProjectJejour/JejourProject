@@ -67,5 +67,17 @@ public class HotspotDAOImpl implements HotspotDAO {
 		return sqlSession.selectOne("hotspotMapper.selectHotspotBoardSearchContents", hmap);
 	}
 
+	@Override
+	public List<Map<String, String>> hotspotMyPageList(int cPage, int numPerPage, String userId) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("hotspotMapper.myList", userId, rows);
+	}
+
+	@Override
+	public int selectBoardMyTotalContents(String userId) {
+		
+		return sqlSession.selectOne("hotspotMapper.myListTotalContents", userId);
+	}
+
 
 }
