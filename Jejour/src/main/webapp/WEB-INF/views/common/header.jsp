@@ -51,7 +51,8 @@
     
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
       <div class="container">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/intro/main.do" style="font-family: bm; font-size: 30px;">Jejour</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/intro/main.do">
+        <img src="${pageContext.request.contextPath}/resources/images/Logo.png" alt="Jejour" style="width: 180px; height: 50px;" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="oi oi-menu"></span> Menu
         </button>
@@ -76,7 +77,7 @@
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/flashBoard/flashList.fl">Meet</a>
               </div>
             </li>
-            <li class="nav-item"><a href="${pageContext.request.contextPath}/topN/topN.do?category=숙박" class="nav-link">Top N</a></li>
+            <li class="nav-item"><a href="${pageContext.request.contextPath}/topN/topN.do?category=숙박" class="nav-link">Top 10</a></li>
             <c:if test="${ empty member }">
             <li class="nav-item"><a href="${pageContext.request.contextPath}/member/memberLoginFormView.do" class="nav-link">Login</a></li>
             </c:if>
@@ -86,6 +87,8 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberUpdateFormView.do">Update Info</a>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberPlan.do?userId=${member.userId}">My Plan</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/HotspotBoard/myHotspot.ho?userId=${member.userId}">My HotSpot</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/flashBoard/myFlash.fl?userId=${member.userId}">My Meet</a>
                 <c:if test="${member.userId eq 'admin'}">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/admin.do">Manager</a>
                 </c:if>
@@ -109,22 +112,42 @@
 	        <div class="container">
 	          <div class="row slider-text align-items-center">
 	            <div class="col-md-7 col-sm-12 ftco-animate">
-	            	<c:if test="${ param.data eq 'flash' }">
-		              <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">Meet</a></span></p>
-		              <h1 class="mb-3">Meeting</h1>
-	              	</c:if>
-         		    <c:if test="${ param.data eq 'sharePlan' }">
-		              <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">Plan</a></span></p>
-		              <h1 class="mb-3">SharePlan</h1>
-	              	</c:if>
-	                <c:if test="${ param.data eq 'ourSite' }">
-		              <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">About</a></span></p>
-		              <h1 class="mb-3">Our Site</h1>
-	              	</c:if>
-	              	<c:if test="${ param.data eq 'jejuPlace' }">
-		              <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">About</a></span></p>
-		              <h1 class="mb-3">Jeju Place</h1>
-	              	</c:if>
+                    <c:if test="${ param.data eq 'flash' }">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">Board</a></span></p>
+                    <h1 class="mb-3">Meeting</h1>
+                    </c:if>
+                    <c:if test="${ param.data eq 'hotSpot' }">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">Board</a></span></p>
+                    <h1 class="mb-3">HotSpot</h1>
+                    </c:if>
+                    <c:if test="${ param.data eq 'sharePlan' }">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">Plan</a></span></p>
+                    <h1 class="mb-3">SharePlan</h1>
+                    </c:if>
+                    <c:if test="${ param.data eq 'jejuPlace' }">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">Place</a></span></p>
+                    <h1 class="mb-3">Jeju Place</h1>
+                    </c:if>
+                    <c:if test="${ param.data eq 'myFlash' }">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">My Page</a></span></p>
+                    <h1 class="mb-3">My Meeting</h1>
+                    </c:if>
+                    <c:if test="${ param.data eq 'myPlan' }">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">My Page</a></span></p>
+                    <h1 class="mb-3">My Plan</h1>
+                    </c:if>
+                    <c:if test="${ param.data eq 'myHotSpot' }">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">My Page</a></span></p>
+                    <h1 class="mb-3">My HotSpot</h1>
+                    </c:if>
+                    <c:if test="${ param.data eq 'schedule' }">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">Plan</a></span></p>
+                    <h1 class="mb-3">Schedule</h1>
+                    </c:if>
+                    <c:if test="${ param.data eq 'top10' }">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">Top 10</a></span></p>
+                    <h1 class="mb-3">Top 10</h1>
+                    </c:if>
 	            </div>
 	          </div>
 	        </div>

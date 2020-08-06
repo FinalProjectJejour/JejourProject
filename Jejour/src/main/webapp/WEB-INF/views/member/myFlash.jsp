@@ -28,7 +28,29 @@
 		<c:param name="data" value="myFlash"/>
 	</c:import>
 	
-	<!-- <c:set var="m" value="${ sessionScope.member }" /> -->
+<div class="ftco-section-search" style="background-color:#1161ee;">
+        <div class="container">
+          <div class="row">
+           <div class="col-md-12 tabulation-search">
+            <br><br>
+              <div class="tab-content py-5" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                  <div class="block-17">
+                    <form action="${pageContext.request.contextPath}/flashBoard/flashList.fl" method="post" class="d-block d-lg-flex">
+                      <div class="fields d-block d-lg-flex">
+                        <label style="font-size: 38px; color:white; font-weight: bold;">${ member.userName }님의</label>
+                        <label style="font-size: 20px; color:white; margin-left: 10px; margin-top: 22px;">번개 게시판</label>
+                      </div>
+                      <button class="search-submit btn btn-primary" style="border-radius:25px; border: white;"
+                      		onclick="moveSharePlane();">Other FlaSh</button>  
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <section class="ftco-section bg-light" style="padding-top: 4em;">
       <div class="container">
