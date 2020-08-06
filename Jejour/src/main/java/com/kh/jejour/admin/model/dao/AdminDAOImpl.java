@@ -11,6 +11,7 @@ import com.kh.jejour.flashComment.model.vo.FlashComment;
 import com.kh.jejour.hotspotBoard.model.vo.HotspotBoard;
 import com.kh.jejour.hotspotComment.model.vo.HotspotComment;
 import com.kh.jejour.member.model.vo.Member;
+import com.kh.jejour.planner.model.vo.Planner;
 
 @Repository("adminDAO")
 public class AdminDAOImpl implements AdminDAO {
@@ -122,6 +123,25 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<Member> memberCount() {
 		
 		return sqlSession.selectList("adminMapper.memberCount");
+	}
+
+	//==============컨텐츠 수=====================
+	@Override
+	public List<Planner> plannerCount() {
+		
+		return sqlSession.selectList("adminMapper.plannerCount");
+	}
+
+	@Override
+	public List<FlashBoard> flashCount() {
+		
+		return sqlSession.selectList("adminMapper.flashCount");
+	}
+
+	@Override
+	public List<HotspotBoard> hotspotCount() {
+		
+		return sqlSession.selectList("adminMapper.hotspotCount");
 	}
 
 	

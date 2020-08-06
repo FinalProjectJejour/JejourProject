@@ -7,6 +7,7 @@ import com.kh.jejour.flashComment.model.vo.FlashComment;
 import com.kh.jejour.hotspotBoard.model.vo.HotspotBoard;
 import com.kh.jejour.hotspotComment.model.vo.HotspotComment;
 import com.kh.jejour.member.model.vo.Member;
+import com.kh.jejour.planner.model.vo.Planner;
 
 public interface AdminDAO {
 	List<Member> selectMemberList();
@@ -38,4 +39,10 @@ public interface AdminDAO {
 	List<HotspotBoard> hStatusSelect(HotspotBoard hotspotBoard);
 
 	List<Member> memberCount();
+
+	List<Planner> plannerCount();
+
+	List<FlashBoard> flashCount();
+
+	List<HotspotBoard> hotspotCount();
 }

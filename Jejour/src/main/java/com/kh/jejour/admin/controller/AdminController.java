@@ -20,6 +20,7 @@ import com.kh.jejour.flashComment.model.vo.FlashComment;
 import com.kh.jejour.hotspotBoard.model.vo.HotspotBoard;
 import com.kh.jejour.hotspotComment.model.vo.HotspotComment;
 import com.kh.jejour.member.model.vo.Member;
+import com.kh.jejour.planner.model.vo.Planner;
 import com.kh.jejour.visitCount.model.dao.VisitCountDAO;
 import com.kh.jejour.visitCount.model.vo.VisitCount;
 
@@ -44,7 +45,12 @@ public class AdminController {
 		List<VisitCount> bbbmonth = visitDAO.selectBBBMonth();
 		List<VisitCount> bbbbmonth = visitDAO.selectBBBBMonth();
 		List<VisitCount> bbbbbmonth = visitDAO.selectBBBBBMonth();
+		//회원수
 		List<Member> mcount = adminService.memberCount();
+		//컨텐츠수
+		List<Planner> pcount = adminService.plannerCount();
+		List<FlashBoard> fcount = adminService.flashCount();
+		List<HotspotBoard> hcount = adminService.hotspotCount();
 		
 		System.out.println("방문자위젯");
 		System.out.println(total);
@@ -62,7 +68,8 @@ public class AdminController {
 			.addAttribute("month",month).addAttribute("bmonth",bmonth)
 			.addAttribute("bbmonth",bbmonth).addAttribute("bbbmonth",bbbmonth)
 			.addAttribute("bbbbmonth",bbbbmonth).addAttribute("bbbbbmonth",bbbbbmonth)
-			.addAttribute("mcount",mcount);
+			.addAttribute("mcount",mcount).addAttribute("pcount",pcount)
+			.addAttribute("fcount",fcount).addAttribute("hcount",hcount);
 		
 		
 		return "admin/adminindex";   // --> /WEB-INF/views/admin/adminindex.jsp

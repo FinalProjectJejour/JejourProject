@@ -14,7 +14,8 @@
 		<!-- sidebar menu start-->
 		<ul class="sidebar-menu" id="nav-accordion">
 			<p class="centered">
-				<a href="#"><img src="../resources/images/admin.png" class="img-circle" width="80"></a>
+				<a href="#"><img src="../resources/images/admin.png"
+					class="img-circle" width="80"></a>
 			</p>
 			<h5 class="centered">관리자</h5>
 
@@ -38,7 +39,7 @@
 					<li><a
 						href="${pageContext.request.contextPath}/admin/flashManager.do">번개
 							게시판</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/etc.do">보류</a></li>
+					
 				</ul></li>
 
 			<li class="sub-menu"><a href="javascript:;"> <i
@@ -84,51 +85,57 @@
 						<li><span>0</span></li>
 					</ul>
 					<c:forEach items="${bbbbbmonth}" var="month">
-					<div class="bar " style="margin: 0px 5%;">
-						<div class="title">${month.month}</div>
-						<div class="value tooltips" data-original-title="${month.monthVisit }"
-							data-toggle="tooltip" data-placement="top">${month.monthVisit }</div>
-					</div>
+						<div class="bar " style="margin: 0px 5%;">
+							<div class="title">${month.month}</div>
+							<div class="value tooltips"
+								data-original-title="${month.monthVisit }" data-toggle="tooltip"
+								data-placement="top">${month.monthVisit }</div>
+						</div>
 					</c:forEach>
-					
+
 					<c:forEach items="${bbbbmonth}" var="month">
-					<div class="bar " style="margin: 0px 5%;">
-						<div class="title">${month.month}</div>
-						<div class="value tooltips" data-original-title="${month.monthVisit }"
-							data-toggle="tooltip" data-placement="top">${month.monthVisit }</div>
-					</div>
+						<div class="bar " style="margin: 0px 5%;">
+							<div class="title">${month.month}</div>
+							<div class="value tooltips"
+								data-original-title="${month.monthVisit }" data-toggle="tooltip"
+								data-placement="top">${month.monthVisit }</div>
+						</div>
 					</c:forEach>
-					
+
 					<c:forEach items="${bbbmonth}" var="month">
-					<div class="bar " style="margin: 0px 5%;">
-						<div class="title">${month.month}</div>
-						<div class="value tooltips" data-original-title="${month.monthVisit }"
-							data-toggle="tooltip" data-placement="top">${month.monthVisit }</div>
-					</div>
+						<div class="bar " style="margin: 0px 5%;">
+							<div class="title">${month.month}</div>
+							<div class="value tooltips"
+								data-original-title="${month.monthVisit }" data-toggle="tooltip"
+								data-placement="top">${month.monthVisit }</div>
+						</div>
 					</c:forEach>
-					
+
 					<c:forEach items="${bbmonth}" var="month">
-					<div class="bar " style="margin: 0px 5%;">
-						<div class="title">${month.month}</div>
-						<div class="value tooltips" data-original-title="${month.monthVisit }"
-							data-toggle="tooltip" data-placement="top">${month.monthVisit }</div>
-					</div>
+						<div class="bar " style="margin: 0px 5%;">
+							<div class="title">${month.month}</div>
+							<div class="value tooltips"
+								data-original-title="${month.monthVisit }" data-toggle="tooltip"
+								data-placement="top">${month.monthVisit }</div>
+						</div>
 					</c:forEach>
-					
+
 					<c:forEach items="${bmonth}" var="month">
-					<div class="bar " style="margin: 0px 5%;">
-						<div class="title">${month.month}</div>
-						<div class="value tooltips" data-original-title="${month.monthVisit }"
-							data-toggle="tooltip" data-placement="top">${month.monthVisit }</div>
-					</div>
+						<div class="bar " style="margin: 0px 5%;">
+							<div class="title">${month.month}</div>
+							<div class="value tooltips"
+								data-original-title="${month.monthVisit }" data-toggle="tooltip"
+								data-placement="top">${month.monthVisit }</div>
+						</div>
 					</c:forEach>
-					
+
 					<c:forEach items="${month}" var="month">
-					<div class="bar " style="margin: 0px 5%;">
-						<div class="title">${month.month}</div>
-						<div class="value tooltips" data-original-title="${month.monthVisit }"
-							data-toggle="tooltip" data-placement="top">${month.monthVisit }</div>
-					</div>
+						<div class="bar " style="margin: 0px 5%;">
+							<div class="title">${month.month}</div>
+							<div class="value tooltips"
+								data-original-title="${month.monthVisit }" data-toggle="tooltip"
+								data-placement="top">${month.monthVisit }</div>
+						</div>
 					</c:forEach>
 				</div>
 				<!--custom chart end-->
@@ -138,56 +145,82 @@
 
 				<!-- /row -->
 				<!-- 방문자 위젯 -->
-				
-				
+
+
 				<div class="row">
-				<c:forEach items="${total}" var="total">
-					<div class="col-lg-4 col-md-4 col-sm-4 mb">
-						<div class="darkblue-panel pn">
-						
-							<div class="darkblue-header">
-								<h5>방문자 수</h5>
-							</div>
-							<h1 class="mt">
-								<i class="fa fa-user fa-3x"></i>
-							</h1>
-							<p>오늘 +${total.todayVisit }</p>
-							<footer>
-								<div class="centered">
-									<h5>
-										<i class="fa fa-trophy"></i> TOTAL : ${total.totalVisit }
-									</h5>
+					<c:forEach items="${total}" var="total">
+						<div class="col-lg-4 col-md-4 col-sm-4 mb">
+							<div class="darkblue-panel pn">
+
+								<div class="darkblue-header">
+									<h5>방문자 수</h5>
 								</div>
-							</footer>
+								<h1 class="mt">
+									<i class="fa fa-user fa-3x"></i>
+								</h1>
+								<p>오늘 +${total.todayVisit }</p>
+								<footer>
+									<div class="centered">
+										<h5>
+											<i class="fa fa-trophy"></i> TOTAL : ${total.totalVisit }
+										</h5>
+									</div>
+								</footer>
+							</div>
 						</div>
-					</div>
 					</c:forEach>
 					<!-- /col-md-4 -->
 					<!--  PROFILE 02 PANEL -->
 					<c:forEach items="${mcount}" var="mcount">
-					<div class="col-lg-4 col-md-4 col-sm-4 mb">
-						<div class="darkblue-panel pn" style="background-color:darkslategrey;">
-						
-							<div class="darkblue-header">
-								<h5> 총회원 수</h5>
-							</div>
-							<h1 class="mt">
-								<i class="fa fa-group fa-3x"></i>
-							</h1>
-							
-							<footer>
-								<div class="centered">
-									<h5  style="font-size:17px">
-										<i class="fa fa-hand-o-right" style="font-size:16px; margin-top:13px;"></i> ${mcount.MCount} 명
-									</h5>
+						<div class="col-lg-4 col-md-4 col-sm-4 mb">
+							<div class="darkblue-panel pn"
+								style="background-color: darkslategrey;">
+
+								<div class="darkblue-header">
+									<h5>총회원 수</h5>
 								</div>
-							</footer>
+								<h1 class="mt">
+									<i class="fa fa-group fa-3x"></i>
+								</h1>
+
+								<footer>
+									<div class="centered">
+										<h5 style="font-size: 17px">
+											<i class="fa fa-hand-o-right"
+												style="font-size: 16px; margin-top: 13px;"></i>
+											${mcount.MCount} 명
+										</h5>
+									</div>
+								</footer>
+							</div>
 						</div>
-					</div>
 					</c:forEach>
 					<!--/ col-md-4 -->
-					
-					
+					<div class="col-lg-4 col-md-4 col-sm-4 mb">
+						<table class="type09">
+							<thead>
+								<tr>
+									<th scope="cols">카테고리</th>
+									<th scope="cols">컨텐츠 수</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">Plan</th>
+									<td><c:forEach items="${pcount}" var="pcount">${pcount.PCount }</c:forEach></td>
+								</tr>
+								<tr>
+									<th scope="row">Hotspot</th>
+									<td><c:forEach items="${hcount}" var="hcount">${hcount.HCount }</c:forEach></td>
+								</tr>
+								<tr>
+									<th scope="row">Meet</th>
+									<td><c:forEach items="${fcount}" var="fcount">${fcount.FCount }</c:forEach></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
 					<!-- /col-md-4 -->
 				</div>
 				<!-- /row -->
@@ -219,7 +252,43 @@
 	</section>
 </section>
 <!--main content end-->
+<style>
+table.type09 {
+    border-collapse: collapse;
+    text-align: center;
+    line-height: 2.8;
+
+}
+table.type09 thead th {
+text-align: center;
+    padding: 2px;
+    font-weight: bold;
+    vertical-align: center;
+    color: #35404D;
+    border-bottom: 3px solid gray;
+}
+table.type09 tbody th {
+text-align: center;
+    width: 250px;
+    padding: 2px;
+    font-size:20px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #f3f6f7;
+}
+table.type09 td {
+    width: 250px;
+    padding: 2px;
+    font-size:21px;
+    font-weight: bold;
+    vertical-align: center;
+    border-bottom: 1px solid #ccc;
+}
+</style>
 <script type="application/javascript">
+	
+	
 	
 		
     $(document).ready(function() {
@@ -263,9 +332,13 @@
       console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
     }
 	
+
+
 </script>
 
 <script type="application/javascript">
+	
+	
 	
     $(document).ready(function() {
       $("#date-popover").popover({
@@ -307,6 +380,8 @@
       var to = $("#" + id).data("to");
       console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
     }
+
+
 
 </script>
 

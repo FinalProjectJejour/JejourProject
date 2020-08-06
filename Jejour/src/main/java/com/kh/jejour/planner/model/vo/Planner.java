@@ -21,5 +21,6 @@ public class Planner {
 	private String status;
 	private int likeCount;
 	private String renamedFileName;
+	private int pCount;
 
 }
