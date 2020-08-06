@@ -40,13 +40,9 @@
 
     <link href='${pageContext.request.contextPath }/resources/lib/main.css' rel='stylesheet' />
     <script src='${pageContext.request.contextPath }/resources/lib/main.js'></script>
+    <script src="${pageContext.request.contextPath }/resources/js/jquery-3.5.1.min.js"></script>
   
-  
-  
-  
-  
-  
-  
+   	
    	<c:import url="../common/header.jsp">
 		<c:param name="data" value="schedule"/>
 	</c:import>
@@ -135,6 +131,140 @@
 			#pagination .on {font-weight: bold; cursor: default;color:#777;}
 			
 			
+/* 스케줄 가이드 css */
+			
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: white;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+.skw-pages {
+  overflow: hidden;
+  position: relative;
+  height: 100vh;
+}
+
+.skw-page {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.skw-page__half {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100vh;
+  -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
+  transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
+}
+.skw-page__half--left {
+  left: 0;
+  -webkit-transform: translate3d(-32.4vh, 100%, 0);
+          transform: translate3d(-32.4vh, 100%, 0);
+}
+.skw-page__half--right {
+  left: 50%;
+  -webkit-transform: translate3d(32.4vh, -100%, 0);
+          transform: translate3d(32.4vh, -100%, 0);
+}
+.skw-page.active .skw-page__half {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.skw-page__skewed {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 140%;
+  height: 100%;
+  -webkit-transform: skewX(-18deg);
+          transform: skewX(-18deg);
+  background: #000;
+}
+.skw-page__half--left .skw-page__skewed {
+  left: -40%;
+}
+.skw-page__half--right .skw-page__skewed {
+  right: -40%;
+}
+.skw-page__content {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-flow: column wrap;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 30%;
+  color: #fff;
+  -webkit-transform: skewX(18deg);
+          transform: skewX(18deg);
+  -webkit-transition: opacity 1s, -webkit-transform 1s;
+  transition: opacity 1s, -webkit-transform 1s;
+  transition: transform 1s, opacity 1s;
+  transition: transform 1s, opacity 1s, -webkit-transform 1s;
+  background-size: cover;
+}
+.skw-page__half--left .skw-page__content {
+  padding-left: 30%;
+  padding-right: 30%;
+  -webkit-transform-origin: 100% 0;
+          transform-origin: 100% 0;
+}
+.skw-page__half--right .skw-page__content {
+  padding-left: 30%;
+  padding-right: 30%;
+  -webkit-transform-origin: 0 100%;
+          transform-origin: 0 100%;
+}
+.skw-page.inactive .skw-page__content {
+  opacity: 0.5;
+  -webkit-transform: skewX(18deg) scale(0.95);
+          transform: skewX(18deg) scale(0.95);
+}
+.skw-page__heading {
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  font-size: 55px;
+  text-align: center;
+}
+.skw-page__description {
+  font-size: 28px;
+  text-align: center;
+}
+.skw-page__link {
+  color: #FFA0A0;
+}
+.skw-page-1 .skw-page__half--left .skw-page__content {
+  background-image: url("${pageContext.request.contextPath }/resources/images/updateinfo6.jpg");
+}
+.skw-page-1 .skw-page__half--right .skw-page__content {
+  background: #292929;
+}
+
+
+@FONT-FACE {
+			font-family: 'bm';
+			src:url("${pageContext.request.contextPath}/resources/fonts/BMJUA_ttf.ttf");
+		}
+
+/* 스케줄 가이드 css의 끝 */
 	
     </style>
     
@@ -192,7 +322,7 @@
                     <input type="hidden" name="theme" id="theme" value="혼자">  
                     <input type="hidden" name="status" id="status" value="Y"> 
                     <!-- <input type="submit" class="search-submit btn btn-primary" value="나홀로 GO"> -->  
-                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner1();">나홀로 GO</button>
+                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner1();">일정 만들기</button>
                   </form>
                 </div>
               </div>
@@ -219,7 +349,7 @@
                     <input type="hidden" name="pWriter" id="pWriter" value="${member.userName}">
                     <input type="hidden" name="theme" id="theme" value="연인">
                     <input type="hidden" name="status" id="status" value="Y"> 
-                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner2();">연인과 함께</button>
+                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner2();">일정 만들기</button>
                   </form>
                 </div>
               </div>
@@ -244,7 +374,7 @@
                     <input type="hidden" name="pWriter" id="pWriter" value="${member.userName}">
                     <input type="hidden" name="theme" id="theme" value="친구">  
                     <input type="hidden" name="status" id="status" value="Y">   
-                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner3();">친구랑~</button>
+                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner3();">일정 만들기</button>
                   </form>
                 </div>
               </div>
@@ -270,7 +400,7 @@
                     <input type="hidden" name="pWriter" id="pWriter" value="${member.userName}">
                     <input type="hidden" name="theme" id="theme" value="부모님">   
                     <input type="hidden" name="status" id="status" value="Y"> 
-                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner4();">부모님^^</button>
+                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner4();">일정 만들기</button>
                   </form>
                 </div>
               </div>
@@ -295,7 +425,7 @@
                     <input type="hidden" name="pWriter" id="pWriter" value="${member.userName}">
                     <input type="hidden" name="theme" id="theme" value="가족">   
                     <input type="hidden" name="status" id="status" value="Y"> 
-                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner5();">가족과 함께</button>
+                    <button type="button" class="search-submit btn btn-primary" onclick="setPlanner5();">일정 만들기</button>
                   </form>
                 </div>
               </div>
@@ -305,7 +435,35 @@
       </div>
     </div>
     </c:if>
-
+    
+    
+    <c:if test="${no eq null and pNo eq null }">
+    <!-- 일정세우기 가이드 화면 -->
+   
+    <div class="skw-pages">
+    <div class="skw-page skw-page-1 active">
+      <div class="skw-page__half skw-page__half--left">
+        <div class="skw-page__skewed">
+          <div class="skw-page__content"></div>
+        </div>
+      </div>
+      <div class="skw-page__half skw-page__half--right">
+     
+        
+        <div class="skw-page__skewed">
+          <div class="skw-page__content">
+            <h2 class="skw-page__heading" style="color:skyblue; font-family: bm;">여행계획하기</h2>
+            <br><br>
+            <p class="skw-page__description" style="font-family: bm;">1.여행 테마를 선택해보세요! ex)연인</p>
+            <p class="skw-page__description" style="font-family: bm;">2.사진 및 제목 등록!(썸네일)</p>
+            <p class="skw-page__description" style="font-family: bm;">3.날짜선택 후 일정만들기 버튼클릭!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- 일정세우기 가이드 화면의 끝 -->
+    </c:if>
+	<c:if test="${no ne null or pNo ne null }">
     <section class="ftco-section contact-section">
       <div class="container">
         <div class="row block-9 mb-4">
@@ -368,7 +526,7 @@
               <input type="hidden" id="fMapX" name="mapX">
               <input type="hidden" id="fMapY" name="mapY">
               
-              <c:if test="${no ne null or pNo ne null }">
+              
 	              <div class="form-group" style="float:right">
 	                <button type="button" class="btn btn-primary py-3 px-4" onclick="save();">Save</button>
 	              </div>
@@ -1033,10 +1191,10 @@
 	    while (el.hasChildNodes()) {
 	        el.removeChild (el.lastChild);
 	    }
-	}
+	};
  
-    
   </script>
+ 
     
   </body>
 </html>
