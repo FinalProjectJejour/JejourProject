@@ -69,6 +69,10 @@
                 <div  style="height: 120px;">
                 <h3 class="heading"><a href="#">${h.HTitle}</a></h3>
                 </div>
+                 <p class="clearfix">
+                  <a href=<c:url value='/hotspotBoard/hotspotDetail.ho?no=${h.HNo}'/> class="float-left">Read more</a>            
+                  <a href=<c:url value='/hotspotBoard/hotspotDetail.ho?no=${h.HNo}'/> class="float-right meta-chat"><span class="icon-thumbs-o-up"></span>&nbsp;${h.likeCount}</a>
+                </p>
               </div>
             </div>
           </div>

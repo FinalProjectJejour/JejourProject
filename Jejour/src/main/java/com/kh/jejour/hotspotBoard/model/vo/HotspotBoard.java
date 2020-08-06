@@ -23,5 +23,6 @@ public class HotspotBoard implements Serializable{
 	private Date hDate;
 	private char hStatus;
 	private String hPreview;
+	private int likeCount;
 
 }
