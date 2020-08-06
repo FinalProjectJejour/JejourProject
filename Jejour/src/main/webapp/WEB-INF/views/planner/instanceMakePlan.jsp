@@ -5,7 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
-  <head>    
+  <head>  
+
    	<c:import url="../common/header.jsp">
 		<c:param name="data" value="schedule"/>
 	</c:import>
