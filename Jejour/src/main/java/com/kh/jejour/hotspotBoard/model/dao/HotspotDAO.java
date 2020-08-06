@@ -24,6 +24,10 @@ public interface HotspotDAO {
 	List<HotspotBoard> search(HashMap<String, String> hmap, int cPage, int numPerPage);
 	
 	int selectHotspotBoardSearchContents(HashMap<String, String> hmap);
+
+	List<Map<String, String>> hotspotMyPageList(int cPage, int numPerPage, String userId);
+
+	int selectBoardMyTotalContents(String userId);
 	
 
 }

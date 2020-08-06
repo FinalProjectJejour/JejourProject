@@ -64,6 +64,19 @@ public class HotspotServiceImpl implements HotspotService {
 		
 		return hotspotDAO.selectHotspotBoardSearchContents(hmap);
 	}
+
+	@Override
+	public List<Map<String, String>> hotspotMyPageList(int cPage, int numPerPage, String userId) {
+		// TODO Auto-generated method stub
+		return hotspotDAO.hotspotMyPageList(cPage, numPerPage, userId);
+	}
+
+	@Override
+	public int selectBoardMyTotalContents(String userId) {
+		// TODO Auto-generated method stub
+		return hotspotDAO.selectBoardMyTotalContents(userId);
+	}
+	
 	
 	
 

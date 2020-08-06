@@ -92,7 +92,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberUpdateFormView.do">Update Info</a>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberPlan.do?userId=${member.userId}">My Plan</a>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/flashBoard/myHotspot.ho?userId=${member.userId}">My HotSpot</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/HotspotBoard/myHotspot.ho?userId=${member.userId}">My HotSpot</a>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/flashBoard/myFlash.fl?userId=${member.userId}">My Meet</a>
                 <c:if test="${member.userId eq 'admin'}">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/admin.do">Manager</a>

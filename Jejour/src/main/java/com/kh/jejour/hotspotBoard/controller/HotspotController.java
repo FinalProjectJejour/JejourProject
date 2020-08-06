@@ -309,6 +309,37 @@ public class HotspotController {
 		
 		return map;
 	}
+	
+	@RequestMapping("/HotspotBoard/myHotspot.ho")
+	public String myHotspot(
+				@RequestParam(value="cPage", required=false, defaultValue="1")
+				int cPage, String userId, Model model) {
+		System.out.println("userId = " + userId);
+		// 한 페이지 당 게시글 수
+		int numPerPage=8; // limit 역할
+		
+		// 1. 현재 페이지 게시글 목록 가져오기
+		// VO를 안쓰는 방법
+		// board객체를 통채로 받을수 없다.
+		List<Map<String, String>> holist
+			= hotspotService.hotspotMyPageList(cPage, numPerPage, userId);
+		
+		
+		// 2. 페이지 계산을 위한 총 페이지 갯수
+		int totalContents = hotspotService.selectBoardMyTotalContents(userId);
+		
+		// 3.페이지 HTML 생성
+		String pageBar = HotspotUtils.getPageBar(totalContents, cPage, numPerPage, "hotspotList.ho");
+		
+		model.addAttribute("holist", holist);
+		model.addAttribute("totalContents", totalContents);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		
+		System.out.println("holist : " + holist);
+		
+		return "member/myHotspot"; 
+	}
 
 	
 }
