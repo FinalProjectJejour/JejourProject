@@ -6,7 +6,9 @@
 
 <!DOCTYPE html>
 
-	<c:import url="../common/header.jsp"/>
+	<c:import url="../common/header.jsp">
+		<c:param name="data" value="hotSpot"/>
+	</c:import>
 	
 	<head>
 	   <style>

@@ -6,7 +6,9 @@
 
 <!DOCTYPE html>
 
-	<c:import url="../common/header.jsp"/>
+	<c:import url="../common/header.jsp">
+		<c:param name="data" value="top10"/>
+	</c:import>
 	<head>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	</head><x></x>

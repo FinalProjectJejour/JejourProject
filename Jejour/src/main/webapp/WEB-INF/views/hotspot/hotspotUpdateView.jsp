@@ -29,7 +29,9 @@
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 
-<c:import url="../common/header.jsp" />
+<c:import url="../common/header.jsp">
+	<c:param name="data" value="hotSpot"/>
+</c:import>
 
 <section class="ftco-section">
 	<div class="container">

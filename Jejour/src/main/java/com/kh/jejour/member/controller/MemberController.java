@@ -66,7 +66,7 @@ public class MemberController {
 			// 서비스 로직을 수행
 			int result = memberService.insertMember(member);
 
-			String loc = "/";
+			String loc = "/intro/main.do";
 			String msg = "";
 
 			// 수행한 결과에 따라 화면 분기 처리
@@ -153,9 +153,7 @@ public class MemberController {
 		Member m = memberService.selectOne(userId);
 		ModelAndView mav = new ModelAndView();
 		
-		String msg = "";
-		String loc = "/";
-		
+
 		int result = 0;
 
 		if(m == null) {
@@ -194,7 +192,7 @@ public class MemberController {
 			
 				
 				String msg = "";
-				String loc = "/";
+				String loc = "/intro/main.do";
 
 			if (bcryptPasswordEncoder.matches(userPwd, m.getUserPwd())) {
 
@@ -226,7 +224,7 @@ public class MemberController {
 		if (!status.isComplete())
 			status.setComplete();
 
-		return "redirect:/";
+		return "redirect:/intro/main.do";
 	}
 	
 
@@ -258,7 +256,7 @@ public class MemberController {
 			int result = memberService.updateMember(member);
 
 			// 2. 처리결과에 따라 화면 분기 처리하기
-			String loc = "/";
+			String loc = "/intro/main.do";
 			String msg = "";
 
 			if (result > 0) {
@@ -313,7 +311,7 @@ public class MemberController {
 			try {
 				int result = memberService.deleteMember(member.getUserId());
 
-				String loc = "/";
+				String loc = "/intro/main.do";
 				String msg = "";
 
 				if (result > 0) {
