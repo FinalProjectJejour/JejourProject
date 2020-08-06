@@ -64,6 +64,17 @@ public class FlashServiceImpl implements FlashService {
 		System.out.println("FlashService 도착!");
 		return flashDAO.selectFlashBoardSearchContents(hmap);
 	}
-	
+
+	@Override
+	public List<Map<String, String>> selectMyFlashBoardList(int cPage, int numPerPage, String userId) {
+		System.out.println("FlashService 도착!");
+		return flashDAO.selectMyFlashBoardList(cPage, numPerPage, userId);
+	}
+
+	@Override
+	public int selectMyFlashBoardTotalContents(String userId) {
+		System.out.println("FlashService 도착!");
+		return flashDAO.selectMyFlashBoardTotalContents(userId);
+	}
 
 }

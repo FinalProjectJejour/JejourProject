@@ -255,5 +255,32 @@ public class FlashBoardController {
 		
 		return map;
 	}
+	
+	@RequestMapping("/flashBoard/myFlash.fl")
+	public String myFlash(
+			@RequestParam(value="cPage", required=false, defaultValue="1")
+			int cPage, String userId, Model model) {
+		System.out.println("flashList 도착");
+		
+		// 한 페이지 당 게시글 수
+		int numPerPage = 8; // Limit 역할
+				
+		// 1. 현재 페이지 게시글 목록 가져오기
+		List<Map<String, String>> list = flashService.selectMyFlashBoardList(cPage, numPerPage, userId);
+		System.out.println("list 정보 : " + list);
+		
+		// 2. 페이지 계산을 위한 총 페이지 갯수
+		int totalContents = flashService.selectMyFlashBoardTotalContents(userId);
+		
+		// 3. 페이지 HTML 생성
+		String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "myFlash.fl");
+		
+		model.addAttribute("list", list)
+		 .addAttribute("totalContents",totalContents)
+	     .addAttribute("numPerPage", numPerPage)
+	     .addAttribute("pageBar", pageBar);
+		
+		return "member/myFlash";
+	}
 
 }

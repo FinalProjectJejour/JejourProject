@@ -69,4 +69,16 @@ public class FlashDAOImpl implements FlashDAO {
 		return sqlSession.selectOne("flashMapper.selectFlashBoardSearchContents", hmap);
 	}
 
+	@Override
+	public List<Map<String, String>> selectMyFlashBoardList(int cPage, int numPerPage, String userId) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		
+		return sqlSession.selectList("flashMapper.selectMyFlashBoardList", userId, rows);
+	}
+
+	@Override
+	public int selectMyFlashBoardTotalContents(String userId) {
+		return sqlSession.selectOne("flashMapper.selectMyFlashBoardTotalContent", userId);
+	}
+
 }

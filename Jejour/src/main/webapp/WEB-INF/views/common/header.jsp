@@ -51,7 +51,7 @@
     
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
       <div class="container">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}" style="font-family: bm; font-size: 30px;">Jejour</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}"><img src="${pageContext.request.contextPath}/resources/images/Logo.png" alt="Jejour" style="width: 180px; height: 50px;" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="oi oi-menu"></span> Menu
         </button>
@@ -92,6 +92,8 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberUpdateFormView.do">Update Info</a>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberPlan.do?userId=${member.userId}">My Plan</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/flashBoard/myHotspot.ho?userId=${member.userId}">My HotSpot</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/flashBoard/myFlash.fl?userId=${member.userId}">My Meet</a>
                 <c:if test="${member.userId eq 'admin'}">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/admin.do">Manager</a>
                 </c:if>
@@ -130,6 +132,10 @@
 	              	<c:if test="${ param.data eq 'jejuPlace' }">
 		              <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">About</a></span></p>
 		              <h1 class="mb-3">Jeju Place</h1>
+	              	</c:if>
+           		    <c:if test="${ param.data eq 'myFlash' }">
+		              <p class="breadcrumbs"><span class="mr-2"><a href="${pageContext.request.contextPath}">Home</a></span> <span><a href="#">My Page</a></span></p>
+		              <h1 class="mb-3">My Meeting</h1>
 	              	</c:if>
 	            </div>
 	          </div>
