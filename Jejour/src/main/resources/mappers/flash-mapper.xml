@@ -101,6 +101,19 @@
 		</where>
 	</select>
 	
+	<select id="selectMyFlashBoardList" parameterType="string" resultType="FlashBoard">
+		SELECT F.FNO, F.USERID, F.FTITLE, F.FPEOPLE, F.FMEETDATE, F.FMEETTIME, F.FCONTENT, F.FCOUNT, F.FWRITER, F.FDATE, F.FMAPTITLE, F.FMAPX, F.FMAPY, F.FSTATUS, NVL(COUNT(FC.FCNO),0) "COMMENTCOUNT" 
+		FROM FLASH_BOARD F
+		LEFT JOIN FLASH_COMMENT FC ON(F.FNO = FC.FNO)
+		WHERE F.FSTATUS = 'Y' AND F.USERID = #{userId}
+		GROUP BY F.FNO, F.USERID, F.FTITLE, F.FPEOPLE, F.FMEETDATE, F.FMEETTIME, F.FCONTENT, F.FCOUNT, F.FWRITER, F.FDATE, F.FMAPTITLE, F.FMAPX, F.FMAPY, F.FSTATUS
+		ORDER BY F.FDATE DESC, F.FNO DESC
+	</select>
+	
+	<select id="selectMyFlashBoardTotalContent" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM FLASH_BOARD WHERE FSTATUS = 'Y' AND USERID = #{userId}
+	</select>
+	
 	
 </mapper>
 

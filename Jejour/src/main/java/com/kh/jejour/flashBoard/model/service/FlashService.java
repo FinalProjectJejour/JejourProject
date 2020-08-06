@@ -23,4 +23,8 @@ public interface FlashService {
 	List<FlashBoard> search(HashMap<String, String> hmap, int cPage, int numPerPage);
 	
 	int selectFlashBoardSearchContents(HashMap<String, String> hmap);
+	
+	List<Map<String, String>> selectMyFlashBoardList(int cPage, int numPerPage, String userId);
+	
+	int selectMyFlashBoardTotalContents(String userId);
 }
