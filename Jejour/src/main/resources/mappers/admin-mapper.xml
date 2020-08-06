@@ -14,11 +14,14 @@
 	</resultMap>
 	<resultMap type="HotspotComment" id="hotspotCommentMap">
 	</resultMap>
+	<resultMap type="Planner" id="plannerMap">
+	</resultMap>
 
 
 	<select id="selectMemberList" resultMap="memberMap">
 		SELECT ROWNUM, M.*
-		FROM MEMBER M
+		FROM
+		MEMBER M
 		WHERE USERID != 'admin'
 		ORDER BY ROWNUM DESC
 	</select>
@@ -35,8 +38,8 @@
 		FROM FLASH_BOARD
 		ORDER BY FNO DESC
 	</select>
-	
-	<!-- =================삭제 =====================-->
+
+	<!-- =================삭제 ===================== -->
 
 	<delete id="deleteFlashBoard" parameterType="_int">
 		DELETE FLASH_BOARD
@@ -44,19 +47,20 @@
 	</delete>
 
 	<delete id="deleteHotspotBoard" parameterType="_int">
-		DELETE HOTSPOT_BOARD
+		DELETE
+		HOTSPOT_BOARD
 		WHERE HNO = #{hNo}
 	</delete>
-	
-	<!-- =================강퇴 ====================-->
+
+	<!-- =================강퇴 ==================== -->
 
 	<delete id="banMember" parameterType="String">
 		DELETE MEMBER
 		WHERE USERID =
 		#{userId}
 	</delete>
-	
-	<!--=================== 게시글 랭킹 ================-->
+
+	<!--=================== 게시글 랭킹 ================ -->
 
 	<select id="fBoardRanking" resultMap="flashMap">
 	<![CDATA[
@@ -70,7 +74,7 @@
 		)
 		WHERE ROWNUM <=3 AND USERID !='admin']]>
 	</select>
-	
+
 	<select id="hBoardRanking" resultMap="hotspotMap">
 	<![CDATA[
 		SELECT *
@@ -83,8 +87,8 @@
 		)
 		WHERE ROWNUM <=3 AND USERID !='admin']]>
 	</select>
-	
-	<!-- ===============댓글 랭킹 ================-->
+
+	<!-- ===============댓글 랭킹 ================ -->
 	<select id="fCommentRanking" resultMap="flashCommentMap">
 	<![CDATA[
 		SELECT *
@@ -97,7 +101,7 @@
 		)
 		WHERE ROWNUM <=3 AND USERID !='admin']]>
 	</select>
-	
+
 	<select id="hCommentRanking" resultMap="hotspotCommentMap">
 	<![CDATA[
 		SELECT *
@@ -110,39 +114,60 @@
 		)
 		WHERE ROWNUM <=3 AND USERID !='admin']]>
 	</select>
-	
-	
-	<!-- ===============스테이터스전환 ==============-->
-	
+
+
+	<!-- ===============스테이터스전환 ============== -->
+
 	<update id="changeHotspot" parameterType="List">
-		UPDATE HOTSPOT_BOARD SET
+		UPDATE HOTSPOT_BOARD
+		SET
 		HSTATUS = #{hStatus}
 		WHERE HNO = #{hNo}
 	</update>
-	
+
 	<update id="changeFlash" parameterType="List">
-		UPDATE FLASH_BOARD SET 
+		UPDATE FLASH_BOARD SET
 		FSTATUS = #{fStatus}
 		WHERE FNO = #{fNo}
 	</update>
-	
-	<select id="fStatusSelect" parameterType="List" resultMap="flashMap">
+
+	<select id="fStatusSelect" parameterType="List"
+		resultMap="flashMap">
 		SELECT FSTATUS,FNO
 		FROM FLASH_BOARD
 		WHERE FNO = #{fNo}
 	</select>
-	
-	<select id="hStatusSelect" parameterType="List" resultMap="hotspotMap">
+
+	<select id="hStatusSelect" parameterType="List"
+		resultMap="hotspotMap">
 		SELECT HSTATUS,HNO
 		FROM HOTSPOT_BOARD
 		WHERE HNO = #{hNo}
 	</select>
-	
+
 	<!-- ================총 회원 수========================= -->
-	
+
 	<select id="memberCount" resultMap="memberMap">
 		SELECT COUNT(*) MCOUNT
-		FROM MEMBER
+		FROM
+		MEMBER
+	</select>
+
+	<!-- ================컨텐츠 수 ========================== -->
+
+	<select id="plannerCount" resultMap="plannerMap">
+		SELECT COUNT(*) PCOUNT
+		FROM PLANNER
+	</select>
+
+	<select id="hotspotCount" resultMap="hotspotMap">
+		SELECT COUNT(*) HCOUNT
+		FROM HOTSPOT_BOARD
+	</select>
+
+	<select id="flashCount" resultMap="flashMap">
+		SELECT COUNT(*) FCOUNT
+		FROM FLASH_BOARD
 	</select>
 
 </mapper>

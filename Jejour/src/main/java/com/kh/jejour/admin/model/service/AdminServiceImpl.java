@@ -11,6 +11,7 @@ import com.kh.jejour.flashComment.model.vo.FlashComment;
 import com.kh.jejour.hotspotBoard.model.vo.HotspotBoard;
 import com.kh.jejour.hotspotComment.model.vo.HotspotComment;
 import com.kh.jejour.member.model.vo.Member;
+import com.kh.jejour.planner.model.vo.Planner;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -105,11 +106,31 @@ public class AdminServiceImpl implements AdminService {
 		
 		return adminDAO.hStatusSelect(hotspotBoard);
 	}
-
+	
+	//=============회원수 ==================
 	@Override
 	public List<Member> memberCount() {
 		
 		return adminDAO.memberCount();
+	}
+	
+	//=============컨텐츠수========================
+	@Override
+	public List<Planner> plannerCount() {
+		
+		return adminDAO.plannerCount();
+	}
+
+	@Override
+	public List<FlashBoard> flashCount() {
+		
+		return adminDAO.flashCount();
+	}
+
+	@Override
+	public List<HotspotBoard> hotspotCount() {
+		
+		return adminDAO.hotspotCount();
 	}
 
 	

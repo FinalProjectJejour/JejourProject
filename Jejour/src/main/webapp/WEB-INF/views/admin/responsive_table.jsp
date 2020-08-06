@@ -40,7 +40,7 @@
             <ul class="sub">
               <li><a href="${pageContext.request.contextPath}/admin/hotspotManager.do">리뷰 게시판</a></li>
               <li class="active"><a href="${pageContext.request.contextPath}/admin/flashManager.do">번개 게시판</a></li>
-              <li><a href="${pageContext.request.contextPath}/admin/etc.do">보류</a></li>
+              
             </ul>
           </li>
           
