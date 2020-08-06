@@ -35,7 +35,7 @@ public class VisitCountInterceptor extends HandlerInterceptorAdapter{
 		
 		
 			
-	    response.sendRedirect("/jejour/");
+	    response.sendRedirect("/jejour/intro/main.do");
 		
 		
 		
