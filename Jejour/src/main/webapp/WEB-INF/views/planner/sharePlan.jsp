@@ -41,7 +41,7 @@
          		<button type="button" class="btn btn-outline-secondary" onclick="searchShare();">검색하기</button>
        		</div>
        		<div class="col-md-2 text-right">
-         		<button type="button" class="btn btn-primary" onclick="goFlashBoardInsert();">작성하기</button>
+         		<button type="button" class="btn btn-primary" onclick="goplan();">작성하기</button>
        		</div>
         </div>
       
@@ -89,6 +89,14 @@
     </section>
 
 	<script>
+	function goplan(){
+		
+		location.href="${pageContext.request.contextPath}/planner/plannerSee.do";
+		
+	}
+	
+	
+	
 		var cPage = 1;
 		
 		function searchShare(){
