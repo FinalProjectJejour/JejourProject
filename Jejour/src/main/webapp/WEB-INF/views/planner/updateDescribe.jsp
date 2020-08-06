@@ -105,9 +105,7 @@
 
 	<section class="ftco-section contact-section">
 		<div class="container">
-			<form
-				action="${pageContext.request.contextPath}/planner/planConfirm.do"
-				id="Plan" method="post">
+			<form action="${pageContext.request.contextPath}/planner/afterChangeDescribe.do" id="Change" method="post">
 			<h2 class="h4 mb-4">Is This Right?</h2>
 			<div class="row mt-5">
 				<div class="col-md-8 map_wrap mx-auto" id="map" ></div>
@@ -116,18 +114,10 @@
 			 	</div>
 			</div>
 			 
-			 
-
-			<div id='calendar'></div>
-			&nbsp;
 			
 				<div class="form-group" style="float: right" id="confirmed">
-					<input type="radio" name="status" value="Y" checked>공개
-					&nbsp;&nbsp;&nbsp; <input type="radio" name="status" value="N">비공개
-					&nbsp;&nbsp;&nbsp; <input type="hidden" name="pNo" id="pNo"
-						value="${pNo}">
-					<button type="button" class="btn btn-primary py-3 px-4"
-						onclick="planConfirmed();">일정 완료</button>
+					<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+					<button type="button" class="btn btn-primary py-3 px-4" onclick="describeChange();">변경 완료</button>
 				</div>
 			</form>
 		</div>
@@ -259,66 +249,19 @@
 
 	<script>
   	
-	function planConfirmed(){
+	function describeChange(){
 			
-		$("#Plan").submit();
+		$("#Change").submit();
 			
 	}
   
-  
-  
- 	document.addEventListener('DOMContentLoaded', function() {
-  	
-      var calendarEl = document.getElementById('calendar');
-  
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        now: '${start}',
-        editable: true, // enable draggable events
-        aspectRatio: 1.8,
-        scrollTime: '06:00', // undo default 6am scrollTime
-        headerToolbar: {
-          left: 'today prev,next',
-          center: 'title',
-          right: 'timeGridWeek,dayGridMonth'
-        },
-        initialView: 'timeGridWeek',
-        views: {
-          resourceTimelineThreeDays: {
-            type: 'resourceTimeline',
-            duration: { days: 3 },
-            buttonText: '3 days'
-          }
-        },
-        resourceAreaHeaderContent: 'Rooms',
-        resourceLabelContent: function(arg) {
-          return 'Auditorium ' + arg.resource.id.toUpperCase();
-        },
-        resourceLabelDidMount: function(arg) {
-          if (arg.resource.id == 'h') {
-            arg.el.style.backgroundColor = 'rgb(255, 243, 206)';
-          }
-        },
-        resources: [
-      	  <c:forEach items="${list}" var="p" varStatus="loop">
-      	  	{ id: '${p.mapTitle}' }
-      	  	<c:if test="${!loop.last}">,</c:if>
-      	  </c:forEach>
-        ],
-        events: [
-      	  	<c:forEach items="${list}" var="pl" varStatus="status">
-    	  			{ id: '${pl.ppNo}', resourceId: '${pl.mapTitle}', start: '${pl.startTime}', end: '${pl.endTime}',  title: '${pl.mapTitle}' }
-    	  			<c:if test="${!status.last}">,</c:if>
-    	 		</c:forEach>
-        ]
-      });
-  
-      calendar.render();
-    });
   </script>
   
   
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f8c0b6988029a8eedd98928d0fab7698&libraries=services"></script>
 	<script>
+
+	  	document.getElementById("describe").defaultValue = "${describe}";
 		
 		// 유병호 작성 - 데이터베이스에서 가져올 경우 데이터(이름, x, y)를 input에 담았다는 가정하에 진행 
 		// * 여러개일 경우 객체 리스트로 담아와서 for-each문 사용하면 됨
@@ -388,21 +331,6 @@
 		    */
 		}
 		
-		/*
-		// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
-		function makeOverListener(map, marker, infowindow) {
-		    return function() {
-		        infowindow.open(map, marker);
-		    };
-		}
-		
-		// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
-		function makeOutListener(infowindow) {
-		    return function() {
-		        infowindow.close();
-		    };
-		}
-		*/
 		
 		//선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
 		var linePath = [
@@ -412,42 +340,6 @@
 			</c:forEach>
 		];
 		
-		/*
-		// 지도에 표시할 선을 생성합니다
-		var polyline = new kakao.maps.Polyline({
-		    path: linePath, // 선을 구성하는 좌표배열 입니다
-		    strokeWeight: 3, // 선의 두께 입니다
-		    strokeColor: '#FFAE00', // 선의 색깔입니다
-		    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-		    strokeStyle: 'solid' // 선의 스타일입니다
-		});
-		
-		// 지도에 선을 표시합니다 
-		polyline.setMap(map);
-		
-		console.log(polyline.getLength());
-		
-		var distance = Math.round(polyline.getLength());
-		var position = positions[2].latlng;
-		
-		displayCircleDot(position, distance);
-		
-		function displayCircleDot(position, distance) {
-		
-		 if (distance > 0) {
-		     // 클릭한 지점까지의 그려진 선의 총 거리를 표시할 커스텀 오버레이를 생성합니다
-		     var distanceOverlay = new kakao.maps.CustomOverlay({
-		         content: '<div class="dotOverlay">거리 <span class="number">' + distance + '</span>m</div>',
-		         position: position,
-		         yAnchor: 1,
-		         zIndex: 2
-		     });
-		
-		     // 지도에 표시합니다
-		     distanceOverlay.setMap(map);
-		 }
-		}
-		*/
 		
 		
 		//유병호 제작

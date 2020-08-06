@@ -84,6 +84,25 @@ public class PlannerServiceImpl implements PlannerService {
 		// TODO Auto-generated method stub
 		return plannerDAO.changePlannerTheme(planner);
 	}
+
+	@Override
+	public int deleteThisPlanner(int pNo) {
+		// TODO Auto-generated method stub
+		return plannerDAO.deletePlan(pNo);
+		
+	}
+
+	@Override
+	public int setDescribe(Planner planner) {
+		// TODO Auto-generated method stub
+		return plannerDAO.changeDescribe(planner);
+	}
+
+	@Override
+	public int setOneStatus(Planner planner) {
+		// TODO Auto-generated method stub
+		return plannerDAO.changeStatus(planner);
+	}
 	
 	
 

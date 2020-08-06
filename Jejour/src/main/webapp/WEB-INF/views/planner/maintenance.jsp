@@ -61,6 +61,12 @@
 
               <section class="history spad">
                 <div class="container">
+                	<c:if test="${member.userId eq planner.userId}">
+	                   <form name="instanceMakePlan" action="${pageContext.request.contextPath}/planner/deletePlan.do" method="post">
+	                        <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+	                        <input type="submit" class="search-submit btn btn-primary" value="일정 삭제(*주의)" style="background-color: red;">
+	                    </form>
+                    </c:if>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="section-title history-title">
@@ -151,6 +157,21 @@
           <div class="col-lg-4 sidebar">
           
 			<div class="sidebar-box ftco-animate">
+			  <c:if test="${member.userId eq planner.userId}">
+			  	<form action="${pageContext.request.contextPath}/planner/changeStatus.do" id="StatusChange">
+			  	  <input type="hidden" name="pNo" id="pNo" value="${pNo}">
+				  <h3>Status 설정</h3>
+				  <c:if test="${planner.status ne 'N' }">
+					  <input type="radio" name="status" value="Y" checked>공개 &nbsp;&nbsp;&nbsp; 
+					  <input type="radio" name="status" value="N">비공개
+				  </c:if>
+				  <c:if test="${planner.status eq 'N' }">
+				  	  <input type="radio" name="status" value="Y">공개 &nbsp;&nbsp;&nbsp; 
+					  <input type="radio" name="status" value="N" checked>비공개
+				  </c:if>
+				  <button type="button"  class="btn btn-primary py-2 px-4" onclick="changeStatus();">Status 변경</button>
+				 </form>
+			  </c:if>
               <h3>Theme</h3>
               <div class="tagcloud">
 	              <c:if test="${member.userId ne planner.userId}">
@@ -303,6 +324,13 @@
             <div class="sidebar-box ftco-animate">
               <h3>일정 제작자의 말</h3>
               <p><c:out value="${describe}"/></p>
+              <c:if test="${member.userId eq planner.userId}">
+              	<form action="${pageContext.request.contextPath}/planner/changeDescribe.do" id="DescribeChange">
+              		<input type="hidden" name="pNo" id="pNo" value="${pNo}">
+              		<input type="hidden" name="describe" id="describe" value="${describe}">
+              		<button type="button"  class="btn btn-primary py-2 px-4" onclick="changeDescribe();">Describe 변경</button>
+              	</form>
+              </c:if>
             </div>
             <c:if test="${member.userId ne null}">
 	            <div class="sidebar-box ftco-animate" style="text-align: center;">
@@ -425,6 +453,17 @@
   <script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
   
   <script>
+  function changeStatus(){
+		
+		$("#StatusChange").submit();
+			
+	}
+  function changeDescribe(){
+		
+		$("#DescribeChange").submit();
+			
+	}
+  
   function ct12(){
 		$("#fct12").submit();
 	}

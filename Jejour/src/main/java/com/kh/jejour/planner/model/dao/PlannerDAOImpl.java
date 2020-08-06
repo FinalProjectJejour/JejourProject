@@ -50,6 +50,25 @@ public class PlannerDAOImpl implements PlannerDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.update("plannerMapper.updateTheme", planner);
 	}
+
+	@Override
+	public int deletePlan(int pNo) {
+		sqlSession.delete("plannerMapper.deleteAllPlan", pNo);
+		// TODO Auto-generated method stub
+		return sqlSession.delete("plannerMapper.deletePlaner", pNo);
+	}
+
+	@Override
+	public int changeDescribe(Planner planner) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("plannerMapper.updateOneDescribe", planner);
+	}
+
+	@Override
+	public int changeStatus(Planner planner) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("plannerMapper.updateOneStatus", planner);
+	}
 	
 	
 	

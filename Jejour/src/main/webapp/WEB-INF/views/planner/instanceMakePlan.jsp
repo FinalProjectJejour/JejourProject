@@ -132,19 +132,19 @@
           <div class="col-md-4">
             <form action="${pageContext.request.contextPath}/plannerPart/instanceMakePlan.do" id="makingPlan" method="post" onsubmit="return pass();">
               <div class="form-group">
-                <input type="text" id="fMapTitle"  class=" form-control" name="mapTitle">
+                <span>장소 : <input type="text" id="fMapTitle"  class=" form-control" name="mapTitle" placeholder="지도의 마크를 클릭하세요"></span>
               </div>
               <div class="form-group">
-                <input type="datetime-local" min="${startDay}" max="${endDay}" class=" form-control" name="startTime" id="startTime_ck">
+                <span>일정 시작 : <input type="datetime-local" min="${startDay}" max="${endDay}" class=" form-control" name="startTime" id="startTime_ck"></span>
               </div>
               <div class="form-group">
-                <input type="datetime-local" min="${startDay}" max="${endDay}" class=" form-control" name="endTime" id="endTime_ck">
+                <span>일정 끝 : <input type="datetime-local" min="${startDay}" max="${endDay}" class=" form-control" name="endTime" id="endTime_ck"></span>
               </div>
               <div class="form-group">
-                <input type="number" class="form-control" name="money" placeholder="ACCOUNT">
+                <span>예상금액 : <input type="number" class="form-control" name="money" placeholder="숫자만 기입"></span>
               </div>
               <div class="form-group">
-                <textarea cols="30" rows="7" class="form-control" name="reason" id="describe" placeholder="DESCRIBE"></textarea>
+                <span>한줄평 : <textarea cols="30" rows="3" class="form-control" name="reason" id="describe" placeholder="가서 하고 싶은 것 등을 적으시오"></textarea></span>
               </div>
               
               <input type="hidden" name="calendar_set" id="calendar_set" value="${calendar_set}">

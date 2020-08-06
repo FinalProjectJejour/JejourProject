@@ -128,13 +128,99 @@ public class PlannerController {
 		return "planner/plannerConfirm";
 	}
 	
+	@RequestMapping("/planner/changeDescribe.do")
+	public String updateDescribe(Model model, HttpSession session,
+									@RequestParam("pNo") int pNo,
+									@RequestParam("describe") String describe) {
+		
+		System.out.println(pNo);
+		
+		List<PlannerPart> list = plannerPartService.selectPlanList(pNo);
+		Planner pl = plannerService.getThisPlanner(pNo);
+		
+		System.out.println(list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pNo", pNo);
+		model.addAttribute("describe", describe);
+		model.addAttribute("start", pl.getStartDay());
+		
+		return "planner/updateDescribe";
+	}
+	
+	@RequestMapping("/planner/afterChangeDescribe.do")
+	public String ReturnMaintenance(Planner planner, Model model, HttpSession session) {
+		
+		plannerService.setDescribe(planner);
+		
+		Planner pl = plannerService.getThisPlanner(planner.getPNo());
+		System.out.println(pl);
+		
+		List<PlannerPart> list = plannerPartService.selectPlanList(planner.getPNo());
+		List<CategoryCount> cclist = plannerPartService.countCategory(planner.getPNo());
+		System.out.println(list);
+		System.out.println(list.size());
+		System.out.println(cclist);
+		
+		int like = plannerLikeService.countLike(planner.getPNo());
+		int unlike = plannerLikeService.countUnLike(planner.getPNo());
+
+		
+		model.addAttribute("planner", pl);
+		model.addAttribute("pNo",pl.getPNo());
+		model.addAttribute("startDay",pl.getStartDay());
+		model.addAttribute("endDay",pl.getEndDay());
+		model.addAttribute("describe",pl.getDescribe());
+		model.addAttribute("list", list);
+		model.addAttribute("cclist", cclist);
+		model.addAttribute("listLength", list.size());
+		model.addAttribute("like", like);
+		model.addAttribute("unlike", unlike);
+		
+		return "planner/maintenance";
+	}
+	
 	@RequestMapping("/planner/planConfirm.do")
 	public String PlannerConfirm(Planner planner, Model model, HttpSession session) {
 		
 		plannerService.setStatus(planner);
 		
-		return "../index";
+		return "redirect:/";
 	}
+	
+	@RequestMapping("/planner/changeStatus.do")
+	public String changeStatus(Planner planner, Model model, HttpSession session) {
+		
+		plannerService.setOneStatus(planner);
+		
+		Planner pl = plannerService.getThisPlanner(planner.getPNo());
+		System.out.println(pl);
+		
+		List<PlannerPart> list = plannerPartService.selectPlanList(planner.getPNo());
+		List<CategoryCount> cclist = plannerPartService.countCategory(planner.getPNo());
+		System.out.println(list);
+		System.out.println(list.size());
+		System.out.println(cclist);
+		
+		int like = plannerLikeService.countLike(planner.getPNo());
+		int unlike = plannerLikeService.countUnLike(planner.getPNo());
+
+		
+		model.addAttribute("planner", pl);
+		model.addAttribute("pNo",pl.getPNo());
+		model.addAttribute("startDay",pl.getStartDay());
+		model.addAttribute("endDay",pl.getEndDay());
+		model.addAttribute("describe",pl.getDescribe());
+		model.addAttribute("list", list);
+		model.addAttribute("cclist", cclist);
+		model.addAttribute("listLength", list.size());
+		model.addAttribute("like", like);
+		model.addAttribute("unlike", unlike);
+		
+		return "planner/maintenance";
+	}
+	
+	
 	/*
 	@RequestMapping("/planner/plannerSeePlan.do")
 	public String seeSetPlanner(@RequestParam("list") List<PlannerPart> list, Model model) {
@@ -298,6 +384,14 @@ public class PlannerController {
 		model.addAttribute("return_date",pl.getEndDay());
 		
 		return "planner/instanceUpdatePlan";
+	}
+	
+	@RequestMapping("/planner/deletePlan.do")
+	public String deletePlan(Planner planner, Model model, HttpSession session) {
+		
+		plannerService.deleteThisPlanner(planner.getPNo());
+		
+		return "redirect:/";
 	}
 	
 	
