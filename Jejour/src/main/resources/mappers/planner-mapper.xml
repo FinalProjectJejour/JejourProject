@@ -72,7 +72,23 @@
 		WHERE (PNO = #{pNo}) AND (USERID = #{userId})
 	</select>
 	
-	<update id="updateStatus" parameterType="Planner">
+	<update id="updateOneStatus" parameterType="Planner">
+      UPDATE PLANNER
+      <set>
+      	STATUS=#{status}
+      </set>
+      WHERE PNO = #{pNo}
+   </update>
+   
+   <update id="updateOneDescribe" parameterType="Planner">
+      UPDATE PLANNER
+      <set>
+      	DESCRIBE=#{describe}
+      </set>
+      WHERE PNO = #{pNo}
+   </update>
+   
+   <update id="updateStatus" parameterType="Planner">
       UPDATE PLANNER
       <set>
       	DESCRIBE=#{describe},
@@ -138,6 +154,15 @@
 		GROUP BY CATEGORY
 	</select>
    
+   <delete id="deletePlaner" parameterType="_int">
+      DELETE FROM PLANNER
+      WHERE PNO = #{pNo}
+   </delete>
+   
+   <delete id="deleteAllPlan" parameterType="_int">
+      DELETE FROM PLANNER_PART
+      WHERE PNO = #{pNo}
+   </delete>
 </mapper>
 
 

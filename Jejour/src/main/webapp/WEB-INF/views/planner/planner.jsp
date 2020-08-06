@@ -54,6 +54,35 @@
         font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
         font-size: 14px;
       }
+      
+      
+      
+      .filebox label {
+	 	display: inline-block;
+	  	padding: .5em .75em;
+	  	color: #999;
+	    font-size: inherit;
+	    line-height: 36px;
+	    vertical-align: middle;
+	    background-color: #fdfdfd;
+	    cursor: pointer;
+	    border: 1px solid #ebebeb;
+	    border-bottom-color: #e2e2e2;
+	    border-radius: .25em;
+	   } 
+	            
+	  .filebox input[type="file"] {
+	   	position: absolute;
+	    width: 1px;
+	    height: 1px;
+	    padding: 0;
+	    margin: -1px;
+	    overflow: hidden;
+	    clip:rect(0,0,0,0);
+	    border: 0; 
+	   }
+      
+      
     
       #calendar {
         max-width: 2100px;
@@ -100,6 +129,8 @@
 			#pagination a {display:inline-block;margin-right:10px;}
 			#pagination .on {font-weight: bold; cursor: default;color:#777;}
 			
+			
+	
     </style>
     
     
@@ -108,10 +139,6 @@
   
   <body>
     
-    <!-- END nav -->
-    
-    
-    <!-- END slider -->
     <c:set var="no" value="<%=no %>"/>
     <c:set var="title" value="<%=title %>"/>
     <c:set var="theme" value="<%=theme %>"/>
@@ -119,16 +146,7 @@
     <c:set var="return_date" value="<%=return_date %>"/>
     <c:set var="reservationPage" value="window.open('${pageContext.request.contextPath}/planner/reservationGo.do', 'reservationPage', 'width=1350,height=950');"/>
     
-    <!-- 
-    <div style="position: fixed; right: 20px; bottom: 50px;">
-    	<form action="${pageContext.request.contextPath}/planner/goReservation.do" id="goreservation">
-			<button type="button" class="btn btn-primary py-3 px-4" onclick="goreservation()">예매페이지</button>  
-		</form> 
-  	</div>
-  	 -->
   	 
-  	
-  	
    
     <c:if test="${no eq null and pNo eq null }">
     <div class="ftco-section-search">
@@ -152,8 +170,9 @@
                     <div class="fields d-block d-lg-flex">
                     
                       <!-- <div class="fileArea" style="background-image: url('${pageContext.request.contextPath}/resources/images/insert-picture-icon.jpg'); background-repeat: no-repeat;"> -->
-                      <div class="fileArea1" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile1">
+                      <div class="filebox">
+                      	<label for="upFile1">사진 등록</label>
+                      	<input type="file" name="upFile" id="upFile1">
                       </div>
                       
                       <div class="check-in one-third"><input type="text" name="title" id="title1" class="form-control" placeholder="일정 제목"></div>
@@ -179,8 +198,9 @@
                     
                       
 
-                      <div class="fileArea2" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile2">
+                      <div class="filebox">
+                      	<label for="upFile2">사진 등록</label>
+                      	<input type="file" name="upFile" id="upFile2">
                       </div>
                       
                       <div class="check-in one-third"><input type="text" name="title" id="title2" class="form-control" placeholder="일정 제목"></div>
@@ -203,8 +223,9 @@
                   <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead3" onsubmit="return validate3();" enctype="multipart/form-data">
                     <div class="fields d-block d-lg-flex">
 
-                      <div class="fileArea3" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile3">
+                      <div class="filebox">
+                      	<label for="upFile3">사진 등록</label>
+                      	<input type="file" name="upFile" id="upFile3">
                       </div>
                       
 					  <div class="check-in one-third"><input type="text" name="title" id="title3" class="form-control" placeholder="일정 제목"></div>
@@ -227,8 +248,9 @@
                   <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead4" onsubmit="return validate4();" enctype="multipart/form-data">
                     <div class="fields d-block d-lg-flex">
                       
-                      <div class="fileArea4" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile4">
+                      <div class="filebox">
+                      	<label for="upFile4">사진 등록</label>
+                      	<input type="file" name="upFile" id="upFile4">
                       </div>
                       
 					  <div class="check-in one-third"><input type="text" name="title" id="title4" class="form-control" placeholder="일정 제목"></div>
@@ -252,8 +274,9 @@
                   <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead5" onsubmit="return validate5();" enctype="multipart/form-data">
                     <div class="fields d-block d-lg-flex">
 
-                      <div class="fileArea5" style="display:none;">
-                      	<input type="file" class="custom-file-input" name="upFile" id="upFile5">
+                      <div class="filebox">
+                      	<label for="upFile5">사진 등록</label>
+                      	<input type="file" name="upFile" id="upFile5">
                       </div>
 
 				 	  <div class="check-in one-third"><input type="text" name="title" id="title5" class="form-control" placeholder="일정 제목"></div>
@@ -315,19 +338,19 @@
           <div class="col-md-4">
             <form action="${pageContext.request.contextPath}/plannerPart/plannerPartMake.do" id="makingPlan" method="post" onsubmit="return pass();">
               <div class="form-group">
-                <input type="text" id="fMapTitle"  class=" form-control" name="mapTitle">
+                <span>장소 : <input type="text" id="fMapTitle"  class=" form-control" name="mapTitle" placeholder="지도의 마크를 클릭하세요"></span>
               </div>
               <div class="form-group">
-                <input type="datetime-local" min="${start_date}" max="${return_date}" class=" form-control" name="startTime" id="startTime_ck">
+                <span>일정 시작 : <input type="datetime-local" min="${start_date}" max="${return_date}" class=" form-control" name="startTime" id="startTime_ck"></span>
               </div>
               <div class="form-group">
-                <input type="datetime-local" min="${start_date}" max="${return_date}" class=" form-control" name="endTime" id="endTime_ck">
+                <span>일정 끝 : <input type="datetime-local" min="${start_date}" max="${return_date}" class=" form-control" name="endTime" id="endTime_ck"></span>
               </div>
               <div class="form-group">
-                <input type="number" class="form-control" name="money" placeholder="ACCOUNT">
+                <span>예상금액 : <input type="number" class="form-control" name="money" placeholder="숫자만 기입"></span>
               </div>
               <div class="form-group">
-                <textarea cols="30" rows="7" class="form-control" name="reason" id="describe" placeholder="DESCRIBE"></textarea>
+                <span>한줄평 : <textarea cols="30" rows="3" class="form-control" name="reason" id="describe" placeholder="가서 하고싶은 것 등을 적으시오"></textarea></span>
               </div>
               
               <input type="hidden" name="calendar_set" id="calendar_set" value="${calendar_set}">
@@ -618,47 +641,28 @@
 	}
   
 	function setPlanner1(){
-		$('#upFile1').click();
+		/*
 		if($("#upFile1").val().trim()==0){
 			alert("사진을 넣어주세요~~");
 			return false;
 		}
+		*/
 		$("#goAhead1").submit();
 		
 	}
 	function setPlanner2(){
-		$('#upFile2').click();
-		if($("#upFile2").val().trim()==0){
-			alert("사진을 넣어주세요~~");
-			return false;
-		}
 		$("#goAhead2").submit();
 		
 	}
 	function setPlanner3(){
-		$('#upFile3').click();
-		if($("#upFile3").val().trim()==0){
-			alert("사진을 넣어주세요~~");
-			return false;
-		}
 		$("#goAhead3").submit();
 		
 	}
 	function setPlanner4(){
-		$('#upFile4').click();
-		if($("#upFile4").val().trim()==0){
-			alert("사진을 넣어주세요~~");
-			return false;
-		}
 		$("#goAhead4").submit();
 		
 	}
 	function setPlanner5(){
-		$('#upFile5').click();
-		if($("#upFile5").val().trim()==0){
-			alert("사진을 넣어주세요~~");
-			return false;
-		}
 		$("#goAhead5").submit();
 		
 	}
@@ -728,7 +732,7 @@
   	      now: '${start}',
   	      editable: true,
   	      aspectRatio: 1.8,
-  	      scrollTime: '00:00',
+  	      scrollTime: '06:00',
   	      headerToolbar: {
   	        left: 'today prev,next',
   	        center: 'title',

@@ -27,6 +27,12 @@ public interface PlannerService {
 
 		int changePlannerTheme(Planner planner);
 
+		int deleteThisPlanner(int pNo);
+
+		int setDescribe(Planner planner);
+
+		int setOneStatus(Planner planner);
+
 
 		// Planner selectOnePlanner(int pNo);
 	

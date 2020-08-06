@@ -19,5 +19,11 @@ public interface PlannerDAO {
 
 	int changePlannerTheme(Planner planner);
 
+	int deletePlan(int pNo);
+
+	int changeDescribe(Planner planner);
+
+	int changeStatus(Planner planner);
+
 	// Planner selectOnePlanner(int pNo);
 }

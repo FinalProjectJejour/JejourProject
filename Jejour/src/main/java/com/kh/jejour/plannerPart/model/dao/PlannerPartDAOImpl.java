@@ -32,7 +32,7 @@ public class PlannerPartDAOImpl implements PlannerPartDAO {
 	@Override
 	public int deletePlan(int ppNo) {
 		// TODO Auto-generated method stub
-		return sqlSession.insert("plannerMapper.deleteplan", ppNo);
+		return sqlSession.delete("plannerMapper.deleteplan", ppNo);
 	}
 
 	@Override
