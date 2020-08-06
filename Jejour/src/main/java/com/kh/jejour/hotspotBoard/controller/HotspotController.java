@@ -157,7 +157,7 @@ public class HotspotController {
 			}	
 		}
 		
-		return "http://localhost:8088/jejour/resources/images/hotspotimg/desc/"+renamedName;
+		return "http://192.168.20.77:8088/jejour/resources/images/hotspotimg/desc/"+renamedName;
 	}	
 	
 	@RequestMapping("/hotspotBoard/hotspotList.ho")
