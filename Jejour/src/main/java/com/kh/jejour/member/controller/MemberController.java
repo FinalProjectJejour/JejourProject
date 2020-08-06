@@ -81,13 +81,15 @@ public class MemberController {
 			return "common/msg";
 		}
 		
-		@RequestMapping("/itro/ourSite.do")
-		public String moveOutStie() {
-			
-			
-			return "member/ourSite";
-			
-		}
+		
+		  @RequestMapping("/intro/main.do")
+		  public String moveMain() {
+		  
+		  
+		  return "index";
+		  
+		  }
+		 
 		
 		// 나의 일정페이지 이동
 		@RequestMapping("/member/memberPlan.do")

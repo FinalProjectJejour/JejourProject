@@ -124,7 +124,7 @@ header img {
    
    
    <c:if test="${ check == -1 }"> <!-- 잘못된 정보 입력시 -->
-   	<div style="margin-left:55px; margin-top:70px;">
+   	<div style="margin-top:70px; float:center;">
    	<p style="color:red; font-size:22px;">해당하는 아이디가 없습니다</p><br>
    	<p>성명과 이메일을 알맞게 입력해주세요!</p>
 	<button type="button" onclick="fn_back();" class="underline-btn" style="border:0; background-color:white;">다시 찾기</button>
