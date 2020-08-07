@@ -359,7 +359,7 @@
 	       						}
 	       						// window.scrollBy(-1000, 0);
 	       						// location.href='#tourList';
-	       						sleep(1000);
+	       						sleep(300);
 	       						page++;
 	       						
 	       						if(data.response.body.items == "" || data.response.body.items == null) {
@@ -412,7 +412,7 @@
 	    							}
 	    						}
 	    						
-	    						sleep(1000);
+	    						sleep(300);
 	       						page++;
 	       						
 	       						if(data.response.body.items == "" || data.response.body.items == null) {
@@ -464,7 +464,7 @@
 	       							}
        							}
 	       						//window.scrollBy(-1000, 0);
-	       						sleep(1000);
+	       						sleep(300);
 	       						page++;
 	       						
 	       						if(data.response.body.items == "" || data.response.body.items == null) {

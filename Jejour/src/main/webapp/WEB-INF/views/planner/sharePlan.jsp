@@ -52,11 +52,15 @@
         <c:forEach items="${list}" var="s"> 
           <div class="col-md-6 col-lg-3 ftco-animate">
             <div class="blog-entry">
-              <a href="#" class="block-20" style="background-image: url('${pageContext.request.contextPath}/resources/upload/planner/${s.renamedFileName}'); text-align: right;">
+          	  <c:if test="${s.renamedFileName ne null}">
+              	<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=${s.PNo}" class="block-20" style="background-image: url('${pageContext.request.contextPath}/resources/upload/planner/${s.renamedFileName}'); text-align: right;"></a>
+              </c:if>
+              <c:if test="${s.renamedFileName eq null}">
+              	<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=${s.PNo}" class="block-20" style="background-image: url('${pageContext.request.contextPath}/resources/images/noimage.jpg'); text-align: right;"></a>
+              </c:if>
                 <div class="col-sm-4" style="text-align: center; background-color: #ff5f5f; color : white;">
                   	${s.theme}
                 </div>
-              </a>
               <div class="text p-4">
                 <div class="meta">
                   <div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=${s.PNo}">${s.startDay}</a></div>
@@ -127,35 +131,65 @@
     					);
 
     					for(var i in item.list){
-    						
-	    					$('#sharePlanList').append(
-	    					          '<div class="col-md-6 col-lg-3 ftco-animate">' +
-	    					            '<div class="blog-entry">' +
-	    					              '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="block-20" style="background-image: url(' + '\'' + '${pageContext.request.contextPath}/resources/upload/planner/' + item.list[i].renamedFileName + '\'' + '); text-align: right;">' +
-	    					                '<div class="col-sm-4" style="text-align: center; background-color: #ff5f5f; color : white;">' +
-	    					                  	item.list[i].theme +
-	    					                '</div>' +
-	    					              '</a>' +
-	    					              '<div class="text p-4">' +
-	    					                '<div class="meta">' +
-	    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].startDay + '</a></div>' +
-	    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">~</a></div>' +
-	    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].endDay + '</a></div>' +
-	    					                '</div>' +
-	    					                '<div class="meta">' +
-	    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + '작성자 :' + item.list[i].pwriter + '</a></div>' +
-	    					                '</div>' +
-	    					                '<div style="height: 120px;">' +
-	    					                	'<h3 class="heading"><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].title + '</a></h3>' +
-	    					                '</div>' +
-	    					                '<p class="clearfix">' +
-	    					                  '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="float-left">Read more</a>' +
-	    					                  '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="float-right meta-chat"><span class="icon-thumbs-o-up"></span>' + '&nbsp;' + item.list[i].likeCount + '</a>' +
-	    					                '</p>' +
-	    					              '</div>' +
-	    					            '</div>' +
-	    					          '</div>'
-	    					);
+    						if(item.list[i].renamedFileName != null){
+		    					$('#sharePlanList').append(
+		    					          '<div class="col-md-6 col-lg-3 ftco-animate">' +
+		    					            '<div class="blog-entry">' +
+		    					              '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="block-20" style="background-image: url(' + '\'' + '${pageContext.request.contextPath}/resources/upload/planner/' + item.list[i].renamedFileName + '\'' + '); text-align: right;">' +
+		    					                '<div class="col-sm-4" style="text-align: center; background-color: #ff5f5f; color : white;">' +
+		    					                  	item.list[i].theme +
+		    					                '</div>' +
+		    					              '</a>' +
+		    					              '<div class="text p-4">' +
+		    					                '<div class="meta">' +
+		    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].startDay + '</a></div>' +
+		    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">~</a></div>' +
+		    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].endDay + '</a></div>' +
+		    					                '</div>' +
+		    					                '<div class="meta">' +
+		    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + '작성자 :' + item.list[i].pwriter + '</a></div>' +
+		    					                '</div>' +
+		    					                '<div style="height: 120px;">' +
+		    					                	'<h3 class="heading"><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].title + '</a></h3>' +
+		    					                '</div>' +
+		    					                '<p class="clearfix">' +
+		    					                  '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="float-left">Read more</a>' +
+		    					                  '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="float-right meta-chat"><span class="icon-thumbs-o-up"></span>' + '&nbsp;' + item.list[i].likeCount + '</a>' +
+		    					                '</p>' +
+		    					              '</div>' +
+		    					            '</div>' +
+		    					          '</div>'
+		    					);
+    						} else {
+		    					$('#sharePlanList').append(
+		    					          '<div class="col-md-6 col-lg-3 ftco-animate">' +
+		    					            '<div class="blog-entry">' +
+		    					              '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="block-20" style="background-image: url(' + '\'' + '${pageContext.request.contextPath}/resources/images/noimage.jpg' + '\'' + '); text-align: right;">' +
+		    					                '<div class="col-sm-4" style="text-align: center; background-color: #ff5f5f; color : white;">' +
+		    					                  	item.list[i].theme +
+		    					                '</div>' +
+		    					              '</a>' +
+		    					              '<div class="text p-4">' +
+		    					                '<div class="meta">' +
+		    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].startDay + '</a></div>' +
+		    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">~</a></div>' +
+		    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].endDay + '</a></div>' +
+		    					                '</div>' +
+		    					                '<div class="meta">' +
+		    					                  '<div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + '작성자 :' + item.list[i].pwriter + '</a></div>' +
+		    					                '</div>' +
+		    					                '<div style="height: 120px;">' +
+		    					                	'<h3 class="heading"><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '">' + item.list[i].title + '</a></h3>' +
+		    					                '</div>' +
+		    					                '<p class="clearfix">' +
+		    					                  '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="float-left">Read more</a>' +
+		    					                  '<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=' + item.list[i].pno + '" class="float-right meta-chat"><span class="icon-thumbs-o-up"></span>' + '&nbsp;' + item.list[i].likeCount + '</a>' +
+		    					                '</p>' +
+		    					              '</div>' +
+		    					            '</div>' +
+		    					          '</div>'
+		    					);				
+    						}
     					}
     					
     				}

@@ -222,7 +222,7 @@ button, .button{
             <div class="login-form">
             
             <!-- 로그인폼 -->
-            <form id="memberlogin" action="${pageContext.request.contextPath}/member/memberLogin.do" method="post">   
+            <form id="memberlogin" action="${pageContext.request.contextPath}/member/memberLogin.do" method="post" autocomplete="off">   
                 <div class="sign-in-htm">
                     <div class="group" style="margin-left:25px; margin-top: 120px;">
                         <br><br>
@@ -260,7 +260,7 @@ button, .button{
            <!-- 로그인폼의 끝 -->
                
            <!-- 회원가입 -->    
-           <form action="${pageContext.request.contextPath}/member/memberinsert.do" id="memberinsert" method="post">
+           <form action="${pageContext.request.contextPath}/member/memberinsert.do" id="memberinsert" method="post" autocomplete="off">
                <div class="sign-up-htm">
                     <div class="group" id="userId-container" style="margin-left:40px;">
                         <br>
@@ -390,13 +390,13 @@ button, .button{
 				if(data.result == 1) {
 					$("#logincheck").html("<p style='color:red'>해당하는 사용자가 없습니다.</p>").fadeIn(500);
 					$("#logincheck").delay(2000);
-					$("#logincheck").fadeOut(500);
+					$("#logincheck").fadeOut(400);
 					
 					event.preventDefault();
 				} else if(data.result == 3){
 					$("#logincheck").html("<p style='color:red'>비밀번호가 잘못 입력되었습니다.</p>").fadeIn(500);
 					$("#logincheck").delay(2000);
-					$("#logincheck").fadeOut(500);
+					$("#logincheck").fadeOut(400);
 					
 					event.preventDefault();
 			   } else if(data.result == 2) {
@@ -429,11 +429,11 @@ button, .button{
 				if ($('#password1').val() == $('#password2').val()) {
 					$('#pwdResult').html("<p style='color:#58FA58'>비밀번호 값이 일치합니다.</p>").fadeIn(500);
 					$("#pwdResult").delay(2000);
-					$("#pwdResult").fadeOut(500);
+					$("#pwdResult").fadeOut(350);
 				} else {
 					$('#pwdResult').html("<p style='color:red'>비밀번호 값이 일치하지 않습니다.</p>").addClass('fail').removeClass('success').fadeIn(500);
 					$("#pwdResult").delay(2000);
-					$("#pwdResult").fadeOut(500);
+					$("#pwdResult").fadeOut(350);
 					$('#password2').val('');
 				}
 			});
@@ -528,47 +528,16 @@ button, .button{
 	
 	$(function(){
 		
-		/* 이메일 유효성 체크 
-		$("#email").on("keyup",function() {
-	            
-			var re2 = /^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.([a-z\.]{2,9})$/g;
-	            
-	            if (!re2.test($("#email").val())) {
-	                $("#email-container>.guide.error").show();
-	                $("#email-container>.guide.ok").hide();
-	                $("#email").val('');
-	                $("#email").focus();
-	            } else {
-	            	$.ajax({
-	                        url: "${pageContext.request.contextPath}/member/checkEmailDup.do",
-	                        data: { email : $("#email").val() },
-	                        dataType: "json",
-	                        success: function(data) {
-	                           
-	                        	console.log(data);
-	                            
-	                        	if (data.isUsable == true) {
-	                                $("#email-container>.guide.error").hide();
-	                                $("#email-container>.guide.ok").show();
-	                                $("#checkEmailDup").val(1);
-	                            } else {
-	                                $("#email-container>.guide.error").show();
-	                                $("#email-container>.guide.ok").hide();
-	                                $("#checkEmailDup").val(0);
-	                            }
-	                        },
-	                        error: function(jqxhr, textStatus, errorThrown) {
-	                            console.log("ajax 처리 실패");
-	                            //에러로그
-	                            console.log(jqxhr);
-	                            console.log(textStatus);
-	                            console.log(errorThrown);
-	                        }
-
-	                    });
-	            }
-
-	        }); */
+		var re2 = /^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.([a-z\.]{2,9})$/g;
+        
+        if (!re2.test($("#email").val())) {
+            $("#email-container>.guide.error").show();
+            $("#email-container>.guide.ok").hide();
+            $("#email").val('');
+            $("#email").addClass('fail').removeClass('success');
+            $("#email").focus();
+        }
+		
 		
 		/* 아이디 중복검사 이벤트 추가 */
 		$("#userIdcheck").on("keyup", function(){
@@ -618,7 +587,7 @@ button, .button{
 			if($('.fail').length == 0 && confirm){
 				$("#memberinsert").submit();
 	       } else {
-	           alert('비밀번호 양식에 맞지 않습니다.');
+	           alert('양식에 맞지 않습니다. 정보 입력이 빠졌거나 제대로된 정보를 입력하지 않았습니다.');
 
 	           event.preventDefault();
 	      }

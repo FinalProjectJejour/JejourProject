@@ -185,7 +185,7 @@ public class PlannerController {
 		
 		plannerService.setStatus(planner);
 		
-		return "redirect:/";
+		return "redirect:/intro/main.do";
 	}
 	
 	@RequestMapping("/planner/changeStatus.do")
@@ -391,7 +391,7 @@ public class PlannerController {
 		
 		plannerService.deleteThisPlanner(planner.getPNo());
 		
-		return "redirect:/";
+		return "redirect:/intro/main.do";
 	}
 	
 	
