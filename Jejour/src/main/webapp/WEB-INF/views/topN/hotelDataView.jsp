@@ -27,7 +27,7 @@
               <div class="categories">
                 <h3>Categories</h3>
                 <li><a href="<c:url value='/topN/topN.do?category=숙박'/>">Hotels </a></li>
-                <li><a href="<c:url value='/topN/topN.do?category=식당' />">Restaureant </a></li>
+                <li><a href="<c:url value='/topN/topN.do?category=음식점' />">Restaureant </a></li>
                 <li><a href="<c:url value='/topN/topN.do?category=관광명소' />">Tour </a></li>
                 <li><a href="<c:url value='/topN/topN.do?category=카페' />">Cafe</a></li>
               </div>
@@ -51,7 +51,7 @@
 	
 	      var options = {
 	        title: 'Chess opening moves',
-	        width: 900,
+	        width: 900,	
 	        legend: { position: 'none' },
 	        chart: { title: '${category} Category',
 	                 subtitle: 'popularity by percentage' },

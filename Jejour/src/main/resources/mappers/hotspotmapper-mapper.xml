@@ -41,7 +41,8 @@
 	<update id ="hotspotUpdate" parameterType="HotspotBoard">
 		UPDATE HOTSPOT_BOARD SET
 		HTITLE = #{hTitle},
-		HCONTENT = #{hContent}
+		HCONTENT = #{hContent},
+		HPREVIEW = #{hPreview}
 		WHERE HNO = #{hNo}
 	</update>
 	

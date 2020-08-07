@@ -71,12 +71,15 @@ public class HotspotController {
 		
 		System.out.println("hotspotboard 객체 오나요? : " + hotspotboard);
 		
+		
 		// 위즈윅 첫 번째 이미지을 hPreveiw에 넣기위한 작업
 		String first = hotspotboard.getHContent();
+		if(first.contains("img")) {
 		String complete = first.substring(first.indexOf("desc/")+5,first.indexOf("style=",first.indexOf("<img"))-2);
 		// hPreview객체에 담기
 		hotspotboard.setHPreview(complete);
 		// 변경된 객체 확인
+		}
 		System.out.println("hotspotboard 변경 : " + hotspotboard);
 		
 		// SERVICE DAO CHECK
@@ -205,11 +208,14 @@ public class HotspotController {
 		
 		// 위즈윅 첫 번째 이미지을 hPreveiw에 넣기위한 작업
 		String first = hotspotboard.getHContent();
-		String complete = first.substring(first.indexOf("desc/")+5,first.indexOf(".",first.indexOf("<img"))+4);
+		
+		if(first.contains("img")) {
+		String complete = first.substring(first.indexOf("desc/")+5,first.indexOf("style=",first.indexOf("<img"))-2);
 		// hPreview객체에 담기
 		hotspotboard.setHPreview(complete);
 		// 변경된 객체 확인
 		System.out.println("hotspotboard 변경 : " + hotspotboard);
+		}; 
 		
 		// SERVICE DAO CHECK
 		int result;	

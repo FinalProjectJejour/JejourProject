@@ -237,7 +237,7 @@
 						
 					} else if(likeCount != 0){
 						
-						alert("LIKE!   "+ likeCount);
+					
 						$('.likeCount').html(likeCount);
 					};
 	
@@ -268,7 +268,7 @@
 						
 					} else if(data.non != 0){
 						
-						alert("LIKE!   "+ data.likeCount);
+					
 						$('.likeCount').html(data.likeCount);
 						$('.unlikeCount').html(data.unlikeCount);
 					};
@@ -300,7 +300,7 @@
 							
 						} else if(likeCount != 0){
 							
-							alert("LIKE!   "+ likeCount);
+					
 							$('.unlikeCount').html(likeCount);
 						};
 					},
@@ -330,7 +330,7 @@
 						
 					} else if(data.non != 0){
 						
-						alert("UNLIKE!   "+ data.unlikeCount);
+						
 						$('.likeCount').html(data.likeCount);
 						$('.unlikeCount').html(data.unlikeCount);
 					};
