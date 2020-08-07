@@ -301,7 +301,7 @@ body {
             <div class="tab-content py-5" id="v-pills-tabContent">
               <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead1" onsubmit="return validate1();" enctype="multipart/form-data">
+                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead1" onsubmit="return validate1();" enctype="multipart/form-data" autocomplete="off">
                     <div class="fields d-block d-lg-flex">
                     
                       <!-- <div class="fileArea" style="background-image: url('${pageContext.request.contextPath}/resources/images/insert-picture-icon.jpg'); background-repeat: no-repeat;"> -->
@@ -328,7 +328,7 @@ body {
               </div>
               <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                 <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead2" onsubmit="return validate2();" enctype="multipart/form-data">
+                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead2" onsubmit="return validate2();" enctype="multipart/form-data" autocomplete="off">
                     <div class="fields d-block d-lg-flex">
                     
                       
@@ -355,7 +355,7 @@ body {
               </div>
               <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                 <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead3" onsubmit="return validate3();" enctype="multipart/form-data">
+                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead3" onsubmit="return validate3();" enctype="multipart/form-data" autocomplete="off">
                     <div class="fields d-block d-lg-flex">
 
                       <div class="filebox">
@@ -380,7 +380,7 @@ body {
               </div>
               <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
                 <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead4" onsubmit="return validate4();" enctype="multipart/form-data">
+                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead4" onsubmit="return validate4();" enctype="multipart/form-data" autocomplete="off">
                     <div class="fields d-block d-lg-flex">
                       
                       <div class="filebox">
@@ -406,7 +406,7 @@ body {
               </div>
               <div class="tab-pane fade" id="v-pills-family" role="tabpanel" aria-labelledby="v-pills-family-tab">
                 <div class="block-17">
-                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead5" onsubmit="return validate5();" enctype="multipart/form-data">
+                  <form name="boardFrm" action="${pageContext.request.contextPath}/planner/AttachmentInsert.do" method="post" class="d-block d-lg-flex" id="goAhead5" onsubmit="return validate5();" enctype="multipart/form-data" autocomplete="off">
                     <div class="fields d-block d-lg-flex">
 
                       <div class="filebox">
@@ -499,7 +499,7 @@ body {
           
           </div>
           <div class="col-md-4">
-            <form action="${pageContext.request.contextPath}/plannerPart/plannerPartMake.do" id="makingPlan" method="post" onsubmit="return pass();">
+            <form action="${pageContext.request.contextPath}/plannerPart/plannerPartMake.do" id="makingPlan" method="post" onsubmit="return pass();"  autocomplete="off">
               <div class="form-group">
                 <span>장소 : <input type="text" id="fMapTitle"  class=" form-control" name="mapTitle" placeholder="지도의 마크를 클릭하세요"></span>
               </div>

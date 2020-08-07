@@ -55,11 +55,22 @@
         <c:forEach items="${list}" var="s">        
           <div class="col-md-6 col-lg-3 ftco-animate">
             <div class="blog-entry">
-              <a href="#" class="block-20" style="background-image: url('${pageContext.request.contextPath}/resources/upload/planner/${s.renamedFileName}'); text-align: right;">
-                <div class="col-sm-4" style="text-align: center; background-color: #ff5f5f; color : white;">
+            <c:if test="${s.renamedFileName ne null}">
+              	<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=${s.PNo}" class="block-20"
+              	style="background-image: url('${pageContext.request.contextPath}/resources/upload/planner/${s.renamedFileName}'); text-align: right;">
+                	<div class="col-sm-4" style="text-align: center; background-color: #ff5f5f; color : white;">
                   	${s.theme}
-                </div>
-              </a>
+                	</div>
+              	</a>
+            </c:if>
+            <c:if test="${s.renamedFileName eq null}">
+            	<a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=${s.PNo}"
+            	class="block-20" style="background-image: url('${pageContext.request.contextPath}/resources/images/noimage.jpg'); text-align: right;">
+                	<div class="col-sm-4" style="text-align: center; background-color: #ff5f5f; color : white;">
+               		${s.theme}
+                	</div>
+              	</a>
+            </c:if>
               <div class="text p-4">
                 <div class="meta">
                   <div><a href="${pageContext.request.contextPath}/planner/maintenanceGo.do?pNo=${s.PNo}">${s.startDay}</a></div>

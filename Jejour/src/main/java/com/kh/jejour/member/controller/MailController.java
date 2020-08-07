@@ -85,7 +85,7 @@ public class MailController {
             messageHelper.setTo(tomail); // 받는사람 이메일
             messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
             
-            String contents = content + "<img src=\"http://localhost:8088/jejour/resources/images/jejulogo.png\">";
+            String contents = content + "<img src=\"http://192.168.20.77:8088/jejour/resources/images/jejulogo.png\">";
            
             messageHelper.setText(contents, true); // 메일 내용
             

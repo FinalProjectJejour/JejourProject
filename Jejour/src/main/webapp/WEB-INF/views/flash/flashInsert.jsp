@@ -84,7 +84,7 @@
               </p>
               <p><label style="width: 15%;">인원 :</label><input type="number" name="fPeople" placeholder="ex)3" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)3'" required class="multi-input"></p>
               <p><label style="width: 15%;">일시 :</label><input type="datetime-local" name="fWhenDate" placeholder="ex)2020-11-11" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)2020-11-11'" required class="multi-input"></p>
-              <p><label style="width: 15%;">장소 :</label><input type="text" name="fMapTitle" id="fMapTitle" placeholder="ex)밑의 지도에서 검색하여 핀을 클릭하세요!" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)밑의 지도에서 검색하여 핀을 클릭하세요!'" required class="multi-input"></p>
+              <p><label style="width: 15%;">장소 :</label><input type="text" name="fMapTitle" id="fMapTitle" placeholder="ex)밑의 지도에서 검색하여 핀을 클릭하세요!" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)밑의 지도에서 검색하여 핀을 클릭하세요!'" required class="multi-input" maxlength="0"></p>
               <p><label style="width: 15%;">내용 :</label><input type="text" name="fContent" placeholder="ex)같이 맛있게 먹고 노실 분!" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex)같이 맛있게 먹고 노실 분!'" required class="multi-input"></p>
               <input type="hidden" id="userId" name="userId" value="${member.userId}">
               <input type="hidden" id="userName" name="userName" value="${member.userName}">

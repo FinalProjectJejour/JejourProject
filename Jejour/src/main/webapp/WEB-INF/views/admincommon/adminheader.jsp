@@ -51,7 +51,7 @@
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
       </div>
       <!--좌상단로고-->
-      <a href="${pageContext.request.contextPath}" class="logo"><b>JEJO<span>UR</span></b></a>
+      <a href="${pageContext.request.contextPath}/intro/main.do" class="logo"><b>JEJO<span>UR</span></b></a>
       <!--로고끝-->
       <div class="nav notify-row" id="top_menu">
         

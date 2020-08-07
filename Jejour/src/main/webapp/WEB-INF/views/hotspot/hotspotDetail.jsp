@@ -47,9 +47,9 @@
             <br>
             <!-- 좋아요 싫어요 img and button -------------------------------->
             <div class="mx-auto" style="text-align: center;">
-                <img class ="img" src="${pageContext.request.contextPath}/resources/images/like.jpg" id="1" onclick="like();" >
+                <a href="#"><img class ="img" src="${pageContext.request.contextPath}/resources/images/like.jpg" id="1" onclick="like();" ></a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <img class ="img" src="${pageContext.request.contextPath}/resources/images/unlike.jpg" id="2" onclick="unlike();">
+                <a href="#"><img class ="img" src="${pageContext.request.contextPath}/resources/images/unlike.jpg" id="2" onclick="unlike();"></a>
               <br>
               <!-- 좋아요 갯수 -->
               <h2><span class="likeCount">${like}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="unlikeCount">${unlike}</span></h2>

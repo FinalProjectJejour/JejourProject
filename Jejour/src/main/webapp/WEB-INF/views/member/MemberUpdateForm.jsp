@@ -40,7 +40,7 @@ a{color:inherit;text-decoration:none;}
 	width:100%;
 	height:100%;
 	position: relative;
-	padding:50px 70px 780px 70px;
+	padding:50px 70px 820px 70px;
 	background:rgba(0,51,153,.65);
 }
 .login-html .sign-in-htm,
