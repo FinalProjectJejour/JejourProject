@@ -31,7 +31,7 @@
 
 <c:import url="../common/header.jsp">
 	<c:param name="data" value="hotSpot"/>
-</c:import>
+</c:import><c:import url="../common/header.jsp" />
 
 <section class="ftco-section">
 	<div class="container">
@@ -122,7 +122,7 @@
 									processData : false,
 									success : function(fileUrl) {
 										check.summernote('insertImage', fileUrl);
-										alert("성공이미지 : " + fileUrl);
+					
 									},
 									error : function(request, status, error) {
 										alert("code:" + request.status + "\n"

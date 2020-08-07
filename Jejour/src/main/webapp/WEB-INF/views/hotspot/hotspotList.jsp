@@ -69,7 +69,7 @@
                   <div><a href="#">${h.HWriter}</a></div>
                 </div>
                 <div  style="height: 120px;">
-                <h3 class="heading"><a href="#">${h.HTitle}</a></h3>
+                <h3 class="heading"><a href=<c:url value='/hotspotBoard/hotspotDetail.ho?no=${h.HNo}'/>>${h.HTitle}</a></h3>
                 </div>
                  <p class="clearfix">
                   <a href=<c:url value='/hotspotBoard/hotspotDetail.ho?no=${h.HNo}'/> class="float-left">Read more</a>            
