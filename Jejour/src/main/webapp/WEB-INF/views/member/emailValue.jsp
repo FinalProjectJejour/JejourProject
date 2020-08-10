@@ -24,6 +24,8 @@
 	if(auth == 'true'){
 		$(opener.document.querySelector('#email-container>.guide.ok')).show();
 		$(opener.document.querySelector('#email-container>.guide.error')).hide();
+		$(opener.document.querySelector('#email-container>.guide.Certified')).hide();
+		
 	} /* else {
 		$(opener.document.querySelector('#email-container>.guide.ok')).hide();
 		$(opener.document.querySelector('#email-container>.guide.error')).show();

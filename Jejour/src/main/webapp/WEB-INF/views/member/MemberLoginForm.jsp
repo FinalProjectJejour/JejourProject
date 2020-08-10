@@ -206,7 +206,8 @@ div#email-container span.guide {display:none;
 								margin-top:42px;
 								margin-right: 100px;}
 div#email-container span.ok{color:green;}
-div#email-container span.error{color:red;}    
+div#email-container span.error{color:red;}
+div#email-container span.Certified{color:red;}
 
 button, .button{
 	cursor: pointer;
@@ -312,6 +313,7 @@ button, .button{
                         
 						<span class="guide ok">사용 가능</span>
 						<span class="guide error">사용불가</span>
+						<span class="guide Certified">메일입력</span>
 
                         
                         <button class="input"
@@ -528,14 +530,14 @@ button, .button{
 	
 	$(function(){
 		
-		var re2 = /^[a-z][a-z0-9_-]{3,11}@([a-z\d\.-]+)\.([a-z\.]{2,9})$/g;
+		var email = $('#email').val();
+		
         
-        if (!re2.test($("#email").val())) {
-            $("#email-container>.guide.error").show();
+        if (email.trim().length==0) {
+            $("#email-container>.guide.error").hide();
             $("#email-container>.guide.ok").hide();
-            $("#email").val('');
+            $("#email-container>.guide.Certified").show();
             $("#email").addClass('fail').removeClass('success');
-            $("#email").focus();
         }
 		
 		

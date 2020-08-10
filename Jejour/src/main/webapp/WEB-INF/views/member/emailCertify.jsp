@@ -192,7 +192,7 @@ header img {
 
 			  <label class="email">
 			    <input type="text" id="email" name="email" placeholder="&nbsp;"
-			    	   required oninvalid="this.setCustomValidity('이메일을 입력해주세요')">
+			    	   required oninvalid="this.setCustomValidity('이메일을 입력해주세요')" autocomplete="off">
 			    <span class="label">Email</span>
 				    <svg width="120px" height="26px" viewBox="0 0 120 26">
 				      <path d="M0,25 C21,25 46,25 74,25 C102,25 118,25 120,25"></path>
